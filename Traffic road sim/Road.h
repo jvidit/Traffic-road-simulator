@@ -18,6 +18,7 @@ public:
     road (int l=100,int w=5,trafficLight t=NULL,int idd=1);
 
     void moveVehicle(Vehicle v, vehiclePosition pos);
+    //gotta make provision to display cars not in full view
 
     void showRoad();    
     
