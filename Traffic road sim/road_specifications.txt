@@ -1,0 +1,20 @@
+Design specifications
+
+ROAD SPECIFICATIONS
+1. Road length
+2. Road Width
+
+TRAFFIC LIGHTS
+1. Colour
+2. Where all to put light
+
+Vehicle Attributes
+1. Vehicle ID 
+2. Width and Size
+3. Velocity range
+4. Acceleration range
+5. Deceleration range
+6. Colour
+7. Tendencies
+	7.1. Tendency to change lanes
+	7.2. Tendency to 

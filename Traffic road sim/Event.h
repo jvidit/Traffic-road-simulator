@@ -1,0 +1,9 @@
+
+
+
+class Event
+{
+	int eventType;
+
+	
+}
