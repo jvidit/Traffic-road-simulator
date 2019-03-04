@@ -1,25 +1,24 @@
 
 
 
-class trafficLight
+class TrafficLight
 {
-    int Id;                                                             //ID of traffic light
+    int id;                                                             //ID of traffic light
     int position;
     int redPeriod;
     int greenPeriod;
     int redFirst;
 
-public:
-    
+    public:
     
     //Traffic light constructor
-    trafficLight(int pos, int red=5, int green=5, int rfirst=1, int idd)
+    TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
     {
-        position=pos;
-        redPeriod=red;
-        greenPeriod=green;
-        redFirst=rfirst;
-        idd=Id;
+        this.position=position;
+        this.redPeriod=redPeriod;
+        this.greenPeriod=greenPeriod;
+        this.redFirst=redFirst;
+        this.id=id;
     }
     
     //Returns true if traffic light is red

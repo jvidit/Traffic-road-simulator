@@ -3,21 +3,21 @@
 
 class Road
 {
-    int Id;                                                             //ID of road
+    int id;                                                             //ID of road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
-    trafficLight tl;                                                    //Traffic Light
-    char arr[10][1000];                                                 //The road itself
+    TrafficLight trafficLight;                                          //Traffic Light
+    char positionArr[10][1000];                                         //The road itself
     
     //initialises the array
-    void initialise_arr();
+    void initialise_positionArr();
     
-public:
+    public:
     
     //Constructor
-    road (int l=100,int w=5,trafficLight t=NULL,int idd=1);
+    road (int id,int length,int width,TrafficLight trafficLight);
 
-    void moveVehicle(Vehicle v, vehiclePosition pos);
+    void moveVehicle(Vehicle vehicle, vehiclePosition position);
     //gotta make provision to display cars not in full view
 
     void showRoad();    
