@@ -10,7 +10,7 @@ class Event
     // 1 - create traffic light
     // 2 - create vehicle and mov to position P
 
-    int timestamp;
+    int timestamp; //time instant of event
 
     Road road;
     TrafficLight trafficLight;
