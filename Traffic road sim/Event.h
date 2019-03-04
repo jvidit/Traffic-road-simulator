@@ -25,7 +25,7 @@ class Event
     static trafficLight defaultRoadTrafficLight;           
 
     //params for traffic light
-    static int defaultTrafficLightId;                                                             //ID of traffic light
+    static int defaultTrafficLightId;                                                     //ID of traffic light
     static int defaultTrafficLightPosition;
     static int defaultTrafficLightRedPeriod;
     static int defaultTrafficLightGreenPeriod;
@@ -35,7 +35,7 @@ class Event
     static int defaultVehicleId;
     static int defaultVehicleLength;
     static int defaultVehicleWidth;
-    static char defaultVehicleRepresentation;       //Think of a better name
+    static char defaultVehicleRepresentation;       
     static vehiclePosition defaultVehiclePosition;
     static int defaultVehicleVelocity;
     static int defaultVehicleMaxVelocity;           //minimum velocity is 0....no backwards movement allowed as of now

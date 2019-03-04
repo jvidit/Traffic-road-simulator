@@ -6,7 +6,7 @@ class TrafficLight
     int greenPeriod;
     int redFirst;
 
-    public:
+public:
     
     //TrafficLight constructor
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)

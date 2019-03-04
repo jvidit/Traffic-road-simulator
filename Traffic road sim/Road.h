@@ -6,15 +6,15 @@ class Road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
     TrafficLight trafficLight;                                          //Traffic Light                                                //Traffic Light
-    const int maxLanes;
+    const int maxWidth;
     const int maxLength;
-    char postitionArr[maxLanes][maxLength];                                                 //The road itself
+    char postitionArr[maxWidth][maxLength];                                                 //The road itself
 
     
     //initialises the postionArray
     void initialise_positionArr();
     
-    public:
+public:
     
     //Constructor
 
