@@ -1,7 +1,3 @@
-
-
-
-
 class Vehicle{
 
 	int id;
@@ -17,23 +13,18 @@ class Vehicle{
 	public:
 	Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration);
 
-
-
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
-	vehiclePosition updateState(Road road);
 
+	vehiclePosition updateState(Road&road);
 
 	//getters
-	int getVelocity()
-	{	return velocity;	}
+	int getVelocity();
 
-	int getAcceleration()
-	{	return acceleration;	}
+	int getAcceleration();
 
-	vehiclePosition getPosition()
-	{	return position;		}
+	vehiclePosition getPosition();
 
 
 }

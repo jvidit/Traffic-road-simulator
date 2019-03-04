@@ -1,6 +1,3 @@
-
-
-
 class TrafficLight
 {
     int id;                                                             //ID of traffic light
@@ -12,7 +9,9 @@ class TrafficLight
     public:
     
     //Traffic light constructor
+
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst);
+
     
     //Returns true if traffic light is red
     bool isRed(int t);

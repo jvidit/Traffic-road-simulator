@@ -1,6 +1,3 @@
-
-
-
 class TrafficLight
 {
     int id;                                                             //ID of traffic light
@@ -13,6 +10,7 @@ class TrafficLight
     
     //Traffic light constructor
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
+
     {
         this.position=position;
         this.redPeriod=redPeriod;
