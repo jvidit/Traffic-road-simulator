@@ -1,5 +1,5 @@
 
-//contains length, breath, and the upper right point of vehicle
+//contains length, breath, and the upper right point position of vehicle
 struct VehiclePosition;
 
 

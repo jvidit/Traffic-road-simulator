@@ -11,7 +11,7 @@ class Road
     char postitionArr[maxLanes][maxLength];                                                 //The road itself
 
     
-    //initialises the array
+    //initialises the postionArray
     void initialise_positionArr();
     
     public:

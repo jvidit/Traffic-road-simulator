@@ -6,7 +6,7 @@ class Vehicle{
 	char representation;					
 	VehiclePosition position;
     int velocity;
-	int maxVelocity;				    //minimum velocity is 0....no backwards movement allowed as of now
+	int maxVelocity;				    //minimum velocity is 0...no backwards movement allowed as of now
 	pair<int,int> accelerationRange;	//needs to be a multiple of 2
 	int acceleration;					//needs to be a multiple of 2
 

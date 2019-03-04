@@ -8,7 +8,7 @@ class TrafficLight
 
     public:
     
-    //Traffic light constructor
+    //TrafficLight constructor
 
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst);
 
