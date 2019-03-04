@@ -12,7 +12,7 @@ class trafficLight
 public:
     
     //Traffic light constructor
-    trafficLight(int pos, int red=5, int green=5, int rfirst=1, int idd);
+    trafficLight(int position, int redPeriod, int greenPeriod, int redFirst, int id);
     
     //Returns true if traffic light is red
     bool isRed(int t);

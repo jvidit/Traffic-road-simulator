@@ -17,25 +17,22 @@ class Vehicle{
 	int acceleration;					//needs to be a multiple of 2
 
 public:
-	Vehicle(int length, int breadth, char rep, vehiclePosition pos, int Id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration);
+	Vehicle(int length, int breadth, char rep, vehiclePosition position, int Id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration);
 
 
 
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
-	vehiclePosition setParameters(Road road);
+	vehiclePosition setParameters(Road&road);
 
 
 	//getters
-	int getVelocity()
-	{	return velocity;	}
+	int getVelocity();
 
-	int getAcceleration()
-	{	return acceleration;	}
+	int getAcceleration();
 
-	vehiclePosition getPosition()
-	{	return position;		}
+	vehiclePosition getPosition();
 
 
 }

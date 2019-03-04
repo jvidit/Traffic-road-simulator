@@ -13,13 +13,13 @@ public:
     
     
     //Traffic light constructor
-    trafficLight(int pos, int red=5, int green=5, int rfirst=1, int idd)
+    trafficLight(int position, int redPeriod, int greenPeriod, int redFirst, int id);
     {
-        position=pos;
-        redPeriod=red;
-        greenPeriod=green;
-        redFirst=rfirst;
-        idd=Id;
+        this.position=position;
+        this.redPeriod=redPeriod;
+        this.greenPeriod=greenPeriod;
+        this.redFirst=redFirst;
+        this.Id=id;
     }
     
     //Returns true if traffic light is red
