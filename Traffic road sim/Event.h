@@ -8,28 +8,29 @@ class Event
 {
 
 	//useful for debugging
-    String description;
+	String description;
 
-public:
+
 
 	int eventType;
-    // 0 - create road
-    // 1 - create traffic light
-    // 2 - create vehicle and mov to position P
+    	// 0 - create road
+  	// 1 - create traffic light
+  	// 2 - create vehicle and mov to position P
    
-    int timestamp;
+    	int timestamp;
 
+	public:
   	Road road;
-  	TrafficLight tl;
+  	TrafficLight trafficLight;
   	Vehicle vehicle;
 	
 
 	//depending on type of event, allocates memory to road, traffic light or vehicle
-	Event(int timestamp,String message);
-    /*IDEA - We dont need to set default parameters in our other classes, we can pass parameters from here by using static variables*/
+	Event(int timestamp,String description);
+     	/*IDEA - We dont need to set default parameters in our other classes, we can pass parameters from here by using static variables*/
 
 
-	String getEventDescription()
+	String getDescription()
 	{	return description;		}
 	
 }
