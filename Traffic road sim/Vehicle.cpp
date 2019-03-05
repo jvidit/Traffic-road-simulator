@@ -18,9 +18,11 @@ class Vehicle{
 
 	pair<int,int> accelerationRange;	//needs to be a multiple of 2
 	int acceleration;					//needs to be a multiple of 2
+	string type;
 
 public:
-	Vehicle(int length, int breadth, char rep, vehiclePosition position, int id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration)
+
+	Vehicle(int length, int breadth, char rep, vehiclePosition position, int id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
 	{
 
 		//If error arises, consider allocating space for user defined objects
@@ -33,6 +35,7 @@ public:
 		this.maxVelocity=maxVelocity;
 		this.accelerationRange=accelerationRange;
 		this.acceleration=acceleration;
+		this.type = type;
 	}
 
 

@@ -11,7 +11,7 @@ class Road
     int id;                                                             //ID of road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
-    trafficLight tl;                                                    //Traffic Light
+    TrafficLight tl;                                                    //Traffic Light
 
     const int maxLanes=10;
     const int maxLength=1000;
