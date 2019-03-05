@@ -1,3 +1,6 @@
+#ifndef VEHICLE_H
+#define VEHICLE_H
+
 
 
 
@@ -34,5 +37,9 @@ public:
 
 	vehiclePosition getPosition();
 
+	char getRep();
 
 }
+
+
+#endif

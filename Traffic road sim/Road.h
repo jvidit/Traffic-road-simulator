@@ -1,10 +1,11 @@
-
+#ifndef ROAD_H
+#define ROAD_H
 
 
 class Road
 {
 
-    int Id;                                                             //ID of road
+    int id;                                                             //ID of road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
     trafficLight tl;                                                    //Traffic Light
@@ -27,3 +28,6 @@ public:
     void showRoad();    
     
 };
+
+
+#endif
