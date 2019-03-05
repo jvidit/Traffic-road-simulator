@@ -16,9 +16,11 @@ class Vehicle{
 	int maxVelocity;				    //minimum velocity is 0...no backwards movement allowed as of now
 	pair<int,int> accelerationRange;	//needs to be a multiple of 2
 	int acceleration;					//needs to be a multiple of 2
+	string type;
 
 public:
-	Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration);
+
+	Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type);
 
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
