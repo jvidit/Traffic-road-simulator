@@ -1,6 +1,13 @@
 #ifndef ROAD_H
 #define ROAD_H
 
+#include "Vehicle.h"
+#include "TrafficLight.h"
+#include "VehiclePosition.h"
+
+const int maxWidth=20;
+const int maxLength=1000;
+
 class Road
 {
 
@@ -8,8 +15,7 @@ class Road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
     TrafficLight trafficLight;                                          //Traffic Light                                                //Traffic Light
-    const int maxWidth;
-    const int maxLength;
+    
     char postitionArr[maxWidth][maxLength];                                                 //The road itself
 
     
@@ -20,7 +26,7 @@ public:
     
     //Constructor
 
-    road (int id,int length,int width,TrafficLight trafficLight);
+    Road (int id,int length,int width,TrafficLight trafficLight);
 
 
     void moveVehicle(Vehicle vehicle, VehiclePosition position);
