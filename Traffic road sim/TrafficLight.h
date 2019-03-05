@@ -20,4 +20,4 @@ public:
     bool isGreen(int t);
     
     int getPosition();
-}
+};
