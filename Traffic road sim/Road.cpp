@@ -1,6 +1,6 @@
 #include "Road.h"
 #include "Vehicle.h"
-#include "vehiclePosition.h"
+#include "VehiclePosition.h"
 #include <iostream>
 #include <cmath>
 
@@ -11,7 +11,7 @@ class Road
     int id;                                                             //ID of road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
-    trafficLight tl;                                                    //Traffic Light
+    TrafficLight tl;                                                    //Traffic Light
 
     const int maxLanes=10;
     const int maxLength=1000;
@@ -30,7 +30,7 @@ class Road
 public:
     
     //Constructor
-    road (int length,int width,trafficLight tl,int id)
+    road (int length,int width,TrafficLight tl,int id)
     {
     	this.length=length;
     	this.wdith=width;
@@ -38,14 +38,14 @@ public:
     	this.id=id;
     }
 
-    void moveVehicle(Vehicle v, vehiclePosition pos)
+    void moveVehicle(Vehicle v, VehiclePosition pos)
     //gotta make provision to display cars not in full view
     {
 
     	char c=v.getRep();
 
     	//clear vehicle from current position
-    	vehiclePosition current=v.getPosition();
+    	VehiclePosition current=v.getPosition();
     	int leftPos,downPos,upPos,rightPos;
 
     	leftPos=max((current.rightPos-length),0);

@@ -1,6 +1,6 @@
-#include "vehiclePosition.h"
+#include "VehiclePosition.h"
 //contains length, breath, and the upper right point of vehicle
-struct vehiclePosition
+struct VehiclePosition
 {
 	int rightPos;
 	int upPos;
