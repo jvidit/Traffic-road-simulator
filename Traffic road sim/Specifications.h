@@ -1,3 +1,7 @@
+#ifndef SPECIFICATIONS_H
+#define SPECIFICATIONS_H
+
+
 class Specifications
 {
 	int id;
@@ -37,3 +41,5 @@ public:
 	addVehicleTemplate (string vehicleType, vector<pair<string,int>> vehicleSpecs);
 
 }
+
+#endif

@@ -1,6 +1,6 @@
 #include "Road.h"
 #include "Vehicle.h"
-#include "vehiclePosition.h"
+#include "VehiclePosition.h"
 #include <iostream>
 #include <cmath>
 
@@ -13,7 +13,7 @@ class Road
     int width;                                                          //width of road, default = 5
     TrafficLight tl;                                                    //Traffic Light
 
-    const int maxLanes=10;
+    const int maxWidth=10;
     const int maxLength=1000;
     char arr[maxLanes][maxLength];                                                 //The road itself
     
@@ -30,7 +30,7 @@ class Road
 public:
     
     //Constructor
-    road (int length,int width,trafficLight tl,int id)
+    road (int length,int width,TrafficLight tl,int id)
     {
     	this.length=length;
     	this.wdith=width;
@@ -38,34 +38,35 @@ public:
     	this.id=id;
     }
 
-    void moveVehicle(Vehicle v, vehiclePosition pos)
+    void moveVehicle(Vehicle v, VehiclePosition pos)
     //gotta make provision to display cars not in full view
     {
 
     	char c=v.getRep();
 
     	//clear vehicle from current position
-    	vehiclePosition current=v.getPosition();
+    	VehiclePosition current=v.getPosition();
     	int leftPos,downPos,upPos,rightPos;
 
     	leftPos=max((current.rightPos-length),0);
-    	downPos=max((current.upPos-breadth),0);
-		upPos=min(current.upPos,maxLanes-1);
-    	rightPos=min(current.rightPos,maxLength-1);
+        rightPos=min(current.rightPos,maxLength-1);
+    	downPos=current.upPos+breadth;
+		upPos=current.upPos;            //Note that downPos>upPos in matrix notation
 
-    	for(int i=downPos;i<=upPos;i++)
+    	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)
     			arr[i][j]='-';
     	}
 
     	//moving to new place
-    	leftPos=max((pos.rightPos-length),0);
-    	downPos=max((pos.upPos-breadth),0);
-		upPos=min(pos.upPos,maxLanes-1);
-    	rightPos=min(pos.rightPos,maxLength-1);
-
-    	for(int i=downPos;i<=upPos;i++)
+        leftPos=max((pos.rightPos-length),0);
+        rightPos=min(pso.rightPos,maxLength-1);
+        downPos=pos.upPos+breadth;
+        upPos=pos.upPos;
+        
+        
+    	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)
     		{
@@ -77,7 +78,7 @@ public:
 
     void showRoad()
     {
-    	for(int i=width-1;i>=0;i--)
+    	for(int i=0;i<width;i++)
     	{
     		for(int j = 0;j<length;j++)
     			cout<<arr[i][j];
