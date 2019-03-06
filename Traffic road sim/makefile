@@ -1,2 +1,2 @@
 make : 
-	g++ -o test.out main.cpp Road.cpp Vehicle.cpp Specifications.cpp TrafficLight.cpp VehiclePosition.cpp
+	g++ -o test.out main.cpp Road.cpp Vehicle.cpp Specifications.cpp TrafficLight.cpp VehiclePosition.cpp AddVehicleEvent.cpp
