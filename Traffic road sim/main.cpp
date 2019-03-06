@@ -3,13 +3,14 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
-#include <string>
+#include <cstring>
 #include <sstream>
 #include "TrafficLight.h"
 #include "Road.h"
 #include "Vehicle.h"
 #include "VehiclePosition.h"
 #include "Specifications.h"
+#include <stdio.h>
 
 
 using namespace std;

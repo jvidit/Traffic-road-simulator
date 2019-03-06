@@ -45,7 +45,7 @@
 		if(position.rightPos >=  roadLength) 
 		{
 			velocity = 0;
-			accelaration = 0;
+			acceleration = 0;
 		}
 		else
 		{
