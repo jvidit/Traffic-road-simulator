@@ -69,7 +69,7 @@ vector<string> readConfig(string fileName)
             }
             
             specifications=*(new Specifications(roadAndTrafficLightSpecs, defaultVehicleSpecs));
-
+    
         }
         
     }

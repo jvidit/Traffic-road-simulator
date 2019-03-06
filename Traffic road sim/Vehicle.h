@@ -5,6 +5,9 @@
 #include "VehiclePosition.h"
 #include <utility>
 #include <string>
+#include "Constants.h"
+#include "TrafficLight.h"
+
 
 using namespace std;
 
@@ -33,22 +36,17 @@ public:
 	//VehiclePosition updateState(Road road);
 
 	//getters
-	int getVelocity();
 
-	int getAcceleration();
 
 	VehiclePosition getPosition();
 
 	char getRepresentation();
 
-	int getLength();
-
-	int getWidth();
 
     //setters
     void setId(int id);
 
-    void updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration);
+    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1]);
 
     void operator = (const Vehicle &vehicle);
     

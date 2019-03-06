@@ -1,3 +1,4 @@
+
 #include "Vehicle.h"
 
              
@@ -21,41 +22,27 @@
     { }
 
 
-
-	//decides next acceleration, next velocity, next position using environment from the road. 
-	//updates internal values
-	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
-	//VehiclePosition updateState(Road road)
-	//{	return NULL;	}
-
-
 	//getters
-	int Vehicle::getVelocity()
-	{	return velocity;	}
 
-	int Vehicle::getAcceleration()
-	{	return acceleration;	}
 
 	VehiclePosition Vehicle::getPosition()
-	{	return position;	}
+	{	return this->position;	}
 
 	char Vehicle::getRepresentation()
 	{	return representation;		}
 
-	int Vehicle::getLength()
-	{	return length;		}
-
-	int Vehicle::getWidth()
-	{	return width;		}
 
 	void Vehicle::setId(int id)
 	{	this->id=id;	}
 
-	void Vehicle::updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration)
+
+
+    // notice the order of update 
+    // execute once at time 0 
+	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1])
 	{
-		this->position=vehiclePosition;
-		this->velocity=velocity;
-		this->acceleration=acceleration;
+
+		return position;
 	}
 
 

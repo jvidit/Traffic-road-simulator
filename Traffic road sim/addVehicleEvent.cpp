@@ -1,17 +1,24 @@
+#include "AddVehicleEvent.h"
+#include "VehiclePosition.h"
 
 
-class AddVehicleEvent
+AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int id, int lane = -1)
 {
-    int timestamp; //time instant of event
-    Vehicle vehicle;
-    
-    
-public:
-    
+	this->vehicle = vehicleTemplate;
+	vehicle.setId(id);
+	VehiclePosition pos;
 
-    Event(int timestamp, Vehicle Vehicle, int id, int lane);
-
-    int getTimeStamp();
-	
-	
+	pos.upPos=lane;
+	if(lane==-1)
+		pos.upPos=vehicleTemplate.getWidth();
+	pos.rightPos=0;
 }
+
+
+AddVehicleEvent::AddVehicleEvent()
+{	}
+
+
+int AddVehicleEvent::getTimeStamp()
+{	return timestamp;	}
+	

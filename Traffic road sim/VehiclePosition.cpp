@@ -5,6 +5,8 @@
 	{ 
         rightPos=vehiclePosition.rightPos;
         upPos=vehiclePosition.upPos;
+        length=vehiclePosition.length;
+        width=vehiclePosition.width;
     }
 
 
