@@ -1,23 +1,12 @@
-//#include "TrafficLight.h"
+#include "TrafficLight.h"
 
 
-class TrafficLight
-{
-    int id;                                                             //ID of traffic light
-    int position;
-    int redPeriod;
-    int greenPeriod;
-    int redFirst;
-
-public:
-    
     //TrafficLight constructor
-    TrafficLight()
-    {
+    TrafficLight::TrafficLight()
+    {}
+    
 
-    }
-
-    TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
+    TrafficLight::TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
 
     {
         this->position=position;
@@ -28,7 +17,7 @@ public:
     }
     
     //Returns true if traffic light is red
-    bool isRed(int t)
+    bool TrafficLight::isRed(int t)
     {
         t%=(redPeriod+greenPeriod);
         
@@ -38,15 +27,15 @@ public:
     }
     
     //Returns true if traffic light is green
-    bool isGreen(int t)
+    bool TrafficLight::isGreen(int t)
     {   return not(isRed(t));   }
     
     
-    int getPosition()
+    int TrafficLight::getPosition()
     {   return position;    }
     
 
-    void operator = (const TrafficLight &trafficLight)
+    void TrafficLight::operator = (const TrafficLight &trafficLight)
     {
         id=trafficLight.id;
         position=trafficLight.position;
@@ -56,4 +45,4 @@ public:
     }
 
 
-};
+

@@ -1,6 +1,6 @@
 
 
-class Event
+class AddVehicleEvent
 {
     int timestamp; //time instant of event
     Vehicle vehicle;

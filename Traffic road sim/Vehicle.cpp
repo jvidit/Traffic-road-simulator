@@ -1,27 +1,7 @@
-#include "VehiclePosition.h"
-#include <utility>
-#include <string>
+#include "Vehicle.h"
 
-using namespace std;
-
-class Vehicle{
-
-	int id;
-	int length;
-	int width;
-	char representation;					//Think of a better name
-	VehiclePosition position;
-
-	int velocity;
-	int maxVelocity;				//minimum velocity is 0....no backwards movement allowed as of now
-
-	pair <int,int> accelerationRange;	//needs to be a multiple of 2
-	int acceleration;					//needs to be a multiple of 2
-	string type;
-
-public:
-
-	Vehicle(int length, int width, char representation, VehiclePosition Position, int id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
+             
+	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition Position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
 	{
 
 		//If error arises, consider allocating space for user defined objects
@@ -37,7 +17,7 @@ public:
 		this->type=type;
 	}
 
-	Vehicle()
+	Vehicle::Vehicle()
     { }
 
 
@@ -50,28 +30,28 @@ public:
 
 
 	//getters
-	int getVelocity()
+	int Vehicle::getVelocity()
 	{	return velocity;	}
 
-	int getAcceleration()
+	int Vehicle::getAcceleration()
 	{	return acceleration;	}
 
-	VehiclePosition getPosition()
+	VehiclePosition Vehicle::getPosition()
 	{	return position;	}
 
-	char getRepresentation()
+	char Vehicle::getRepresentation()
 	{	return representation;		}
 
-	int getLength()
+	int Vehicle::getLength()
 	{	return length;		}
 
-	int getWidth()
+	int Vehicle::getWidth()
 	{	return width;		}
 
-	void setId(int id)
+	void Vehicle::setId(int id)
 	{	this->id=id;	}
 
-	void updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration)
+	void Vehicle::updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration)
 	{
 		this->position=vehiclePosition;
 		this->velocity=velocity;
@@ -79,7 +59,7 @@ public:
 	}
 
 
-	void operator = (const Vehicle &vehicle)
+	void Vehicle::operator = (const Vehicle &vehicle)
 	{
 		length=vehicle.length;
 		width=vehicle.width;
@@ -93,7 +73,7 @@ public:
 		type=vehicle.type;
 	}
 
-};
+
 
 
 
