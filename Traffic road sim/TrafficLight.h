@@ -1,3 +1,6 @@
+#ifndef TRAFFICLIGHT_H
+#define TRAFFICLIGHT_H
+
 class TrafficLight
 {
     int id;                                                             //ID of traffic light
@@ -20,4 +23,6 @@ public:
     bool isGreen(int t);
     
     int getPosition();
-}
+};
+
+#endif

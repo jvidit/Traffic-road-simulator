@@ -1,9 +1,13 @@
-#include "Road.h"
-#include "Vehicle.h"
+//#include "Vehicle.h"
+#include "TrafficLight.h"
 #include "VehiclePosition.h"
 #include <iostream>
 #include <cmath>
 
+const int maxWidth=20;
+const int maxLength=1000;
+
+using namespace std;
 
 class Road
 {
@@ -11,31 +15,30 @@ class Road
     int id;                                                             //ID of road
     int length;                                                         //length of road, default = 100
     int width;                                                          //width of road, default = 5
-    TrafficLight tl;                                                    //Traffic Light
+    TrafficLight trafficLight;                                          //Traffic Light
 
-    const int maxWidth=10;
-    const int maxLength=1000;
-    char arr[maxLanes][maxLength];                                                 //The road itself
+    
+    char postitionArr[maxWidth][maxLength];                             //The road itself
     
     //initialises the array
     void initialise_arr()
     {
-    	for(int i = 0;i<maxLanes;i++)
+    	for(int i = 0;i<maxWidth;i++)
     	{
     		for(int j=0;j<maxLength;j++)
-    			arr[i][j]='_';
+    			postitionArr[i][j]='_';
     	}
     }
     
 public:
     
     //Constructor
-    road (int length,int width,TrafficLight tl,int id)
+    Road (int length,int width,TrafficLight trafficLight,int id)
     {
-    	this.length=length;
-    	this.wdith=width;
-    	this.tl=tl;
-    	this.id=id;
+    	this->length=length;
+    	this->width=width;
+    	this->trafficLight=trafficLight;
+    	this->id=id;
     }
 
     void moveVehicle(Vehicle v, VehiclePosition pos)
@@ -50,19 +53,19 @@ public:
 
     	leftPos=max((current.rightPos-length),0);
         rightPos=min(current.rightPos,maxLength-1);
-    	downPos=current.upPos+breadth;
+    	downPos=current.upPos+width;
 		upPos=current.upPos;            //Note that downPos>upPos in matrix notation
 
     	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)
-    			arr[i][j]='-';
+    			postitionArr[i][j]='-';
     	}
 
     	//moving to new place
         leftPos=max((pos.rightPos-length),0);
         rightPos=min(pso.rightPos,maxLength-1);
-        downPos=pos.upPos+breadth;
+        downPos=pos.upPos+width;
         upPos=pos.upPos;
         
         
@@ -71,7 +74,7 @@ public:
     		for(int j=leftPos;j<=rightPos;j++)
     		{
     			/////RAISE ERROR HERE TO HANDLE COLLISIONS
-    			arr[i][j]=c;
+    			postitionArr[i][j]=c;
     		}
     	}
     }
@@ -81,7 +84,7 @@ public:
     	for(int i=0;i<width;i++)
     	{
     		for(int j = 0;j<length;j++)
-    			cout<<arr[i][j];
+    			cout<<postitionArr[i][j];
     		cout<<endl;
     	}
     }

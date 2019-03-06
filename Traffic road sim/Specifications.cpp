@@ -1,6 +1,7 @@
 #include <map>
 #include <utility> 
 #include <vector>
+#include <string>
 #include "TrafficLight.h"
 #include "Road.h"
 #include "Vehicle.h"
@@ -10,7 +11,7 @@ using namespace std;
 
 class Specifications
 {
-    int id;
+    
     TrafficLight trafficLightTemplate;
     Road roadTemplate;
     map<string,Vehicle> vehicleTemplates;
@@ -43,10 +44,12 @@ class Specifications
 
 public: 
 
+    Specifications()
+    { }
+
     //constructor: sets roadTempelate, trafficLightTempelate and default params for vehicles
-    Specifications (int id, vector<pair<string,int>> roadAndTrafficLightSpecs, vector<pair<string,int>> defaultVehicleSpecs)
+    Specifications (vector<pair<string,int>> roadAndTrafficLightSpecs, vector<pair<string,int>> defaultVehicleSpecs)
     {
-        this.id=id;
 
         // default params for road
         defaultRoadId = 1;

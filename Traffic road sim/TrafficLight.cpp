@@ -12,11 +12,11 @@ public:
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
 
     {
-        this.position=position;
-        this.redPeriod=redPeriod;
-        this.greenPeriod=greenPeriod;
-        this.redFirst=redFirst;
-        this.id=id;
+        this->position=position;
+        this->redPeriod=redPeriod;
+        this->greenPeriod=greenPeriod;
+        this->redFirst=redFirst;
+        this->id=id;
     }
     
     //Returns true if traffic light is red
@@ -39,4 +39,4 @@ public:
     
 
 
-}
+};
