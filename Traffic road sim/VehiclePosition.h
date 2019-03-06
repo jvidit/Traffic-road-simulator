@@ -8,10 +8,9 @@ class VehiclePosition
 public:
 	int rightPos;
 	int upPos;
-	int length;
-	int breadth;
+	
 
-	void operator = (const VehiclePosition &pos);
+	void operator = (const VehiclePosition &pvehiclePosition);
 };
 
 

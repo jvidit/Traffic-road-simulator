@@ -21,7 +21,7 @@ class Vehicle{
 
 public:
 
-	Vehicle(int length, int width, char representation, VehiclePosition position, int id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
+	Vehicle(int length, int width, char representation, VehiclePosition Position, int id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
 	{
 
 		//If error arises, consider allocating space for user defined objects
@@ -59,8 +59,21 @@ public:
 	char getRepresentation()
 	{	return representation;		}
 
+	int getLength()
+	{	return length;		}
+
+	int getWidth()
+	{	return width;		}
+
 	void setId(int id)
 	{	this->id=id;	}
+
+	void updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration)
+	{
+		this->position=vehiclePosition;
+		this->velocity=velocity;
+		this->acceleration=acceleration;
+	}
 
 
 	void operator = (const Vehicle &vehicle)

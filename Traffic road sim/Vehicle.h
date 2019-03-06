@@ -40,10 +40,14 @@ public:
 
 	char getRepresentation();
 
+	int getLength();
+
+	int getWidth();
 
     //setters
     void setId(int id);
 
+    void updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration);
 
     void operator = (const Vehicle &vehicle);
     

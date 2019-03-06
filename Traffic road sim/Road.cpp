@@ -40,20 +40,23 @@ public:
     	this->id=id;
     }
 
-    void moveVehicle(Vehicle &vehicle, VehiclePosition vehiclePosition)
+    void moveVehicle(Vehicle &vehicle)
     //gotta make provision to display cars not in full view
     {
 
-    	char c=vehicle.getRepresentation();
+    	char representation=vehicle.getRepresentation();
 
     	//clear vehicle from current position
-    	VehiclePosition current=vehicle.getPosition();
-    	int leftPos,downPos,upPos,rightPos;
+    	VehiclePosition currentPosition=vehicle.getPosition();
+    	int leftPos,downPos,upPos,rightPos,length,width;
 
-    	leftPos=max((current.rightPos-length),0);
-        rightPos=min(current.rightPos,maxLength-1);
-    	downPos=current.upPos+width;
-		upPos=current.upPos;            //Note that downPos>upPos in matrix notation
+        length = vehicle.getLength();
+        width = vehicle.getWidth();
+
+    	leftPos=max((currentPosition.rightPos-length),0);
+        rightPos=min(currentPosition.rightPos,maxLength-1);
+    	downPos=currentPosition.upPos+width;
+		upPos=currentPosition.upPos;            //Note that downPos>upPos in matrix notation
 
     	for(int i=upPos;i<=downPos;i++)
     	{
@@ -62,20 +65,25 @@ public:
     	}
 
     	//moving to new place
-        leftPos=max((vehiclePosition.rightPos-length),0);
-        rightPos=min(vehiclePosition.rightPos,maxLength-1);
-        downPos=vehiclePosition.upPos+width;
-        upPos=vehiclePosition.upPos;
+        //leftPos=max((vehiclePosition.rightPos-length),0);
+        //rightPos=min(vehiclePosition.rightPos,maxLength-1);
+        //downPos=vehiclePosition.upPos+width;
+        //upPos=vehiclePosition.upPos;
         
         
-    	for(int i=upPos;i<=downPos;i++)
-    	{
-    		for(int j=leftPos;j<=rightPos;j++)
-    		{
+    	//for(int i=upPos;i<=downPos;i++)
+    	//{
+    	//	for(int j=leftPos;j<=rightPos;j++)
+    	//	{
     			/////RAISE ERROR HERE TO HANDLE COLLISIONS
-    			postitionArr[i][j]=c;
-    		}
-    	}
+    		//	postitionArr[i][j]=representation;
+    	//	}
+    	//}
+
+        
+
+
+        //vehicle.updatePositionVelocityAccelaration (position, velocity, acceleration)
     }
 
     void showRoad()

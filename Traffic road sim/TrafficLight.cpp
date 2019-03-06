@@ -14,7 +14,7 @@ public:
     //TrafficLight constructor
     TrafficLight()
     {
-        
+
     }
 
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
@@ -46,13 +46,13 @@ public:
     {   return position;    }
     
 
-    void operator = (const TrafficLight &tl)
+    void operator = (const TrafficLight &trafficLight)
     {
-        id=tl.id;
-        position=tl.position;
-        redPeriod=tl.redPeriod;
-        greenPeriod=tl.greenPeriod;
-        redFirst=tl.redFirst;
+        id=trafficLight.id;
+        position=trafficLight.position;
+        redPeriod=trafficLight.redPeriod;
+        greenPeriod=trafficLight.greenPeriod;
+        redFirst=trafficLight.redFirst;
     }
 
 
