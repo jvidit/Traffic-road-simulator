@@ -1,3 +1,6 @@
+#include "TrafficLight.h"
+
+
 class TrafficLight
 {
     int id;                                                             //ID of traffic light

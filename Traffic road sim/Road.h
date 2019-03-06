@@ -4,6 +4,7 @@
 #include "Vehicle.h"
 #include "TrafficLight.h"
 #include "VehiclePosition.h"
+#include "Vehicle.h"
 
 const int maxWidth=20;
 const int maxLength=1000;

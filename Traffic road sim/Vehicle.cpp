@@ -1,8 +1,5 @@
 
-#include "VehiclePosition.h"
-#include "Road.h"
-#include <utility>
-#include <string>
+#include "Vehicle.h"
 
 
 
@@ -44,7 +41,8 @@ public:
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
-	vehiclePosition setParameters(Road&road);
+	VehiclePosition updateState(Road &road)
+	{	return NULL;	}
 
 
 	//getters
@@ -63,7 +61,7 @@ public:
 	void setId(int id)
 	{	this.id=id;	}
 
-}
+};
 
 
 

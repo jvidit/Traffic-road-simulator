@@ -1,6 +1,15 @@
 #ifndef SPECIFICATIONS_H
 #define SPECIFICATIONS_H
 
+#include <map>
+#include <utility> 
+#include <vector>
+#include <string>
+#include "TrafficLight.h"
+#include "Road.h"
+#include "Vehicle.h"
+#include "VehiclePosition.h"
+
 
 class Specifications
 {
@@ -15,7 +24,7 @@ class Specifications
     int defaultRoadId;                                                             //ID of road
     int defaultRoadLength;                                                         //length of road
     int defaultRoadWidth;                                                          //width of road
-    trafficLight defaultRoadTrafficLight;           
+    TrafficLight defaultRoadTrafficLight;           
 
     //params for traffic light
     int defaultTrafficLightId;                                                     //ID of traffic light
@@ -29,7 +38,7 @@ class Specifications
     int defaultVehicleLength;
     int defaultVehicleWidth;
     char defaultVehicleRepresentation;       
-    vehiclePosition defaultVehiclePosition;
+    VehiclePosition defaultVehiclePosition;
     int defaultVehicleVelocity;
     int defaultVehicleMaxVelocity;           //minimum velocity is 0....no backwards movement allowed as of now
     pair<int,int> defaultAccelerationRange;  //needs to be a multiple of 2
@@ -37,9 +46,10 @@ class Specifications
 
 public:	
 
-	Specifications (int id, vector<pair<string,int>> roadAndTrafficLightSpecs, vector<pair<string,int>> defaultVehicleSpecs);
-	addVehicleTemplate (string vehicleType, vector<pair<string,int>> vehicleSpecs);
+    Specifications();
+	Specifications (vector<pair<string,int> > roadAndTrafficLightSpecs, vector<pair<string,int> > defaultVehicleSpecs);
+	void addVehicleTemplate (string vehicleType, vector<pair<string,int> > vehicleSpecs);
 
-}
+};
 
 #endif

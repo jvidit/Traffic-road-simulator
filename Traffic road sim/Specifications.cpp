@@ -1,11 +1,6 @@
-#include <map>
-#include <utility> 
-#include <vector>
-#include <string>
-#include "TrafficLight.h"
-#include "Road.h"
-#include "Vehicle.h"
-#include "VehiclePosition.h"
+
+
+#include "Specifications.h"
 
 using namespace std;
 
@@ -46,9 +41,9 @@ public:
 
     Specifications()
     { }
-
+    
     //constructor: sets roadTempelate, trafficLightTempelate and default params for vehicles
-    Specifications (vector<pair<string,int>> roadAndTrafficLightSpecs, vector<pair<string,int>> defaultVehicleSpecs)
+    Specifications ( vector<pair<string,int> > roadAndTrafficLightSpecs, vector<pair<string,int> > defaultVehicleSpecs)
     {
 
         // default params for road
@@ -151,7 +146,7 @@ public:
         vehicleTemplates = new map<string,Vehicle>(); 
     }
     
-    addVehicleTemplate (string vehicleType, vector<pair<string,int>> vehicleSpecs)
+    void addVehicleTemplate (string vehicleType, vector<pair<string,int>> vehicleSpecs)
     {
         int vehicleId = defaultVehicleId;
         int vehicleLength = defaultVehicleLength;
@@ -203,4 +198,4 @@ public:
            
     }
 
-}
+};

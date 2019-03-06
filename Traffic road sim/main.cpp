@@ -4,36 +4,37 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <sstream>
 #include "TrafficLight.h"
 #include "Road.h"
 #include "Vehicle.h"
 #include "VehiclePosition.h"
 #include "Specifications.h"
-
 using namespace std;
 
-Specifications specifications;
+Specifications *specifications;
 
 
 vector<string> readConfig(string fileName)
 {
     ifstream configFile (fileName);
     
-    vector<pair<string,int>> roadAndTrafficLightSpecs = new vector<pair<string,int>>();
-    vector<pair<string,int>> defaultVehicleSpecs = new vector<pair<string,int>>();
-    vector<pair<string,int>> vehicleSpecs = new vector<pair<string,int>>();
+    vector<pair<string,int> > roadAndTrafficLightSpecs;
+    vector<pair<string,int> > defaultVehicleSpecs;
+    vector<pair<string,int> > vehicleSpecs;
+    vector<string> eventStrings;
 
     if (configFile.is_open())
     {
         string line;
 
-        
+        //NOTE: using substring can lead to segmentation errors
          while(getline(configFile, line))
         {
             line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
             if(line[0] == '#' || line.empty())
                 continue;
-            else if (!strcmp(line.substr(0, 4),"road"))
+            else if (!strcmp(line.substr(0, 4).c_str(),"road"))
             {
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -44,7 +45,7 @@ vector<string> readConfig(string fileName)
                 roadAndTrafficLightSpecs.push_back(make_pair(LHS,RHS));
 
             }
-            else if (!strcmp(line.substr(0, 7),"default"))
+            else if (!strcmp(line.substr(0, 7).c_str(),"default"))
             {
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -54,7 +55,7 @@ vector<string> readConfig(string fileName)
 
                 defaultVehicleSpecs.push_back(make_pair(LHS,RHS));
             }
-            else if (!strcmp(line.substr(0, 7),"vehicle"))
+            else if (!strcmp(line.substr(0, 7).c_str(),"vehicle"))
             {
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -65,7 +66,8 @@ vector<string> readConfig(string fileName)
                 vehicleSpecs.push_back(make_pair(LHS,RHS));
             }
             
-            specifications = new Specifications (roadAndTrafficLightSpecs, defaultVehicleSpecs);
+            specifications=new Specifications(roadAndTrafficLightSpecs, defaultVehicleSpecs);
+           
 
         }
         
