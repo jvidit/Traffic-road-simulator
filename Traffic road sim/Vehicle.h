@@ -37,6 +37,9 @@ public:
 
 	char getRep();
 
+    //setters
+    void setId(int id)
+    {   this.id=id;     }
 }
 
 

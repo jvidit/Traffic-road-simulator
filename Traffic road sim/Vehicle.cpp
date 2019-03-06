@@ -59,6 +59,9 @@ public:
 	char getRep();
 	{	return rep;		}
 
+	void setId(int id)
+	{	this.id=id;	}
+
 }
 
 
