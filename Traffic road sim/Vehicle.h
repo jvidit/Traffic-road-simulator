@@ -6,6 +6,7 @@
 #include <utility>
 #include <string>
 #include "Constants.h"
+#include "TrafficLight.h"
 
 
 using namespace std;
@@ -27,6 +28,7 @@ public:
 
 	Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type);
 
+	Vehicle();
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
@@ -44,7 +46,7 @@ public:
     //setters
     void setId(int id);
 
-    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, VehiclePosition positionArr[roadMaxWidth][roadMaxLength+1]);
+    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1]);
 
     void operator = (const Vehicle &vehicle);
     

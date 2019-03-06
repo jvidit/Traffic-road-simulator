@@ -1,37 +1,9 @@
-#include "TrafficLight.h"
-#include "VehiclePosition.h"
-#include "Vehicle.h"
+#include "Road.h"
 #include <iostream>
-#include "Constants.h"
 
 
-using namespace std;
 
-class Road
-{
-
-    int id;                                                             //ID of road
-    int length;                                                         //length of road, default = 100
-    int width;                                                          //width of road, default = 5
-    TrafficLight trafficLight;                                          //Traffic Light
-
-    
-    char positionArr[roadMaxWidth][roadMaxLength+1];                             //The road itself
-    
-    //initialises the array
-    void initialise_arr()
-    {
-    	for(int i = 0;i<roadMaxWidth;i++)
-    	{
-    		for(int j=0;j<roadMaxLength;j++)
-    			positionArr[i][j]='_';
-    	}
-    }
-    
-public:
-    
-    //Constructor
-    Road (int length,int width,TrafficLight trafficLight,int id)
+    Road::Road (int length,int width,TrafficLight trafficLight,int id)
     {
     	this->length=length;
     	this->width=width;
@@ -39,7 +11,10 @@ public:
     	this->id=id;
     }
 
-    void moveVehicle(Vehicle &vehicle)
+    Road::Road()
+    { }
+
+    void Road::moveVehicle(Vehicle &vehicle)
     //gotta make provision to display cars not in full view
     {
 
@@ -90,7 +65,7 @@ public:
 
     }
 
-    void showRoad()
+    void Road::showRoad()
     {
     	for(int i=0;i<width;i++)
     	{
@@ -101,7 +76,7 @@ public:
     }
 
 
-    void operator = (const Road &road)
+    void Road::operator = (const Road &road)
     {
         id=road.id;
         length=road.length;
@@ -114,4 +89,4 @@ public:
         }
     }
     
-};
+

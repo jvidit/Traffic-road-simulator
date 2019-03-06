@@ -10,6 +10,8 @@
 #include "Vehicle.h"
 #include "VehiclePosition.h"
 #include "Specifications.h"
+
+
 using namespace std;
 
 Specifications specifications;
@@ -67,7 +69,7 @@ vector<string> readConfig(string fileName)
             }
             
             specifications=*(new Specifications(roadAndTrafficLightSpecs, defaultVehicleSpecs));
-
+    
         }
         
     }

@@ -1,29 +1,8 @@
-#include "VehiclePosition.h"
-#include <utility>
-#include <string>
-#include "TrafficLight.h"
-#include "Constants.h"
 
-using namespace std;
+#include "Vehicle.h"
 
-class Vehicle{
-
-	int id;
-	int length;
-	int width;
-	char representation;					//Think of a better name
-	VehiclePosition position;
-
-	int velocity;
-	int maxVelocity;				//minimum velocity is 0....no backwards movement allowed as of now
-
-	pair <int,int> accelerationRange;	//needs to be a multiple of 2
-	int acceleration;					//needs to be a multiple of 2
-	string type;
-
-public:
-
-	Vehicle(int length, int width, char representation, VehiclePosition Position, int id, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
+             
+	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition Position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
 	{
 
 		//If error arises, consider allocating space for user defined objects
@@ -39,38 +18,35 @@ public:
 		this->type=type;
 	}
 
-
-
-	//decides next acceleration, next velocity, next position using environment from the road. 
-	//updates internal values
-	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
-	//VehiclePosition updateState(Road road)
-	//{	return NULL;	}
+	Vehicle::Vehicle()
+    { }
 
 
 	//getters
 
 
-	VehiclePosition getPosition()
-	{	return position;	}
+	VehiclePosition Vehicle::getPosition()
+	{	return this->position;	}
 
-	char getRepresentation()
+	char Vehicle::getRepresentation()
 	{	return representation;		}
 
 
-	void setId(int id)
+	void Vehicle::setId(int id)
 	{	this->id=id;	}
+
 
 
     // notice the order of update 
     // execute once at time 0 
-	VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight)
+	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1])
 	{
+
 		return position;
 	}
 
 
-	void operator = (const Vehicle &vehicle)
+	void Vehicle::operator = (const Vehicle &vehicle)
 	{
 		length=vehicle.length;
 		width=vehicle.width;
@@ -84,7 +60,7 @@ public:
 		type=vehicle.type;
 	}
 
-};
+
 
 
 

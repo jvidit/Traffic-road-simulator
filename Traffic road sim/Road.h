@@ -16,7 +16,7 @@ class Road
     int width;                                                          //width of road, default = 5
     TrafficLight trafficLight;                                         //Traffic Light                                                //Traffic Light
     
-    char postitionArr[roadMaxWidth][roadMaxLength+1];                                                 //The road itself
+    char positionArr[roadMaxWidth][roadMaxLength+1];                                                 //The road itself
 
     
     //initialises the postionArray
@@ -26,8 +26,10 @@ public:
     
     //Constructor
 
-    Road (int id,int length,int width,TrafficLight trafficLight);
+    Road (int length,int width,TrafficLight trafficLight,int id);
 
+    Road();
+    
     void moveVehicle(Vehicle &vehicle);
     //gotta make provision to display cars not in full view
 
