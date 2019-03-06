@@ -9,12 +9,15 @@ public:
 
 	int rightPos;
 	int upPos;
-	
+	int length;
+	int width;
 
 	void operator = (const VehiclePosition &vehiclePosition) 
 	{ 
         rightPos=vehiclePosition.rightPos;
         upPos=vehiclePosition.upPos;
+        length=vehiclePosition.length;
+        width=vehiclePosition.width;
     }
 };
 

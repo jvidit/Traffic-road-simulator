@@ -6,10 +6,7 @@
 #include "TrafficLight.h"
 #include "VehiclePosition.h"
 #include "Vehicle.h"
-
-
-const int maxWidth=20;
-const int maxLength=1000;
+#include "Constants.h"
 
 class Road
 {
@@ -19,7 +16,7 @@ class Road
     int width;                                                          //width of road, default = 5
     TrafficLight trafficLight;                                         //Traffic Light                                                //Traffic Light
     
-    char postitionArr[maxWidth][maxLength];                                                 //The road itself
+    char postitionArr[roadMaxWidth][roadMaxLength+1];                                                 //The road itself
 
     
     //initialises the postionArray

@@ -2,9 +2,8 @@
 #include "VehiclePosition.h"
 #include "Vehicle.h"
 #include <iostream>
+#include "Constants.h"
 
-const int maxWidth=20;
-const int maxLength=1000;
 
 using namespace std;
 
@@ -17,15 +16,15 @@ class Road
     TrafficLight trafficLight;                                          //Traffic Light
 
     
-    char postitionArr[maxWidth][maxLength];                             //The road itself
+    char positionArr[roadMaxWidth][roadMaxLength+1];                             //The road itself
     
     //initialises the array
     void initialise_arr()
     {
-    	for(int i = 0;i<maxWidth;i++)
+    	for(int i = 0;i<roadMaxWidth;i++)
     	{
-    		for(int j=0;j<maxLength;j++)
-    			postitionArr[i][j]='_';
+    		for(int j=0;j<roadMaxLength;j++)
+    			positionArr[i][j]='_';
     	}
     }
     
@@ -47,43 +46,48 @@ public:
     	char representation=vehicle.getRepresentation();
 
     	//clear vehicle from current position
-    	VehiclePosition currentPosition=vehicle.getPosition();
-    	int leftPos,downPos,upPos,rightPos,length,width;
+    	VehiclePosition currentVehiclePosition=vehicle.getPosition();
+    	int leftPos,downPos,upPos,rightPos;
 
-        length = vehicle.getLength();
-        width = vehicle.getWidth();
-
-    	leftPos=max((currentPosition.rightPos-length),0);
-        rightPos=min(currentPosition.rightPos,maxLength-1);
-    	downPos=currentPosition.upPos+width;
-		upPos=currentPosition.upPos;            //Note that downPos>upPos in matrix notation
+        
+    	leftPos=min(max(currentVehiclePosition.rightPos-currentVehiclePosition.length,0),roadMaxLength); //leftPos can be equal to rightPos
+        rightPos=min(currentVehiclePosition.rightPos,roadMaxLength);
+        downPos=currentVehiclePosition.upPos+currentVehiclePosition.width;
+        upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        if(downPos > roadMaxWidth -1) 
+            throw "vehiclePosition cannot be resolved!";
+        
 
     	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)
-    			postitionArr[i][j]='-';
+    			positionArr[i][j]='-';
     	}
 
+        VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr);
+
+
     	//moving to new place
-        //leftPos=max((vehiclePosition.rightPos-length),0);
-        //rightPos=min(vehiclePosition.rightPos,maxLength-1);
-        //downPos=vehiclePosition.upPos+width;
-        //upPos=vehiclePosition.upPos;
+        leftPos=min(max(newVehiclePosition.rightPos-newVehiclePosition.length,0),roadMaxLength); //leftPos can be equal to rightPos
+        rightPos=min(newVehiclePosition.rightPos,roadMaxLength);
+        downPos=newVehiclePosition.upPos+newVehiclePosition.width;
+        upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        if(downPos > roadMaxWidth -1) 
+            throw "vehiclePosition cannot be resolved!";
         
         
-    	//for(int i=upPos;i<=downPos;i++)
-    	//{
-    	//	for(int j=leftPos;j<=rightPos;j++)
-    	//	{
+    	for(int i=upPos;i<=downPos;i++)
+    	{
+    		for(int j=leftPos;j<=rightPos;j++)
+    		{
     			/////RAISE ERROR HERE TO HANDLE COLLISIONS
-    		//	postitionArr[i][j]=representation;
-    	//	}
-    	//}
+    			positionArr[i][j]=representation;
+    	}
+
+    }
 
         
 
-
-        //vehicle.updatePositionVelocityAccelaration (position, velocity, acceleration)
     }
 
     void showRoad()
@@ -91,7 +95,7 @@ public:
     	for(int i=0;i<width;i++)
     	{
     		for(int j = 0;j<length;j++)
-    			cout<<postitionArr[i][j];
+    			cout<<positionArr[i][j];
     		cout<<endl;
     	}
     }
@@ -103,10 +107,10 @@ public:
         length=road.length;
         width=road.width;
         trafficLight=road.trafficLight;
-        for(int i = 0;i<maxWidth;i++)
+        for(int i = 0;i<roadMaxWidth;i++)
         {
-            for(int j=0;j<maxLength;j++)
-                postitionArr[i][j]=road.postitionArr[i][j];
+            for(int j=0;j<roadMaxLength;j++)
+                positionArr[i][j]=road.positionArr[i][j];
         }
     }
     

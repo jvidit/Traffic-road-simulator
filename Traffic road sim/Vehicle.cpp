@@ -1,6 +1,8 @@
 #include "VehiclePosition.h"
 #include <utility>
 #include <string>
+#include "TrafficLight.h"
+#include "Constants.h"
 
 using namespace std;
 
@@ -47,11 +49,7 @@ public:
 
 
 	//getters
-	int getVelocity()
-	{	return velocity;	}
 
-	int getAcceleration()
-	{	return acceleration;	}
 
 	VehiclePosition getPosition()
 	{	return position;	}
@@ -59,20 +57,16 @@ public:
 	char getRepresentation()
 	{	return representation;		}
 
-	int getLength()
-	{	return length;		}
-
-	int getWidth()
-	{	return width;		}
 
 	void setId(int id)
 	{	this->id=id;	}
 
-	void updatePositionVelocityAccelaration (VehiclePosition vehiclePosition, int velocity, int acceleration)
+
+    // notice the order of update 
+    // execute once at time 0 
+	VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight)
 	{
-		this->position=vehiclePosition;
-		this->velocity=velocity;
-		this->acceleration=acceleration;
+		return position;
 	}
 
 
