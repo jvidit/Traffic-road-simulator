@@ -1,5 +1,7 @@
-#include "Road.h"
-
+#include "TrafficLight.h"
+#include "VehiclePosition.h"
+#include "Vehicle.h"
+#include <iostream>
 
 const int maxWidth=20;
 const int maxLength=1000;
@@ -38,14 +40,14 @@ public:
     	this->id=id;
     }
 
-    void moveVehicle(Vehicle v, VehiclePosition pos)
+    void moveVehicle(Vehicle &vehicle, VehiclePosition vehiclePosition)
     //gotta make provision to display cars not in full view
     {
 
-    	char c=v.getRep();
+    	char c=vehicle.getRepresentation();
 
     	//clear vehicle from current position
-    	VehiclePosition current=v.getPosition();
+    	VehiclePosition current=vehicle.getPosition();
     	int leftPos,downPos,upPos,rightPos;
 
     	leftPos=max((current.rightPos-length),0);
@@ -60,10 +62,10 @@ public:
     	}
 
     	//moving to new place
-        leftPos=max((pos.rightPos-length),0);
-        rightPos=min(pso.rightPos,maxLength-1);
-        downPos=pos.upPos+width;
-        upPos=pos.upPos;
+        leftPos=max((vehiclePosition.rightPos-length),0);
+        rightPos=min(vehiclePosition.rightPos,maxLength-1);
+        downPos=vehiclePosition.upPos+width;
+        upPos=vehiclePosition.upPos;
         
         
     	for(int i=upPos;i<=downPos;i++)
@@ -87,16 +89,16 @@ public:
     }
 
 
-    void operator = (const Road &r)
+    void operator = (const Road &road)
     {
-        id=r.id;
-        length=r.length;
-        width=r.width;
-        trafficLight=r.trafficLight;
+        id=road.id;
+        length=road.length;
+        width=road.width;
+        trafficLight=road.trafficLight;
         for(int i = 0;i<maxWidth;i++)
         {
             for(int j=0;j<maxLength;j++)
-                postitionArr[i][j]=r.postitionArr[i][j];
+                postitionArr[i][j]=road.postitionArr[i][j];
         }
     }
     

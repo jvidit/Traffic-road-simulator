@@ -1,4 +1,4 @@
-#include "TrafficLight.h"
+//#include "TrafficLight.h"
 
 
 class TrafficLight
@@ -12,6 +12,11 @@ class TrafficLight
 public:
     
     //TrafficLight constructor
+    TrafficLight()
+    {
+        
+    }
+
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst)
 
     {

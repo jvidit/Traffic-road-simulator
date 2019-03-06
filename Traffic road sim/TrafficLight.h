@@ -15,6 +15,8 @@ public:
 
     TrafficLight(int id, int position, int redPeriod, int greenPeriod, int redFirst);
 
+    TrafficLight();
+
     
     //Returns true if traffic light is red
     bool isRed(int t);
