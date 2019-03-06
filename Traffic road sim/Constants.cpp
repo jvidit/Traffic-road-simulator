@@ -1,2 +1,4 @@
-const int roadMaxWidth=20;
-const int roadMaxLength=1000;
+#include "constants.h"
+roadMaxWidth=20;
+roadMaxLength=1000;
+simulationTimeDuration=1;

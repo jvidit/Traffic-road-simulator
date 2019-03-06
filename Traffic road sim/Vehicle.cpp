@@ -41,7 +41,18 @@
     // execute once at time 0 
 	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1])
 	{
-
+		
+		if(position.rightPos >=  roadLength) 
+		{
+			velocity = 0;
+			accelaration = 0;
+		}
+		else
+		{
+			acceleration = 2; //decide accelaration
+			velocity = velocity + acceleration*simulationTimeDuration;
+			position.rightPos = position.rightPos  + 0.5*acceleration*simulationTimeDuration*simulationTimeDuration;
+		}
 		return position;
 	}
 
