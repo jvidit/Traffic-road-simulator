@@ -37,6 +37,9 @@ public:
 		this->type=type;
 	}
 
+	Vehicle()
+    { }
+
 
 
 	//decides next acceleration, next velocity, next position using environment from the road. 

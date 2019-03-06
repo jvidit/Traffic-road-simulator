@@ -25,6 +25,7 @@ public:
 
 	Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type);
 
+	Vehicle();
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?

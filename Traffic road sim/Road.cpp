@@ -2,6 +2,10 @@
 #include "VehiclePosition.h"
 #include "Vehicle.h"
 #include <iostream>
+#include "TrafficLight.h"
+#include "VehiclePosition.h"
+#include "Vehicle.h"
+
 
 const int maxWidth=20;
 const int maxLength=1000;
@@ -39,6 +43,9 @@ public:
     	this->trafficLight=trafficLight;
     	this->id=id;
     }
+
+    Road()
+    { }
 
     void moveVehicle(Vehicle &vehicle)
     //gotta make provision to display cars not in full view
