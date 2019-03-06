@@ -1,13 +1,13 @@
 
+
+
+
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
 #include "VehiclePosition.h"
-#include "Road.h"
 #include <utility>
 #include <string>
-
-
 
 
 using namespace std;
@@ -33,7 +33,7 @@ public:
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
 
-	VehiclePosition updateState(Road &road);
+	VehiclePosition updateState(Road road);
 
 	//getters
 	int getVelocity();
@@ -47,6 +47,9 @@ public:
 
     //setters
     void setId(int id);
+
+
+    void operator = (const Vehicle &v);
     
 };
 

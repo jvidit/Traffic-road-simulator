@@ -41,5 +41,14 @@ public:
     {   return position;    }
     
 
+    void operator = (const TrafficLight &tl)
+    {
+        id=tl.id;
+        position=tl.position;
+        redPeriod=tl.redPeriod;
+        greenPeriod=tl.greenPeriod;
+        redFirst=tl.redFirst;
+    }
+
 
 };

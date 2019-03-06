@@ -23,6 +23,8 @@ public:
     bool isGreen(int t);
     
     int getPosition();
+
+    void operator = (const TrafficLight &tl);
 };
 
 #endif

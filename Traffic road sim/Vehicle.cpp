@@ -1,7 +1,4 @@
-
 #include "Vehicle.h"
-
-
 
 class Vehicle{
 
@@ -24,16 +21,16 @@ public:
 	{
 
 		//If error arises, consider allocating space for user defined objects
-		this.length=length;
-		this.breadth=breath;
-		this.rep=rep;
-		this.position=position;
-		this.id=id;
-		this.velocity=velocity;
-		this.maxVelocity=maxVelocity;
-		this.accelerationRange=accelerationRange;
-		this.acceleration=acceleration;
-		this.type = type;
+		this->length=length;
+		this->breadth=breath;
+		this->rep=rep;
+		this->position=position;
+		this->id=id;
+		this->velocity=velocity;
+		this->maxVelocity=maxVelocity;
+		this->accelerationRange=accelerationRange;
+		this->acceleration=acceleration;
+		this->type = type;
 	}
 
 
@@ -41,7 +38,7 @@ public:
 	//decides next acceleration, next velocity, next position using environment from the road. 
 	//updates internal values
 	//returns position of vehicle for updation in the road instance --------------- IDEA: need we return vehiclePosition or can we just update the Road here?
-	VehiclePosition updateState(Road &road)
+	VehiclePosition updateState(Road road)
 	{	return NULL;	}
 
 
@@ -52,14 +49,29 @@ public:
 	int getAcceleration()
 	{	return acceleration;	}
 
-	vehiclePosition getPosition()
+	VehiclePosition getPosition()
 	{	return position;	}
 
 	char getRep();
 	{	return rep;		}
 
 	void setId(int id)
-	{	this.id=id;	}
+	{	this->id=id;	}
+
+
+	void operator = (const Vehicle &v)
+	{
+		length=v.length;
+		breadth=v.breath;
+		rep=v.rep;
+		position=v.position;
+		id=v.id;
+		velocity=v.velocity;
+		maxVelocity=v.maxVelocity;
+		accelerationRange=v.accelerationRange;
+		acceleration=v.acceleration;
+		type = v.type;
+	}
 
 };
 

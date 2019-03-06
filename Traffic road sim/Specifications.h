@@ -50,6 +50,8 @@ public:
 	Specifications (vector<pair<string,int> > roadAndTrafficLightSpecs, vector<pair<string,int> > defaultVehicleSpecs);
 	void addVehicleTemplate (string vehicleType, vector<pair<string,int> > vehicleSpecs);
 
+    void operator = (const Specifications &specs);
+
 };
 
 #endif

@@ -96,8 +96,8 @@ public:
 
         }
 
-        this.trafficLightTemplate = new TrafficLight(trafficLightId, trafficLightPosition, trafficLightRedPeriod, trafficLightGreenPeriod, trafficLightRedFirst);
-        this.roadTemplate = new road (roadLength, roadWidth, this.trafficLightTemplate, int roadId);
+        this->trafficLightTemplate = new TrafficLight(trafficLightId, trafficLightPosition, trafficLightRedPeriod, trafficLightGreenPeriod, trafficLightRedFirst);
+        this->roadTemplate = new road (roadLength, roadWidth, this->trafficLightTemplate, int roadId);
 
                                                  
         //default params for vehicles
@@ -143,7 +143,7 @@ public:
         }
 
 
-        vehicleTemplates = new map<string,Vehicle>(); 
+        
     }
     
     void addVehicleTemplate (string vehicleType, vector<pair<string,int>> vehicleSpecs)
@@ -189,13 +189,36 @@ public:
         }
 
         vehicleTemplates[vehicleType] = new Vehicle(vehicleId, vehicleLength, vehicleWidth, vehicleRepresentation, vehiclePosition, vehicleVelocity, vehicleMaxVelocity, vehicleAccelerationRange, vehicleAcceleration, string vehicleType);
-        
-               
-        
-        
-                   
-        
            
     }
+    
+    void operator = (const Specifications &specs)
+    {
+        // default params for road
+        defaultRoadId = specs.defaultRoadId;
+        defaultRoadLength = specs.defaultRoadLength;
+        defaultRoadWidth = specs.defaultRoadWidth;
 
+        //default params for trafficLight
+        defaultTrafficLightId = specs.defaultTrafficLightId;                                                    
+        defaultTrafficLightPosition = specs.defaultTrafficLightPosition;
+        defaultTrafficLightRedPeriod = specs.defaultTrafficLightRedPeriod;
+        defaultTrafficLightGreenPeriod = specs.defaultTrafficLightGreenPeriod;
+        defaultTrafficLightRedFirst = specs.defaultTrafficLightRedFirst;
+
+        defaultVehicleId = specs.defaultVehicleId;
+        defaultVehicleLength = specs.defaultVehicleLength;
+        defaultVehicleWidth = specs.defaultVehicleWidth;
+        defaultVehicleRepresentation = specs.defaultVehicleRepresentation;       
+        defaultVehiclePosition = specs.defaultVehiclePosition;
+        defaultVehicleVelocity = specs.defaultVehicleVelocity;
+        defaultVehicleMaxVelocity = specs.defaultVehicleMaxVelocity;           //minimum velocity is 0....no backwards movement allowed as of now
+        defaultVehicleAccelerationRange = specs.defaultVehicleAccelerationRange;               //needs to be a multiple of 2
+        defaultVehicleAcceleration = specs.defaultVehicleAcceleration;   
+
+        TrafficLight trafficLightTemplate=specs.trafficLightTemplate;
+        Road roadTemplate=specs.roadTemplate;
+        map<string,Vehicle> vehicleTemplates=specs.vehicleTemplates;
+    }
+    
 };

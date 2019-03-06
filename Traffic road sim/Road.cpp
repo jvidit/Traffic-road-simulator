@@ -1,5 +1,3 @@
-
-
 #include "Road.h"
 
 
@@ -86,6 +84,20 @@ public:
     			cout<<postitionArr[i][j];
     		cout<<endl;
     	}
+    }
+
+
+    void operator = (const Road &r)
+    {
+        id=r.id;
+        length=r.length;
+        width=r.width;
+        trafficLight=r.trafficLight;
+        for(int i = 0;i<maxWidth;i++)
+        {
+            for(int j=0;j<maxLength;j++)
+                postitionArr[i][j]=r.postitionArr[i][j];
+        }
     }
     
 };

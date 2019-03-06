@@ -12,7 +12,7 @@
 #include "Specifications.h"
 using namespace std;
 
-Specifications *specifications;
+Specifications specifications;
 
 
 vector<string> readConfig(string fileName)
@@ -66,8 +66,7 @@ vector<string> readConfig(string fileName)
                 vehicleSpecs.push_back(make_pair(LHS,RHS));
             }
             
-            specifications=new Specifications(roadAndTrafficLightSpecs, defaultVehicleSpecs);
-           
+            specifications=*(new Specifications(roadAndTrafficLightSpecs, defaultVehicleSpecs));
 
         }
         
