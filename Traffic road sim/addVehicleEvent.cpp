@@ -7,10 +7,8 @@ AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int id,
 	this->vehicle = vehicleTemplate;
 	vehicle.setId(id);
 	VehiclePosition pos;
-
-	pos.upPos=lane;
-	if(lane==-1)
-		pos.upPos=vehicleTemplate.getWidth();
+	if(lane!=-1)
+		pos.upPos=lane;
 	pos.rightPos=0;
 }
 
