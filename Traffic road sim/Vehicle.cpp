@@ -43,7 +43,7 @@
 	{
 		
 		bool canMove=true;
-		for(int i=position.upPos;i<=position.downPos;ji+)
+		for(int i=position.upPos;i<=position.upPos+length;i++)
 		{
 			if(positionArr[i][position.rightPos+1]!='_')
 			{
