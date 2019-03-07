@@ -5,6 +5,7 @@ int AddVehicleEvent::vehicleId = 0;
 
 AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int lane = -1)
 {
+
 	vehicleId++;
 	this->vehicle = vehicleTemplate;
 	vehicle.setId(vehicleId);
@@ -18,6 +19,8 @@ AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int lan
 AddVehicleEvent::AddVehicleEvent()
 {	}
 
+Vehicle AddVehicleEvent::getVehicle()
+{	return vehicle;	}
 
 int AddVehicleEvent::getTimeStamp()
 {	return timestamp;	}

@@ -42,7 +42,4 @@
         redPeriod=trafficLight.redPeriod;
         greenPeriod=trafficLight.greenPeriod;
         redFirst=trafficLight.redFirst;
-    }
-
-
-
+    } 

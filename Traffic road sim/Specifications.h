@@ -26,6 +26,8 @@ public:
     void addDefaultVehicleSpecs(vector<pair<string,int> > defaultVehicleSpecs);
 	void addVehicleTemplate (string vehicleType, vector<pair<string,int> > vehicleSpecs);
     void operator = (const Specifications &specs);
+    Road getRoadTemplate();
+    Vehicle getVehicleTemplate(string vehicleType);
 
 };
 

@@ -34,9 +34,11 @@ public:
     //gotta make provision to display cars not in full view
 
     void showRoad();    
-    
-
     void operator = (const Road &road);
+
+    int getLength();
+
+    void setTrafficLight(int time);
 };
 
 

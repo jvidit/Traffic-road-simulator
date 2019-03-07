@@ -7,6 +7,7 @@ class AddVehicleEvent
 {
     int timestamp; //time instant of event
     Vehicle vehicle;
+    
     static int vehicleId;
     
 public:
@@ -16,7 +17,7 @@ public:
     
     AddVehicleEvent();
 
-
+    Vehicle getVehicle();
 
     int getTimeStamp();
 	

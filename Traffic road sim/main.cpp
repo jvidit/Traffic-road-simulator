@@ -126,6 +126,7 @@ void readSpecifications(string fileName)
 
 vector<AddVehicleEvent> readSimulationFlow(string fileName)
 {
+
     ifstream configFile (fileName);
     
     vector<AddVehicleEvent> simulationFlow;
@@ -189,7 +190,7 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
                     }
                     else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"end"))
                     {
-                        AddVehicleEvent addVehicleEvent(time,specifications.getVehicleTempelate(vehicleType),lane);
+                        AddVehicleEvent addVehicleEvent(time,specifications.getVehicleTemplate(vehicleType),lane);
                         simulationFlow.push_back(addVehicleEvent);
                         break;
                     }
@@ -210,11 +211,109 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
     {
         cerr << "Couldn't open config file.\n";
     }
+
+     
 }
+
+
+
+
+void arrangeVehicle(vector<Vehicle> &v,int ind)
+{
+    Vehicle temp = v[ind];
+    int tempRightPos = temp.getPosition().rightPos;
+
+    v.erase(v.begin()+ind);
+    while(ind<v.size())
+    {
+        if(tempRightPos>v[ind].getPosition().rightPos)
+            ind++;
+        else
+            break;
+    }
+    v.insert(v.begin()+ind,temp);
+}
+
+
+
 
 int main()
 {
-    
-   readSpecifications (configFile);
+
+    string configFile="config.ini";
+    readSpecifications (configFile);
+
+    Road road=specifications.getRoadTemplate();
+    int roadLength=road.getLength();
+
+
+    vector<AddVehicleEvent> addVehicle = readSimulationFlow(configFile);
+    vector<Vehicle> sortedByRightPos;
+
+    int time=0;
+
+    while(sortedByRightPos.size() || addVehicle.size())
+    {
+        time++;
+        //add new vehicles
+        while(addVehicle.size())
+        {
+            if(addVehicle[0].getTimeStamp()!=time)
+                break;
+
+            Vehicle newVehicle=addVehicle[0].getVehicle();
+            addVehicle.erase(addVehicle.begin());
+
+            sortedByRightPos.insert(sortedByRightPos.begin(),newVehicle);
+            arrangeVehicle(sortedByRightPos,0);
+        }
+
+
+
+        //show road
+        cout<<"\n\nTIME INSTANT "+to_string(time)+"\n\n";
+        road.showRoad();
+
+
+        //changing vehicle positions for time t+1
+        for(int i=sortedByRightPos.size()-1;i>=0;i--)
+        {
+            road.moveVehicle(sortedByRightPos[i]);
+            arrangeVehicle(sortedByRightPos,i);
+        }
+
+        //deleting vehicles out of scene
+        for(int i=sortedByRightPos.size()-1;i>=0;i--)
+        {
+            if(sortedByRightPos[i].getPosition().rightPos<roadLength)
+                break;
+
+            int leftPos=sortedByRightPos[i].getPosition().rightPos - sortedByRightPos[i].getPosition().length + 1;
+            if(leftPos>=roadLength)
+                sortedByRightPos.erase(sortedByRightPos.begin()+i);
+        }
+
+    }
+    return 0;
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
