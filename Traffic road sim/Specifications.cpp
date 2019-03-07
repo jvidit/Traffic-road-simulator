@@ -10,7 +10,7 @@ SpecConsts specConsts;
     { }
     
     //constructor: sets roadTempelate, trafficLightTempelate and dfault params for vehicles
-    Specifications::Specifications ( vector<pair<string,int> > roadAndTrafficLightSpecs, vector<pair<string,int> > defaultVehicleSpecs)
+    void Specifications::addRoadAndTrafficLightTemplate ( vector<pair<string,int> > roadAndTrafficLightSpecs)
     {
         //params for road
         int roadId = specConsts.defaultRoadId;                                                             
@@ -57,8 +57,12 @@ SpecConsts specConsts;
 
         this->trafficLightTemplate = *(new TrafficLight(trafficLightid, trafficLightposition, trafficLightredPeriod, trafficLightgreenPeriod, trafficLightredFirst));
         this->roadTemplate = *(new Road(roadLength, roadWidth, this->trafficLightTemplate, roadId));
-
-                
+    }
+             
+    void Specifications::addDefaultVehicleSpecs(vector<pair<string,int> > defaultVehicleSpecs) 
+    {
+        const char *toBeCompared;
+        int toBeAssigned;
 
         //setting dfault parameters for vehicles from config
         for (int i = 0; i < defaultVehicleSpecs.size(); i++)
@@ -94,10 +98,9 @@ SpecConsts specConsts;
 
 
         }
-
-
-        
     }
+
+
     
     void Specifications::addVehicleTemplate (string vehicleType, vector<pair<string,int> > vehicleSpecs)
     {

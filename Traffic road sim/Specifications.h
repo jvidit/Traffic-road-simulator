@@ -22,9 +22,9 @@ class Specifications
 public:	
 
     Specifications();
-	Specifications (vector<pair<string,int> > roadAndTrafficLightSpecs, vector<pair<string,int> > defaultVehicleSpecs);
+	void addRoadAndTrafficLightTemplate ( vector<pair<string,int> > roadAndTrafficLightSpecs);
+    void addDefaultVehicleSpecs(vector<pair<string,int> > defaultVehicleSpecs);
 	void addVehicleTemplate (string vehicleType, vector<pair<string,int> > vehicleSpecs);
-
     void operator = (const Specifications &specs);
 
 };
