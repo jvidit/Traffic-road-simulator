@@ -28,7 +28,6 @@
     }
 
     void Road::moveVehicle(Vehicle &vehicle)
-    //gotta make provision to display cars not in full view
     {
 
     	char representation=vehicle.getRepresentation();
@@ -38,9 +37,9 @@
     	int leftPos,downPos,upPos,rightPos;
 
         
-    	leftPos=min(max(currentVehiclePosition.rightPos-currentVehiclePosition.length,0),length); //leftPos can be equal to rightPos
+    	leftPos=max(currentVehiclePosition.rightPos-currentVehiclePosition.length+1,0); 
         rightPos=min(currentVehiclePosition.rightPos,length);
-        downPos=currentVehiclePosition.upPos+currentVehiclePosition.width;
+        downPos=currentVehiclePosition.upPos+currentVehiclePosition.width-1;
         upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
@@ -49,16 +48,16 @@
     	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)
-    			positionArr[i][j]='-';
+    			positionArr[i][j]='_';
     	}
 
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr);
 
 
     	//moving to new place
-        leftPos=min(max(newVehiclePosition.rightPos-newVehiclePosition.length,0),length); //leftPos can be equal to rightPos
+        leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length+1,0); 
         rightPos=min(newVehiclePosition.rightPos,length);
-        downPos=newVehiclePosition.upPos+newVehiclePosition.width;
+        downPos=newVehiclePosition.upPos+newVehiclePosition.width-1;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";

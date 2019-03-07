@@ -32,7 +32,7 @@ void readConfig(string fileName)
         string line;
 
         //NOTE: using substring can lead to segmentation errors
-         while(getline(configFile, line))
+        while(getline(configFile, line))
         {
             line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
 
@@ -99,7 +99,6 @@ void readConfig(string fileName)
         specifications.addDefaultVehicleSpecs(defaultVehicleSpecs);
         
     }
-    
     else 
     {
         cerr << "Couldn't open config file.\n";

@@ -2,7 +2,7 @@
 #include "Vehicle.h"
 
              
-	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition Position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
+	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
 	{
 
 		//If error arises, consider allocating space for user defined objects
@@ -42,17 +42,23 @@
 	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1])
 	{
 		
-		if(position.rightPos >=  roadLength) 
+		bool canMove=true;
+		for(int i=position.upPos;i<=position.upPos+length-1;i++)
 		{
-			velocity = 0;
-			acceleration = 0;
+			if(positionArr[i][position.rightPos+1]!='_')
+			{
+				canMove=false;
+				break;
+			}
 		}
+
+		if(canMove)
+			acceleration= 1-velocity;	//if vel=0, then acc=1. if vel=0, then acc=1
 		else
-		{
-			acceleration = 2; //decide accelaration
-			velocity = velocity + acceleration*simulationTimeDuration;
-			position.rightPos = position.rightPos  + 0.5*acceleration*simulationTimeDuration*simulationTimeDuration;
-		}
+			acceleration= -velocity;	//if vel=0, then acc=0. if vel=1, then acc=-1
+		
+		velocity+=acceleration;
+		position.rightPos+=velocity;
 		return position;
 	}
 
