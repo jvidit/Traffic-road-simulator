@@ -9,8 +9,8 @@ SpecConsts specConsts;
     Specifications::Specifications()
     { }
     
-    //constructor: sets roadTempelate, trafficLightTempelate and dfault params for vehicles
-    void Specifications::addRoadAndTrafficLightTemplate ( vector<pair<string,int> > roadAndTrafficLightSpecs)
+    //sets roadTempelate, trafficLightTempelate 
+        void Specifications::addRoadAndTrafficLightTemplate ( vector<pair<string,int> > roadAndTrafficLightSpecs)
     {
         //params for road
         int roadId = specConsts.defaultRoadId;                                                             

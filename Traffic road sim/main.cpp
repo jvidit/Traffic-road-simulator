@@ -12,7 +12,7 @@
 #include "Specifications.h"
 #include <stdio.h>
 #include <string.h>
-#include "AddVehicleEvent"
+#include "AddVehicleEvent.h"
 
 using namespace std;
 
@@ -31,15 +31,18 @@ void readSpecifications(string fileName)
     if (configFile.is_open())
     {
         string line;
+        int start = 0;
 
         //NOTE: using substring can lead to segmentation errors
         while(getline(configFile, line))
         {
             line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
 
-            if(line[0] == '#' || line.empty())
+            if (line.size()>=20&&!strcmp(line.substr(0, 20).c_str(),"START_SPECIFICATIONS"))
+                start =1;
+            else if (start == 0)
                 continue;
-            else if (!strcmp(line.substr(0, 4).c_str(),"road"))
+            else if (line.size()>=4&&!strcmp(line.substr(0, 4).c_str(),"road"))
             {
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -50,7 +53,7 @@ void readSpecifications(string fileName)
                 roadAndTrafficLightSpecs.push_back(make_pair(LHS,RHS));
 
             }
-            else if (!strcmp(line.substr(0, 7).c_str(),"default"))
+            else if (line.size()>=7&&!strcmp(line.substr(0, 7).c_str(),"default"))
             {
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -60,7 +63,7 @@ void readSpecifications(string fileName)
 
                 defaultVehicleSpecs.push_back(make_pair(LHS,RHS));
             }
-            else if (!strcmp(line.substr(0, 15).c_str(),"startVehicleDef"))
+            else if (line.size()>=15&&!strcmp(line.substr(0, 15).c_str(),"startVehicleDef"))
             {
                 getline(configFile, line);
 
@@ -69,13 +72,20 @@ void readSpecifications(string fileName)
 
                 string LHS = line.substr(0, delimiterPos);
                 string RHS = line.substr(delimiterPos + 1, commentPos);
+                string vehicleType;
 
-                string vehicleType = RHS;
+               if (!strcmp(LHS.c_str(), "vehicleType"))
+                   vehicleType = RHS;
+                else
+                    throw "Specify vehicleType!";
+
                 vector<pair<string,int> > vehicleSpecs;
 
                  while(getline(configFile, line))
                  {
-                    if(!strcmp(line.substr(0, 7).c_str(),"vehicle"))
+                    line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
+
+                    if(line.size()>=7&&!strcmp(line.substr(0, 7).c_str(),"vehicle"))
                     {
                         int commentPos = line.find("#");
                         int delimiterPos = line.find("=");
@@ -85,14 +95,18 @@ void readSpecifications(string fileName)
             
                         vehicleSpecs.push_back(make_pair(LHS,RHS));
                     }
-                    else
+                    else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"end"))
                     {
                         specifications.addVehicleTemplate (vehicleType, vehicleSpecs);
                         break;
                     }
+                    else 
+                        continue;
                  }
                 
             }
+            else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"END"))
+                break;
             else
                 continue;
     
@@ -110,9 +124,92 @@ void readSpecifications(string fileName)
     
 }
 
-vector<AddVehicleEvent> readSimulationFlow(string fileName);
+vector<AddVehicleEvent> readSimulationFlow(string fileName)
 {
+    ifstream configFile (fileName);
+    
+    vector<AddVehicleEvent> simulationFlow;
+    
 
+    if (configFile.is_open())
+    {
+        string line;
+        int start = 0;
+        int time = 0;
+
+        //NOTE: using substring can lead to segmentation errors
+        while(getline(configFile, line))
+        {
+            line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
+
+            if (line.size()>=16&&!strcmp(line.substr(0, 16).c_str(),"START_SIMULATION"))
+                start =1;
+            else if (start == 0)
+                continue;
+            else if (line.size()>=4&&!strcmp(line.substr(0,4).c_str(),"pass"))
+                {
+                    int commentPos = line.find("#");
+                    int delimiterPos = line.find("=");
+                    time+=stoi(line.substr(delimiterPos + 1, commentPos));
+                }
+            else if (line.size()>=15&&!strcmp(line.substr(0, 15).c_str(),"startVehicleSim"))
+            {
+                getline(configFile, line);
+
+                int commentPos = line.find("#");
+                int delimiterPos = line.find("=");
+
+                string LHS = line.substr(0, delimiterPos);
+                string RHS = line.substr(delimiterPos + 1, commentPos);
+                string vehicleType;
+
+                if (!strcmp(LHS.c_str(), "vehicleType"))
+                   vehicleType = RHS;
+                else
+                    throw "Specify vehicleType!";
+
+                int lane;
+                
+
+                while(getline(configFile, line))
+                 {
+                    line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
+
+                    if(line.size()>=7&&!strcmp(line.substr(0, 7).c_str(),"vehicle"))
+                    {
+                        int commentPos = line.find("#");
+                        int delimiterPos = line.find("=");
+
+                        string LHS = line.substr(0, delimiterPos);
+                        int RHS = stoi(line.substr(delimiterPos + 1, commentPos));
+                        
+                        if(!strcmp(LHS.c_str(),"vehicleLane"))
+                            lane = RHS;
+                        
+                    }
+                    else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"end"))
+                    {
+                        AddVehicleEvent addVehicleEvent(time,specifications.getVehicleTempelate(vehicleType),lane);
+                        simulationFlow.push_back(addVehicleEvent);
+                        break;
+                    }
+                    else 
+                        continue;
+                 }
+                
+            }
+            else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"END"))
+                break;
+            else
+                continue;
+    
+        }
+        
+    }
+    else 
+    {
+        cerr << "Couldn't open config file.\n";
+    }
 }
 
 int main()
