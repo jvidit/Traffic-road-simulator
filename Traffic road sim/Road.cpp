@@ -1,7 +1,17 @@
 #include "Road.h"
 #include <iostream>
-
-
+    
+    void Road::initialise_positionArr()
+    {
+        for(int i=0;i<width;i++)
+        {
+            for(int j=0;j<length;j++)
+            {
+                /////RAISE ERROR HERE TO HANDLE COLLISIONS
+                positionArr[i][j]='-';
+            }
+        }
+    }
 
     Road::Road (int length,int width,TrafficLight trafficLight,int id)
     {
@@ -9,10 +19,13 @@
     	this->width=width;
     	this->trafficLight=trafficLight;
     	this->id=id;
+        this->initialise_positionArr();
     }
 
     Road::Road()
-    { }
+    {
+       this->initialise_positionArr(); 
+    }
 
     void Road::moveVehicle(Vehicle &vehicle)
     //gotta make provision to display cars not in full view
@@ -25,11 +38,11 @@
     	int leftPos,downPos,upPos,rightPos;
 
         
-    	leftPos=min(max(currentVehiclePosition.rightPos-currentVehiclePosition.length,0),roadMaxLength); //leftPos can be equal to rightPos
-        rightPos=min(currentVehiclePosition.rightPos,roadMaxLength);
+    	leftPos=min(max(currentVehiclePosition.rightPos-currentVehiclePosition.length,0),length); //leftPos can be equal to rightPos
+        rightPos=min(currentVehiclePosition.rightPos,length);
         downPos=currentVehiclePosition.upPos+currentVehiclePosition.width;
         upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
-        if(downPos > roadMaxWidth -1) 
+        if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
         
 
@@ -43,11 +56,11 @@
 
 
     	//moving to new place
-        leftPos=min(max(newVehiclePosition.rightPos-newVehiclePosition.length,0),roadMaxLength); //leftPos can be equal to rightPos
-        rightPos=min(newVehiclePosition.rightPos,roadMaxLength);
+        leftPos=min(max(newVehiclePosition.rightPos-newVehiclePosition.length,0),length); //leftPos can be equal to rightPos
+        rightPos=min(newVehiclePosition.rightPos,length);
         downPos=newVehiclePosition.upPos+newVehiclePosition.width;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
-        if(downPos > roadMaxWidth -1) 
+        if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
         
         

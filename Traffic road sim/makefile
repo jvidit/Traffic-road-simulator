@@ -15,10 +15,12 @@ VehiclePosition.o: VehiclePosition.h VehiclePosition.cpp
 	${CC} ${CFLAGS} -c VehiclePosition.cpp
 AddVehicleEvent.o: AddVehicleEvent.h AddVehicleEvent.cpp
 	${CC} ${CFLAGS} -c AddVehicleEvent.cpp
+Constants.o: Constants.h Constants.cpp
+	${CC} ${CFLAGS} -c Constants.cpp
 main.o: main.cpp
 	${CC} ${CFLAGS} -c main.cpp
-task2:main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o
+task2:main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o Constants.o
 
-	${CC} ${CFLAGS} -o task2 main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o
+	${CC} ${CFLAGS} -o task2 main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o Constants.o
 clean:
 	${RM} *.o task2

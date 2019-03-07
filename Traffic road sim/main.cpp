@@ -10,6 +10,7 @@
 #include "Vehicle.h"
 #include "VehiclePosition.h"
 #include "Specifications.h"
+#include <stdio.h>
 
 
 using namespace std;
