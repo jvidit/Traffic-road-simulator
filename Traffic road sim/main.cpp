@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
-#include <string>
+#include <cstring>
 #include <sstream>
 #include "TrafficLight.h"
 #include "Road.h"
