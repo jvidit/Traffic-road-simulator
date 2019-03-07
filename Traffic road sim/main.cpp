@@ -12,13 +12,14 @@
 #include "Specifications.h"
 #include <stdio.h>
 #include <string.h>
+#include "AddVehicleEvent"
 
 using namespace std;
 
 Specifications specifications;
 
 
-void readConfig(string fileName)
+void readSpecifications(string fileName)
 {
     ifstream configFile (fileName);
     
@@ -92,6 +93,8 @@ void readConfig(string fileName)
                  }
                 
             }
+            else
+                continue;
     
         }
 
@@ -107,9 +110,14 @@ void readConfig(string fileName)
     
 }
 
+vector<AddVehicleEvent> readSimulationFlow(string fileName);
+{
+
+}
+
 int main()
 {
     
-   readConfig (configFile);
+   readSpecifications (configFile);
     
 }
