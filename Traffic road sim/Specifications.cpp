@@ -166,3 +166,10 @@ SpecConsts specConsts;
     }
     
 
+    Road Specifications::getRoadTemplate()
+    {   return roadTemplate;    }
+
+
+    Vehicle Specifications::getVehicleTemplate(string vehicleType)
+    {   return vehicleTemplates[vehicleType];   }
+
