@@ -27,6 +27,7 @@ public:
     int getPosition();
 
     void operator = (const TrafficLight &trafficLight);
+
 };
 
 #endif

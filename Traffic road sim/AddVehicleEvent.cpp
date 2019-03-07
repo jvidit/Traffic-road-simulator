@@ -2,8 +2,9 @@
 #include "VehiclePosition.h"
 
 
-AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int id, int lane = -1)
+AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int lane = -1)
 {
+	id++;
 	this->vehicle = vehicleTemplate;
 	vehicle.setId(id);
 	VehiclePosition pos;
@@ -16,6 +17,8 @@ AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int id,
 AddVehicleEvent::AddVehicleEvent()
 {	}
 
+Vehicle AddVehicleEvent::getVehicle()
+{	return vehicle;	}
 
 int AddVehicleEvent::getTimeStamp()
 {	return timestamp;	}

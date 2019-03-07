@@ -100,5 +100,46 @@
                 positionArr[i][j]=road.positionArr[i][j];
         }
     }
+
+    int Road::getLength()
+    {   return length;     }
+
+
+    void Road::setTrafficLight(int time)
+    {
+        if(trafficLight.isRed(time))
+        {
+            for(int i=0;i<width;i++)
+            {   
+                if(positionArr[i][trafficLight.position()]=='_')
+                    positionArr[i][trafficLight.position()]='|';
+            }
+        }
+        else
+        {
+            for(int i=0;i<width;i++)
+            {   
+                if(positionArr[i][trafficLight.position()]=='|')
+                    positionArr[i][trafficLight.position()]='_';
+            }
+        }
+        
+    }
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
