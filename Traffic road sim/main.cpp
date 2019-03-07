@@ -32,7 +32,7 @@ vector<string> readConfig(string fileName)
         string line;
 
         //NOTE: using substring can lead to segmentation errors
-         while(getline(configFile, line))
+        while(getline(configFile, line))
         {
             line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
             if(line[0] == '#' || line.empty())
@@ -74,7 +74,6 @@ vector<string> readConfig(string fileName)
         }
         
     }
-    
     else 
     {
         cerr << "Couldn't open config file.\n";
@@ -92,7 +91,5 @@ int main()
         cout<<eventStrings[i]<<endl;
 
     }
-
-
     
 }

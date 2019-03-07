@@ -37,9 +37,9 @@
     	int leftPos,downPos,upPos,rightPos;
 
         
-    	leftPos=max(currentVehiclePosition.rightPos-currentVehiclePosition.length,0); 
+    	leftPos=max(currentVehiclePosition.rightPos-currentVehiclePosition.length+1,0); 
         rightPos=min(currentVehiclePosition.rightPos,length);
-        downPos=currentVehiclePosition.upPos+currentVehiclePosition.width;
+        downPos=currentVehiclePosition.upPos+currentVehiclePosition.width-1;
         upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
@@ -55,9 +55,9 @@
 
 
     	//moving to new place
-        leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length,0); 
+        leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length+1,0); 
         rightPos=min(newVehiclePosition.rightPos,length);
-        downPos=newVehiclePosition.upPos+newVehiclePosition.width;
+        downPos=newVehiclePosition.upPos+newVehiclePosition.width-1;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
