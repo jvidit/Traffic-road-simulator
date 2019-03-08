@@ -16,7 +16,7 @@ class Road
     int width;                                                          //width of road, default = 5
     TrafficLight trafficLight;                                         //Traffic Light                                                //Traffic Light
     
-    char positionArr[roadMaxWidth][roadMaxLength+1];                                                 //The road itself
+    char positionArr[roadMaxWidth][roadMaxLength];                                                 //The road itself
 
     
     //initialises the postionArray

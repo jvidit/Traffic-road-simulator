@@ -46,7 +46,7 @@ public:
     //setters
     void setId(int id);
 
-    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char (&positionArr)[roadMaxWidth][roadMaxLength+1]);
+    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength]);
 
     void operator = (const Vehicle &vehicle);
     

@@ -16,7 +16,7 @@ SpecConsts::SpecConsts()
      defaultVehicleId = 0;
      defaultVehicleLength = 2;
      defaultVehicleWidth = 2;
-     defaultVehicleRepresentation = ' ';       
+     defaultVehicleRepresentation = 'X';       
      defaultVehiclePosition.upPos=defaultRoadWidth;
      defaultVehiclePosition.rightPos=0;
      defaultVehicleVelocity = 1;

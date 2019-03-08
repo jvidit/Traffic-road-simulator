@@ -79,7 +79,10 @@ SpecConsts specConsts;
             else if(!strcmp(toBeCompared,"defaultVehicleWidth"))
                 specConsts.defaultVehicleWidth = toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleRepresentation"))
-                specConsts.defaultVehicleRepresentation = toBeAssigned+'a';
+            {
+                
+                specConsts.defaultVehicleRepresentation = char(toBeAssigned+'a');
+            }
             else if(!strcmp(toBeCompared,"defaultVehicleLane"))
                 {
                     specConsts.defaultVehiclePosition.upPos = toBeAssigned;
@@ -107,7 +110,7 @@ SpecConsts specConsts;
         int vehicleId = specConsts.defaultVehicleId;
         int vehicleLength = specConsts.defaultVehicleLength;
         int vehicleWidth = specConsts.defaultVehicleWidth;
-        char vehicleRepresentation = (specConsts.defaultVehicleRepresentation == ' ')? vehicleType[0] : specConsts.defaultVehicleRepresentation;                  
+        char vehicleRepresentation = specConsts.defaultVehicleRepresentation;                  
         VehiclePosition vehiclePosition = specConsts.defaultVehiclePosition;
         int vehicleVelocity = specConsts.defaultVehicleVelocity;
         int vehicleMaxVelocity = specConsts.defaultVehicleMaxVelocity;                 //minimum velocity is 0...no backwards movement allowed as of now
@@ -125,7 +128,7 @@ SpecConsts specConsts;
 
             toBeCompared=(vehicleSpecs[i].first).c_str();
             toBeAssigned=vehicleSpecs[i].second;
-
+           
             if(!strcmp(toBeCompared,"vehicleId"))
                 vehicleId = toBeAssigned;
             else if(!strcmp(toBeCompared,"vehicleLength"))
@@ -133,7 +136,8 @@ SpecConsts specConsts;
             else if(!strcmp(toBeCompared,"vehicleWidth"))
                 vehicleWidth = toBeAssigned;
             else if(!strcmp(toBeCompared,"vehicleRepresentation"))
-                vehicleRepresentation = toBeAssigned;
+                vehicleRepresentation = char(toBeAssigned+'a');
+                
             else if(!strcmp(toBeCompared,"vehicleLane"))
                 {
                     vehiclePosition.upPos = toBeAssigned;
@@ -152,9 +156,9 @@ SpecConsts specConsts;
 
 
         }
-
+        
         vehicleTemplates[vehicleType] = *(new Vehicle(vehicleId, vehicleLength, vehicleWidth, vehicleRepresentation, vehiclePosition, vehicleVelocity, vehicleMaxVelocity, vehicleAccelerationRange, vehicleAcceleration, vehicleType));
-           
+        
     }
     
     void Specifications::operator = (const Specifications &specs)
@@ -171,5 +175,8 @@ SpecConsts specConsts;
 
 
     Vehicle Specifications::getVehicleTemplate(string vehicleType)
-    {   return vehicleTemplates[vehicleType];   }
+    {   
+        
+        return vehicleTemplates.find(vehicleType)->second;   
+    }
 

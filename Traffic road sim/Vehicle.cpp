@@ -39,20 +39,31 @@
 
     // notice the order of update 
     // execute once at time 0 
-	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char (&positionArr)[roadMaxWidth][roadMaxLength+1])
+	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength])
 	{
 		
 		bool canMove=true;
 		for(int i=position.upPos;i<=position.upPos+width-1;i++)
 		{
-			cout<<positionArr[i][position.rightPos+1]<<" ";
+			
 			if(positionArr[i][position.rightPos+1]!='_')
 			{
 				canMove=false;
 				break;
 			}
 		}
-		cout<<"vehicle id "<<id<<" "<<canMove<<endl;
+
+
+
+		
+		/*
+		for(int i=0;i<roadWidth;i++)
+		{
+			for(int j=0;j<roadLength;j++)
+				cout<<positionArr[i][j];
+			cout<<endl;
+		}
+		*/
 		if(canMove)
 			acceleration= 1-velocity;	//if vel=0, then acc=1. if vel=0, then acc=1
 		else

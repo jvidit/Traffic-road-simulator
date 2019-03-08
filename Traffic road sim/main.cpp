@@ -63,7 +63,10 @@ void readSpecifications(string fileName)
                 string LHS = line.substr(0, delimiterPos);
                 int RHS=0;
                 if(!strcmp(LHS.c_str(),"defaultVehicleRepresentation"))
+                {
                     RHS=line.substr(delimiterPos + 1, commentPos)[0]-'a';
+                    
+                }
                 else
                     RHS = stoi(line.substr(delimiterPos + 1, commentPos));
 
@@ -102,7 +105,10 @@ void readSpecifications(string fileName)
                         string LHS = line.substr(0, delimiterPos);
                         int RHS;
                         if(!strcmp(LHS.c_str(),"vehicleRepresentation"))
+                        {
                             RHS=line.substr(delimiterPos + 1, commentPos)[0]-'a';
+                            
+                        }
                         else
                             RHS = stoi(line.substr(delimiterPos + 1, commentPos));
             
@@ -171,16 +177,20 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
             else if (line.size()>=15&&!strcmp(line.substr(0, 15).c_str(),"startVehicleSim"))
             {
                 getline(configFile, line);
+                line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
 
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
 
                 string LHS = line.substr(0, delimiterPos);
                 string RHS = line.substr(delimiterPos + 1, commentPos);
+                
                 string vehicleType;
 
                 if (!strcmp(LHS.c_str(), "vehicleType"))
                    vehicleType = RHS;
+                  
+
                /*
                 else
                     throw "Specify vehicleType!";
@@ -272,18 +282,12 @@ int main()
     int time=-1;
 
 
-
+    //return 0;
     while(sortedByRightPos.size() || addVehicle.size())
     {
 
-        cout<<"Vehicle Positions\n";
-        for(int i=0;i<sortedByRightPos.size();i++)
-        {
-            cout<<sortedByRightPos[i].getPosition().rightPos<<"\n";
-        }
-
-
-        cout<<sortedByRightPos.size()<<" "<<addVehicle.size()<<endl;
+        
+        
         if(time==10)
             return 0;
         time++;

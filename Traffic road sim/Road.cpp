@@ -3,9 +3,9 @@
     
     void Road::initialise_positionArr()
     {
-        for(int i=0;i<width;i++)
+        for(int i=0;i<roadMaxWidth;i++)
         {
-            for(int j=0;j<length;j++)
+            for(int j=0;j<roadMaxLength;j++)
             {
                 /////RAISE ERROR HERE TO HANDLE COLLISIONS
                 positionArr[i][j]='_';
@@ -31,6 +31,7 @@
     {
 
     	char representation=vehicle.getRepresentation();
+        cout<<"representation for vehicle is "<<vehicle.getRepresentation()<<endl;
 
     	//clear vehicle from current position
     	VehiclePosition currentVehiclePosition=vehicle.getPosition();
@@ -71,6 +72,7 @@
     		for(int j=leftPos;j<=rightPos;j++)
     		{
     			/////RAISE ERROR HERE TO HANDLE COLLISIONS
+                
     			positionArr[i][j]=representation;
     	}
 
@@ -128,6 +130,8 @@
         }
         
     }
+
+
     
 
 
