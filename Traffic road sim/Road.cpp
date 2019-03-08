@@ -8,7 +8,7 @@
             for(int j=0;j<roadMaxLength;j++)
             {
                 /////RAISE ERROR HERE TO HANDLE COLLISIONS
-                positionArr[i][j]='_';
+                positionArr[i][j]='-';
             }
         }
     }
@@ -27,11 +27,49 @@
        this->initialise_positionArr(); 
     }
 
-    void Road::moveVehicle(Vehicle &vehicle)
+    void Road::addVehicle(Vehicle &vehicle)
     {
 
+
+        char representation=vehicle.getRepresentation();
+        
+
+        //clear vehicle from current position
+        VehiclePosition vehiclePosition=vehicle.getPosition();
+        int leftPos,downPos,upPos,rightPos;
+
+        
+        leftPos=max(vehiclePosition.rightPos-vehiclePosition.length+1,0); 
+        rightPos=min(vehiclePosition.rightPos,length);
+        downPos=vehiclePosition.upPos+vehiclePosition.width-1;
+        upPos=vehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        /*
+        if(downPos > width -1) 
+            throw "vehiclePosition cannot be resolved!";
+        */
+        
+        for(int i=upPos;i<=downPos;i++)
+        { 
+            for(int j=leftPos;j<=rightPos;j++)
+            {
+                /////RAISE ERROR HERE TO HANDLE COLLISIONS
+                
+                positionArr[i][j]=representation;
+
+           }
+
+        }
+
+        
+
+    }
+
+    void Road::moveVehicle(Vehicle &vehicle, int time)
+    {
+
+
     	char representation=vehicle.getRepresentation();
-        cout<<"representation for vehicle is "<<vehicle.getRepresentation()<<endl;
+        
 
     	//clear vehicle from current position
     	VehiclePosition currentVehiclePosition=vehicle.getPosition();
@@ -50,10 +88,10 @@
     	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)
-    			positionArr[i][j]='_';
+    			positionArr[i][j]='-';
     	}
 
-        VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr);
+        VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time);
 
     	//moving to new place
         leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length+1,0); 
@@ -68,28 +106,47 @@
         
 
     	for(int i=upPos;i<=downPos;i++)
-    	{
+    	{ 
     		for(int j=leftPos;j<=rightPos;j++)
     		{
     			/////RAISE ERROR HERE TO HANDLE COLLISIONS
                 
     			positionArr[i][j]=representation;
-    	}
 
-    }
+    	   }
+
+        }
 
         
 
     }
 
-    void Road::showRoad()
+    void Road::showRoad(int time)
     {
-    	for(int i=0;i<width;i++)
-    	{
-    		for(int j = 0;j<length;j++)
-    			cout<<positionArr[i][j];
-    		cout<<endl;
-    	}
+    	
+        if(trafficLight.isRed(time))
+        {
+            for(int i=0;i<width;i++)
+            {
+                for(int j = 0;j<length;j++)
+                    if (j==trafficLight.getPosition())
+                        cout<<positionArr[i][j]<<'|';
+                    else
+                        cout<<positionArr[i][j];
+                cout<<endl;
+            }
+        }
+        else
+        {
+            for(int i=0;i<width;i++)
+            {
+                for(int j = 0;j<length;j++)
+                        cout<<positionArr[i][j];
+                cout<<endl;
+            }
+        }
+
+
     }
 
 
@@ -110,29 +167,7 @@
     {   return length;     }
 
 
-    void Road::setTrafficLight(int time)
-    {
-        if(trafficLight.isRed(time))
-        {
-            for(int i=0;i<width;i++)
-            {   
-                if(positionArr[i][trafficLight.getPosition()]=='_')
-                    positionArr[i][trafficLight.getPosition()]='|';
-            }
-        }
-        else
-        {
-            for(int i=0;i<width;i++)
-            {   
-                if(positionArr[i][trafficLight.getPosition()]=='|')
-                    positionArr[i][trafficLight.getPosition()]='_';
-            }
-        }
-        
-    }
 
-
-    
 
 
 

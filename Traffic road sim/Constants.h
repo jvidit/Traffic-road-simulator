@@ -21,7 +21,6 @@ public:
 	int defaultRoadWidth;        
                                                   //width of road
 	int defaultTrafficLightId;                                                     //ID of traffic light
-	int defaultTrafficLightPosition;
 	int defaultTrafficLightRedPeriod;
 	int defaultTrafficLightGreenPeriod;
 	int defaultTrafficLightRedFirst;

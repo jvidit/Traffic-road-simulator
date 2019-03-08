@@ -39,14 +39,14 @@
 
     // notice the order of update 
     // execute once at time 0 
-	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength])
+	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength], int time)
 	{
 		
 		bool canMove=true;
 		for(int i=position.upPos;i<=position.upPos+width-1;i++)
 		{
 			
-			if(positionArr[i][position.rightPos+1]!='_')
+			if((trafficLight.isRed(time) && (position.rightPos)==trafficLight.getPosition()) | (positionArr[i][position.rightPos + 1] != '-'))
 			{
 				canMove=false;
 				break;
@@ -71,7 +71,16 @@
 		
 		velocity+=acceleration;
 		position.rightPos+=velocity;
+
+		//cout<<"vehicle is "<<this->getRepresentation()<<" position is " <<position.rightPos<<endl;
+
 		return position;
+	}
+
+	void Vehicle::setUpPos (int lane)
+	{
+		position.upPos =lane;
+
 	}
 
 

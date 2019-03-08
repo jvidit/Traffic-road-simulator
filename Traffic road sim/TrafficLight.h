@@ -1,6 +1,8 @@
 #ifndef TRAFFICLIGHT_H
 #define TRAFFICLIGHT_H
 
+#include <iostream>
+
 class TrafficLight
 {
     int id;                                                             //ID of traffic light

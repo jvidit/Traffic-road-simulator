@@ -39,11 +39,12 @@ void readSpecifications(string fileName)
             
             line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
 
+
             if (line.size()>=20&&!strcmp(line.substr(0, 20).c_str(),"START_SPECIFICATIONS"))
                 start =1;
             else if (start == 0)
                 continue;
-            else if (line.size()>=4&&!strcmp(line.substr(0, 4).c_str(),"road"))
+            else if ((line.size()>=4&&!strcmp(line.substr(0, 4).c_str(),"road"))|(line.size()>=12&&!strcmp(line.substr(0, 12).c_str(),"trafficLight")))
             {
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -63,10 +64,7 @@ void readSpecifications(string fileName)
                 string LHS = line.substr(0, delimiterPos);
                 int RHS=0;
                 if(!strcmp(LHS.c_str(),"defaultVehicleRepresentation"))
-                {
-                    RHS=line.substr(delimiterPos + 1, commentPos)[0]-'a';
-                    
-                }
+                    RHS=line.substr(delimiterPos + 1, commentPos)[0];
                 else
                     RHS = stoi(line.substr(delimiterPos + 1, commentPos));
 
@@ -75,7 +73,7 @@ void readSpecifications(string fileName)
             else if (line.size()>=15&&!strcmp(line.substr(0, 15).c_str(),"startVehicleDef"))
             {
                 getline(configFile, line);
-               
+                line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
                 
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
@@ -83,12 +81,13 @@ void readSpecifications(string fileName)
                 string LHS = line.substr(0, delimiterPos);
                 string RHS = line.substr(delimiterPos + 1, commentPos);
                 string vehicleType;
-
+                
                 if (!strcmp(LHS.c_str(), "vehicleType"))
                    vehicleType = RHS;
                 //else
                 //    throw "Specify vehicleType!";
 
+               
 
                 vector<pair<string,int> > vehicleSpecs;
 
@@ -105,10 +104,7 @@ void readSpecifications(string fileName)
                         string LHS = line.substr(0, delimiterPos);
                         int RHS;
                         if(!strcmp(LHS.c_str(),"vehicleRepresentation"))
-                        {
-                            RHS=line.substr(delimiterPos + 1, commentPos)[0]-'a';
-                            
-                        }
+                            RHS=line.substr(delimiterPos + 1, commentPos)[0];
                         else
                             RHS = stoi(line.substr(delimiterPos + 1, commentPos));
             
@@ -195,7 +191,7 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
                 else
                     throw "Specify vehicleType!";
                 */
-                int lane;
+                int lane = -1;
                 
 
                 while(getline(configFile, line))
@@ -268,13 +264,14 @@ void arrangeVehicle(vector<Vehicle> &v,int ind)
 int main()
 {
 
-    string configFile="./config.ini";
+    
     readSpecifications (configFile);
 
 
 
     Road road=specifications.getRoadTemplate();
     int roadLength=road.getLength();
+
 
     vector<AddVehicleEvent> addVehicle = readSimulationFlow(configFile);
     vector<Vehicle> sortedByRightPos;
@@ -284,11 +281,11 @@ int main()
 
     //return 0;
     while(sortedByRightPos.size() || addVehicle.size())
-    {
+    {  
 
         
         
-        if(time==10)
+        if(time==31)
             return 0;
         time++;
         //add new vehicles
@@ -299,21 +296,24 @@ int main()
 
             Vehicle newVehicle=addVehicle[0].getVehicle();
             addVehicle.erase(addVehicle.begin());
-
             sortedByRightPos.insert(sortedByRightPos.begin(),newVehicle);
             arrangeVehicle(sortedByRightPos,0);
+            road.addVehicle(newVehicle);
         }
+
 
 
 
         //show road
         cout<<"\n\nTIME INSTANT "+to_string(time)+"\n\n";
-        road.showRoad();
+        road.showRoad(time);
 
         //changing vehicle positions for time t+1
         for(int i=sortedByRightPos.size()-1;i>=0;i--)
         {
-            road.moveVehicle(sortedByRightPos[i]);
+
+            road.moveVehicle(sortedByRightPos[i], time);
+            
             arrangeVehicle(sortedByRightPos,i);
         }
 

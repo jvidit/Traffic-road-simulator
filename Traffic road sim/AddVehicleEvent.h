@@ -2,6 +2,7 @@
 #define ADDVEHICLEEVENT_H
 
 #include "Vehicle.h"
+#include <iostream>
 
 class AddVehicleEvent
 {

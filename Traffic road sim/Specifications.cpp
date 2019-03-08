@@ -19,11 +19,11 @@ SpecConsts specConsts;
         
 
         //params for trafficLight
-        int trafficLightid = specConsts.defaultTrafficLightId;                                                             
-        int trafficLightposition = specConsts.defaultTrafficLightPosition;
-        int trafficLightredPeriod = specConsts.defaultTrafficLightRedPeriod;
-        int trafficLightgreenPeriod = specConsts.defaultTrafficLightGreenPeriod;
-        int trafficLightredFirst = specConsts.defaultTrafficLightRedFirst;
+        int trafficLightId = specConsts.defaultTrafficLightId;                                                             
+        int trafficLightRedPeriod = specConsts.defaultTrafficLightRedPeriod;
+        int trafficLightPosition;
+        int trafficLightGreenPeriod = specConsts.defaultTrafficLightGreenPeriod;
+        int trafficLightRedFirst = specConsts.defaultTrafficLightRedFirst;
 
         const char *toBeCompared;
         int toBeAssigned;
@@ -38,24 +38,26 @@ SpecConsts specConsts;
             if(!strcmp(toBeCompared,"roadId"))
                 roadId = toBeAssigned;
             else if(!strcmp(toBeCompared,"roadLength"))
-                roadLength = toBeAssigned;
+                {
+                    roadLength = toBeAssigned;
+                    trafficLightPosition = toBeAssigned/2;
+                }
             else if(!strcmp(toBeCompared,"roadWidth"))
                 roadWidth = toBeAssigned;
 
-            else if(!strcmp(toBeCompared,"trafficLightid"))
-                trafficLightid = toBeAssigned;
-            else if(!strcmp(toBeCompared,"trafficLightposition"))
-                trafficLightposition = toBeAssigned;
-            else if(!strcmp(toBeCompared,"trafficLightredPeriod"))
-                trafficLightredPeriod = toBeAssigned;
-            else if(!strcmp(toBeCompared,"trafficLightgreenPeriod"))
-                trafficLightgreenPeriod = toBeAssigned;
-            else if(!strcmp(toBeCompared,"trafficLightredFirst"))
-                trafficLightredFirst = toBeAssigned;
+            else if(!strcmp(toBeCompared,"trafficLightId"))
+                trafficLightId = toBeAssigned;
+            else if(!strcmp(toBeCompared,"trafficLightPosition"))
+                trafficLightPosition = toBeAssigned;
+            else if(!strcmp(toBeCompared,"trafficLightRedPeriod"))
+                trafficLightRedPeriod = toBeAssigned;
+            else if(!strcmp(toBeCompared,"trafficLightGreenPeriod"))
+                trafficLightGreenPeriod = toBeAssigned;
+            else if(!strcmp(toBeCompared,"trafficLightRedFirst"))
+                trafficLightRedFirst = toBeAssigned;
+         }
 
-        }
-
-        this->trafficLightTemplate = *(new TrafficLight(trafficLightid, trafficLightposition, trafficLightredPeriod, trafficLightgreenPeriod, trafficLightredFirst));
+        this->trafficLightTemplate = *(new TrafficLight(trafficLightId, trafficLightPosition, trafficLightRedPeriod, trafficLightGreenPeriod, trafficLightRedFirst));
         this->roadTemplate = *(new Road(roadLength, roadWidth, this->trafficLightTemplate, roadId));
     }
              
@@ -79,10 +81,7 @@ SpecConsts specConsts;
             else if(!strcmp(toBeCompared,"defaultVehicleWidth"))
                 specConsts.defaultVehicleWidth = toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleRepresentation"))
-            {
-                
-                specConsts.defaultVehicleRepresentation = char(toBeAssigned+'a');
-            }
+                specConsts.defaultVehicleRepresentation = char(toBeAssigned);
             else if(!strcmp(toBeCompared,"defaultVehicleLane"))
                 {
                     specConsts.defaultVehiclePosition.upPos = toBeAssigned;
@@ -136,7 +135,7 @@ SpecConsts specConsts;
             else if(!strcmp(toBeCompared,"vehicleWidth"))
                 vehicleWidth = toBeAssigned;
             else if(!strcmp(toBeCompared,"vehicleRepresentation"))
-                vehicleRepresentation = char(toBeAssigned+'a');
+                vehicleRepresentation = char(toBeAssigned);
                 
             else if(!strcmp(toBeCompared,"vehicleLane"))
                 {
@@ -154,8 +153,13 @@ SpecConsts specConsts;
             else if(!strcmp(toBeCompared,"vehicleAcceleration"))
                 vehicleAcceleration = toBeAssigned;
 
-
         }
+
+        if(vehicleRepresentation==' ')  
+                vehicleRepresentation = vehicleType[0];
+
+        vehiclePosition.length = vehicleLength;
+        vehiclePosition.width = vehicleWidth;
         
         vehicleTemplates[vehicleType] = *(new Vehicle(vehicleId, vehicleLength, vehicleWidth, vehicleRepresentation, vehiclePosition, vehicleVelocity, vehicleMaxVelocity, vehicleAccelerationRange, vehicleAcceleration, vehicleType));
         

@@ -42,11 +42,12 @@ public:
 
 	char getRepresentation();
 
-
     //setters
     void setId(int id);
 
-    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength]);
+    void setUpPos (int lane);
+
+    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength],int time);
 
     void operator = (const Vehicle &vehicle);
     

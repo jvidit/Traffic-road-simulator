@@ -3,17 +3,20 @@
 
 int AddVehicleEvent::vehicleId = 0;
 
-AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int lane = -1)
+AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int lane)
 {
 
 	vehicleId++;
 	this->timestamp=timestamp;
 	this->vehicle = vehicleTemplate;
 	vehicle.setId(vehicleId);
-	VehiclePosition pos;
+
+	
 	if(lane!=-1)
-		pos.upPos=lane;
-	pos.rightPos=0;
+		vehicle.setUpPos(lane);
+	
+
+
 }
 
 
