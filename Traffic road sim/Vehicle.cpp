@@ -1,6 +1,6 @@
 
 #include "Vehicle.h"
-
+#include <iostream>
              
 	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
 	{
@@ -39,19 +39,20 @@
 
     // notice the order of update 
     // execute once at time 0 
-	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength+1])
+	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char (&positionArr)[roadMaxWidth][roadMaxLength+1])
 	{
 		
 		bool canMove=true;
-		for(int i=position.upPos;i<=position.upPos+length-1;i++)
+		for(int i=position.upPos;i<=position.upPos+width-1;i++)
 		{
+			cout<<positionArr[i][position.rightPos+1]<<" ";
 			if(positionArr[i][position.rightPos+1]!='_')
 			{
 				canMove=false;
 				break;
 			}
 		}
-
+		cout<<"vehicle id "<<id<<" "<<canMove<<endl;
 		if(canMove)
 			acceleration= 1-velocity;	//if vel=0, then acc=1. if vel=0, then acc=1
 		else

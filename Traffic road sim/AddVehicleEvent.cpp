@@ -7,6 +7,7 @@ AddVehicleEvent::AddVehicleEvent(int timestamp, Vehicle vehicleTemplate, int lan
 {
 
 	vehicleId++;
+	this->timestamp=timestamp;
 	this->vehicle = vehicleTemplate;
 	vehicle.setId(vehicleId);
 	VehiclePosition pos;

@@ -8,7 +8,7 @@
             for(int j=0;j<length;j++)
             {
                 /////RAISE ERROR HERE TO HANDLE COLLISIONS
-                positionArr[i][j]='-';
+                positionArr[i][j]='_';
             }
         }
     }
@@ -41,9 +41,10 @@
         rightPos=min(currentVehiclePosition.rightPos,length);
         downPos=currentVehiclePosition.upPos+currentVehiclePosition.width-1;
         upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        /*
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
-        
+        */
 
     	for(int i=upPos;i<=downPos;i++)
     	{
@@ -53,16 +54,18 @@
 
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr);
 
-
     	//moving to new place
         leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length+1,0); 
         rightPos=min(newVehiclePosition.rightPos,length);
         downPos=newVehiclePosition.upPos+newVehiclePosition.width-1;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        
+        /*
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
+        */
         
-        
+
     	for(int i=upPos;i<=downPos;i++)
     	{
     		for(int j=leftPos;j<=rightPos;j++)

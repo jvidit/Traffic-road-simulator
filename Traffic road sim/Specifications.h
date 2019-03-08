@@ -14,7 +14,6 @@
 
 class Specifications
 {
-	int id;
 	TrafficLight trafficLightTemplate;
 	Road roadTemplate;
 	map<string,Vehicle> vehicleTemplates;

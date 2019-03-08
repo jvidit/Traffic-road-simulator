@@ -36,6 +36,7 @@ void readSpecifications(string fileName)
         //NOTE: using substring can lead to segmentation errors
         while(getline(configFile, line))
         {
+            
             line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
 
             if (line.size()>=20&&!strcmp(line.substr(0, 20).c_str(),"START_SPECIFICATIONS"))
@@ -48,6 +49,7 @@ void readSpecifications(string fileName)
                 int delimiterPos = line.find("=");
 
                 string LHS = line.substr(0, delimiterPos);
+
                 int RHS = stoi(line.substr(delimiterPos + 1, commentPos));
 
                 roadAndTrafficLightSpecs.push_back(make_pair(LHS,RHS));
@@ -59,30 +61,37 @@ void readSpecifications(string fileName)
                 int delimiterPos = line.find("=");
 
                 string LHS = line.substr(0, delimiterPos);
-                int RHS = stoi(line.substr(delimiterPos + 1, commentPos));
+                int RHS=0;
+                if(!strcmp(LHS.c_str(),"defaultVehicleRepresentation"))
+                    RHS=line.substr(delimiterPos + 1, commentPos)[0]-'a';
+                else
+                    RHS = stoi(line.substr(delimiterPos + 1, commentPos));
 
                 defaultVehicleSpecs.push_back(make_pair(LHS,RHS));
             }
             else if (line.size()>=15&&!strcmp(line.substr(0, 15).c_str(),"startVehicleDef"))
             {
                 getline(configFile, line);
-
+               
+                
                 int commentPos = line.find("#");
                 int delimiterPos = line.find("=");
-
+                
                 string LHS = line.substr(0, delimiterPos);
                 string RHS = line.substr(delimiterPos + 1, commentPos);
                 string vehicleType;
 
-               if (!strcmp(LHS.c_str(), "vehicleType"))
+                if (!strcmp(LHS.c_str(), "vehicleType"))
                    vehicleType = RHS;
-                else
-                    throw "Specify vehicleType!";
+                //else
+                //    throw "Specify vehicleType!";
+
 
                 vector<pair<string,int> > vehicleSpecs;
 
                  while(getline(configFile, line))
                  {
+                    
                     line.erase(remove_if(line.begin(), line.end(), ::isspace),line.end());
 
                     if(line.size()>=7&&!strcmp(line.substr(0, 7).c_str(),"vehicle"))
@@ -91,7 +100,11 @@ void readSpecifications(string fileName)
                         int delimiterPos = line.find("=");
 
                         string LHS = line.substr(0, delimiterPos);
-                        int RHS = stoi(line.substr(delimiterPos + 1, commentPos));
+                        int RHS;
+                        if(!strcmp(LHS.c_str(),"vehicleRepresentation"))
+                            RHS=line.substr(delimiterPos + 1, commentPos)[0]-'a';
+                        else
+                            RHS = stoi(line.substr(delimiterPos + 1, commentPos));
             
                         vehicleSpecs.push_back(make_pair(LHS,RHS));
                     }
@@ -106,7 +119,9 @@ void readSpecifications(string fileName)
                 
             }
             else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"END"))
+            {
                 break;
+            }
             else
                 continue;
     
@@ -120,7 +135,7 @@ void readSpecifications(string fileName)
     {
         cerr << "Couldn't open config file.\n";
     }
-
+    
     
 }
 
@@ -166,9 +181,10 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
 
                 if (!strcmp(LHS.c_str(), "vehicleType"))
                    vehicleType = RHS;
+               /*
                 else
                     throw "Specify vehicleType!";
-
+                */
                 int lane;
                 
 
@@ -212,6 +228,8 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
         cerr << "Couldn't open config file.\n";
     }
 
+    return simulationFlow;
+
      
 }
 
@@ -240,20 +258,34 @@ void arrangeVehicle(vector<Vehicle> &v,int ind)
 int main()
 {
 
-    string configFile="config.ini";
+    string configFile="./config.ini";
     readSpecifications (configFile);
+
+
 
     Road road=specifications.getRoadTemplate();
     int roadLength=road.getLength();
 
-
     vector<AddVehicleEvent> addVehicle = readSimulationFlow(configFile);
     vector<Vehicle> sortedByRightPos;
 
-    int time=0;
+    int time=-1;
+
+
 
     while(sortedByRightPos.size() || addVehicle.size())
     {
+
+        cout<<"Vehicle Positions\n";
+        for(int i=0;i<sortedByRightPos.size();i++)
+        {
+            cout<<sortedByRightPos[i].getPosition().rightPos<<"\n";
+        }
+
+
+        cout<<sortedByRightPos.size()<<" "<<addVehicle.size()<<endl;
+        if(time==10)
+            return 0;
         time++;
         //add new vehicles
         while(addVehicle.size())
@@ -273,7 +305,6 @@ int main()
         //show road
         cout<<"\n\nTIME INSTANT "+to_string(time)+"\n\n";
         road.showRoad();
-
 
         //changing vehicle positions for time t+1
         for(int i=sortedByRightPos.size()-1;i>=0;i--)

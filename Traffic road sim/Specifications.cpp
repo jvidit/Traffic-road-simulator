@@ -1,5 +1,5 @@
 #include "Specifications.h"
-
+#include <iostream>
 using namespace std;
 
 SpecConsts specConsts;
@@ -10,7 +10,7 @@ SpecConsts specConsts;
     { }
     
     //sets roadTempelate, trafficLightTempelate 
-        void Specifications::addRoadAndTrafficLightTemplate ( vector<pair<string,int> > roadAndTrafficLightSpecs)
+    void Specifications::addRoadAndTrafficLightTemplate ( vector<pair<string,int> > roadAndTrafficLightSpecs)
     {
         //params for road
         int roadId = specConsts.defaultRoadId;                                                             
@@ -31,7 +31,7 @@ SpecConsts specConsts;
         //setting roadAndTrafficLight params from config to be passed to Road and TrafficLight constructors
         for (int i = 0; i < roadAndTrafficLightSpecs.size(); i++)
         {
-
+            
             toBeCompared=(roadAndTrafficLightSpecs[i].first).c_str();
             toBeAssigned=roadAndTrafficLightSpecs[i].second;
 
@@ -79,7 +79,7 @@ SpecConsts specConsts;
             else if(!strcmp(toBeCompared,"defaultVehicleWidth"))
                 specConsts.defaultVehicleWidth = toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleRepresentation"))
-                specConsts.defaultVehicleRepresentation = toBeAssigned;
+                specConsts.defaultVehicleRepresentation = toBeAssigned+'a';
             else if(!strcmp(toBeCompared,"defaultVehicleLane"))
                 {
                     specConsts.defaultVehiclePosition.upPos = toBeAssigned;
@@ -160,9 +160,9 @@ SpecConsts specConsts;
     void Specifications::operator = (const Specifications &specs)
     {
         
-        TrafficLight trafficLightTemplate=specs.trafficLightTemplate;
-        Road roadTemplate=specs.roadTemplate;
-        map<string,Vehicle> vehicleTemplates=specs.vehicleTemplates;
+        trafficLightTemplate=specs.trafficLightTemplate;
+        roadTemplate=specs.roadTemplate;
+        vehicleTemplates=specs.vehicleTemplates;
     }
     
 
