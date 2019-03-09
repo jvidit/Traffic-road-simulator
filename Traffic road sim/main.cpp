@@ -282,8 +282,6 @@ int main()
     //return 0;
     while(sortedByRightPos.size() || addVehicle.size())
     {  
-
-        cout<<sortedByRightPos.size()<<endl;
         time++;
         //add new vehicles
         while(addVehicle.size())

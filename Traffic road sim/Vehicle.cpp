@@ -50,7 +50,7 @@
 			int flag=0;
 			for(int i=position.upPos;i<=position.upPos+width-1;i++)
 			{
-				if((trafficLight.isRed(time) && (rightPos+nextDistance)==trafficLight.getPosition()) | (positionArr[i][position.rightPos + 1 + nextDistance] != '-'))
+				if((trafficLight.isRed(time) && (rightPos+nextDistance)==trafficLight.getPosition()) || (positionArr[i][position.rightPos + 1 + nextDistance] != '-'))
 				{
 					flag=1;
 					break;
@@ -61,10 +61,10 @@
 			nextDistance++;
 		}
 
-		
+		nextDistance=min(maxVelocity,nextDistance);		
 		nextVelocity=nextDistance;									//next distance is always less then or equal to maxVelocity
 		nextAcceleration =  min(  max((nextVelocity - (this->velocity)),(this->accelerationRange).first) , (this->accelerationRange).second);
-
+		
 		acceleration=nextAcceleration;
 		this->velocity+=acceleration;
 		position.rightPos+=velocity;
