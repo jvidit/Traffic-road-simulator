@@ -31,9 +31,9 @@ public:
     Road();
 
     void addVehicle(Vehicle &vehicle);
-    
+    void removeVehicle(Vehicle &vehicle);
     void moveVehicle(Vehicle &vehicle, int time);
-    //gotta make provision to display cars not in full view
+    
 
     void showRoad(int time);    
     void operator = (const Road &road);

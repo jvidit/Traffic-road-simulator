@@ -283,10 +283,7 @@ int main()
     while(sortedByRightPos.size() || addVehicle.size())
     {  
 
-        
-        
-        if(time==31)
-            return 0;
+        cout<<sortedByRightPos.size()<<endl;
         time++;
         //add new vehicles
         while(addVehicle.size())
@@ -313,7 +310,6 @@ int main()
         {
 
             road.moveVehicle(sortedByRightPos[i], time);
-            
             arrangeVehicle(sortedByRightPos,i);
         }
 
@@ -325,12 +321,16 @@ int main()
 
             int leftPos=sortedByRightPos[i].getPosition().rightPos - sortedByRightPos[i].getPosition().length + 1;
             if(leftPos>=roadLength)
+            {
+                road.removeVehicle(sortedByRightPos[i]);
                 sortedByRightPos.erase(sortedByRightPos.begin()+i);
+            }
         }
 
     }
     return 0;
     
+
 }
 
 

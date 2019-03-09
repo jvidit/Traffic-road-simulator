@@ -64,19 +64,15 @@
 
     }
 
-    void Road::moveVehicle(Vehicle &vehicle, int time)
+    void Road::removeVehicle(Vehicle &vehicle)
     {
-
-
-    	char representation=vehicle.getRepresentation();
         
-
-    	//clear vehicle from current position
-    	VehiclePosition currentVehiclePosition=vehicle.getPosition();
-    	int leftPos,downPos,upPos,rightPos;
+        //clear vehicle from current position
+        VehiclePosition currentVehiclePosition=vehicle.getPosition();
+        int leftPos,downPos,upPos,rightPos;
 
         
-    	leftPos=max(currentVehiclePosition.rightPos-currentVehiclePosition.length+1,0); 
+        leftPos=max(currentVehiclePosition.rightPos-currentVehiclePosition.length+1,0); 
         rightPos=min(currentVehiclePosition.rightPos,length);
         downPos=currentVehiclePosition.upPos+currentVehiclePosition.width-1;
         upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
@@ -85,11 +81,21 @@
             throw "vehiclePosition cannot be resolved!";
         */
 
-    	for(int i=upPos;i<=downPos;i++)
-    	{
-    		for(int j=leftPos;j<=rightPos;j++)
-    			positionArr[i][j]='-';
-    	}
+        for(int i=upPos;i<=downPos;i++)
+        {
+            for(int j=leftPos;j<=rightPos;j++)
+                positionArr[i][j]='-';
+        }
+    }
+
+    void Road::moveVehicle(Vehicle &vehicle, int time)
+    {
+
+
+    	char representation=vehicle.getRepresentation();
+        int leftPos,downPos,upPos,rightPos;
+
+    	this->removeVehicle(vehicle);
 
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time);
 
