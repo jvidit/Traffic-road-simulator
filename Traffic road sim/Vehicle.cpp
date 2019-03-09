@@ -42,44 +42,40 @@
 	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength], int time)
 	{
 		
-		bool canMove=true;
-		for(int i=position.upPos;i<=position.upPos+width-1;i++)
+		int nextDistance=0,nextVelocity,nextAcceleration;										
+		int rightPos=position.rightPos;
+
+		while(nextDistance<=maxVelocity)
 		{
-			
-			if((trafficLight.isRed(time) && (position.rightPos)==trafficLight.getPosition()) | (positionArr[i][position.rightPos + 1] != '-'))
+			int flag=0;
+			for(int i=position.upPos;i<=position.upPos+width-1;i++)
 			{
-				canMove=false;
-				break;
+				if((trafficLight.isRed(time) && (rightPos+nextDistance)==trafficLight.getPosition()) | (positionArr[i][position.rightPos + 1 + nextDistance] != '-'))
+				{
+					flag=1;
+					break;
+				}
 			}
+			if(flag)
+				break;
+			nextDistance++;
 		}
 
-
-
 		
-		/*
-		for(int i=0;i<roadWidth;i++)
-		{
-			for(int j=0;j<roadLength;j++)
-				cout<<positionArr[i][j];
-			cout<<endl;
-		}
-		*/
-		if(canMove)
-			acceleration= 1-velocity;	//if vel=0, then acc=1. if vel=0, then acc=1
-		else
-			acceleration= -velocity;	//if vel=0, then acc=0. if vel=1, then acc=-1
-		
-		velocity+=acceleration;
+		nextVelocity=nextDistance;									//next distance is always less then or equal to maxVelocity
+		nextAcceleration =  min(  max((nextVelocity - (this->velocity)),(this->accelerationRange).first) , (this->accelerationRange).second);
+
+		acceleration=nextAcceleration;
+		this->velocity+=acceleration;
 		position.rightPos+=velocity;
-
-		//cout<<"vehicle is "<<this->getRepresentation()<<" position is " <<position.rightPos<<endl;
+		//need to consider collisions here
 
 		return position;
 	}
 
 	void Vehicle::setUpPos (int lane)
 	{
-		position.upPos =lane;
+		position.upPos = lane;
 
 	}
 

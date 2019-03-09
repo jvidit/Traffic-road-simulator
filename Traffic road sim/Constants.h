@@ -33,8 +33,12 @@ public:
     VehiclePosition defaultVehiclePosition;
     int defaultVehicleVelocity;
     int defaultVehicleMaxVelocity;           //minimum velocity is 0....no backwards movement allowed as of now
-    pair<int,int> defaultVehicleAccelerationRange;  //needs to be a multiple of 2
-    int defaultVehicleAcceleration;          //needs to be a multiple of 2
+    pair<int,int> defaultVehicleAccelerationRange;  
+    int defaultVehicleAcceleration;          
+
+    int maxAllowedVelocity;
+    int minAllowedAcceleration;
+    int maxAllowedAcceleration;
 
 
     SpecConsts();

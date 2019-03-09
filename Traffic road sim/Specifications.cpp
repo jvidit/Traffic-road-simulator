@@ -143,16 +143,15 @@ SpecConsts specConsts;
                     vehiclePosition.rightPos = 0;
                 }
             else if(!strcmp(toBeCompared,"vehicleVelocity"))
-                vehicleVelocity = toBeAssigned;
+                vehicleVelocity = min(toBeAssigned,specConsts.maxAllowedVelocity);
             else if(!strcmp(toBeCompared,"vehicleMaxVelocity"))
-                vehicleMaxVelocity = toBeAssigned;
+                vehicleMaxVelocity = min(toBeAssigned,specConsts.maxAllowedVelocity);
             else if(!strcmp(toBeCompared,"vehicleMinAcceleration"))
-                vehicleAccelerationRange.first = toBeAssigned;
+                vehicleAccelerationRange.first = max(toBeAssigned,specConsts.minAllowedAcceleration);
             else if(!strcmp(toBeCompared,"vehicleMaxAccelaration"))
-                vehicleAccelerationRange.second = toBeAssigned;
+                vehicleAccelerationRange.second = min(toBeAssigned,specConsts.maxAllowedAcceleration);
             else if(!strcmp(toBeCompared,"vehicleAcceleration"))
-                vehicleAcceleration = toBeAssigned;
-
+                vehicleAcceleration = max(specConsts.minAllowedAcceleration,min(specConsts.maxAllowedAcceleration,toBeAssigned));
         }
 
         if(vehicleRepresentation==' ')  
