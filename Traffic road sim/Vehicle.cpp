@@ -95,7 +95,21 @@
 	}
 
 
-
+	 void Vehicle::glVehicleShow()
+	 {
+	 	int upPos = position.upPos;
+	 	int rightPos = position.rightPos;
+	 	int downPos = upPos+width;
+	 	int leftPos = rightPos-length;
+	 	glColor3f(representation/256,0,1-representation/256);
+	 	glLoadIdentity();
+	 	glBegin(GL_POLYGON);
+   		glVertex2f(leftPos,downPos);
+   		glVertex2f(leftPos,upPos);
+   		glVertex2f(rightPos,upPos);
+   		glVertex2f(rightPos,downPos);
+   		glEnd();	
+	 }
 
 
 

@@ -8,6 +8,12 @@
 #include "Constants.h"
 #include "TrafficLight.h"
 
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
 
 using namespace std;
 
@@ -50,6 +56,8 @@ public:
     VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength],int time);
 
     void operator = (const Vehicle &vehicle);
+
+    void glVehicleShow();
     
 };
 
