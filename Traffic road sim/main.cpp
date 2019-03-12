@@ -17,6 +17,91 @@
 using namespace std;
 
 Specifications specifications;
+vector<AddVehicleEvent> addVehicle;
+vector<Vehicle> sortedByRightPos;
+
+void readSpecifications(string s);
+
+vector<AddVehicleEvent> readSimulationFlow(string fileName);
+
+void arrangeVehicle(vector<Vehicle> &v,int ind);
+
+void graphicsInitialization();
+
+void getRoad();
+
+int main(int argc, char **argv)
+{
+
+    glutInit(&argc,argv);
+    graphicsInitialization();
+    readSpecifications (configFile);
+
+
+    Road road=specifications.getRoadTemplate();
+    int roadLength=road.getLength();
+
+
+    addVehicle = readSimulationFlow(configFile);
+    
+
+    int time=-1;
+
+
+    //return 0;
+    while(sortedByRightPos.size() || addVehicle.size())
+    {  
+        time++;
+        //add new vehicles
+        while(addVehicle.size())
+        {
+            if(addVehicle[0].getTimeStamp()!=time)
+                break;
+
+            Vehicle newVehicle=addVehicle[0].getVehicle();
+            addVehicle.erase(addVehicle.begin());
+            sortedByRightPos.insert(sortedByRightPos.begin(),newVehicle);
+            arrangeVehicle(sortedByRightPos,0);
+            road.addVehicle(newVehicle);
+        }
+
+
+
+
+        //show road
+        cout<<"\n\nTIME INSTANT "+to_string(time)+"\n\n";
+        road.showRoad(time);
+
+        //changing vehicle positions for time t+1
+        for(int i=sortedByRightPos.size()-1;i>=0;i--)
+        {
+
+            road.moveVehicle(sortedByRightPos[i], time);
+            arrangeVehicle(sortedByRightPos,i);
+        }
+
+        //deleting vehicles out of scene
+        for(int i=sortedByRightPos.size()-1;i>=0;i--)
+        {
+            if(sortedByRightPos[i].getPosition().rightPos<roadLength)
+                break;
+
+            int leftPos=sortedByRightPos[i].getPosition().rightPos - sortedByRightPos[i].getPosition().length + 1;
+            if(leftPos>=roadLength)
+            {
+                road.removeVehicle(sortedByRightPos[i]);
+                sortedByRightPos.erase(sortedByRightPos.begin()+i);
+            }
+        }
+
+    }
+
+    glutMainLoop();
+    return 0;
+    
+
+}
+
 
 
 void readSpecifications(string fileName)
@@ -141,6 +226,12 @@ void readSpecifications(string fileName)
     
 }
 
+
+
+
+
+
+
 vector<AddVehicleEvent> readSimulationFlow(string fileName)
 {
 
@@ -241,7 +332,6 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
 
 
 
-
 void arrangeVehicle(vector<Vehicle> &v,int ind)
 {
     Vehicle temp = v[ind];
@@ -261,86 +351,34 @@ void arrangeVehicle(vector<Vehicle> &v,int ind)
 
 
 
-int main()
+void displayRoad()
 {
+  glClear(GL_COLOR_BUFFER_BIT);
+  //Push and pop matrix for separating circle object from Background
+  
+  for(int i=0;i<sortedByRightPos.size();i++)
+        sortedByRightPos[i].glVehicleShow();
 
-    
-    readSpecifications (configFile);
-
-
-
-    Road road=specifications.getRoadTemplate();
-    int roadLength=road.getLength();
-
-
-    vector<AddVehicleEvent> addVehicle = readSimulationFlow(configFile);
-    vector<Vehicle> sortedByRightPos;
-
-    int time=-1;
-
-
-    //return 0;
-    while(sortedByRightPos.size() || addVehicle.size())
-    {  
-        time++;
-        //add new vehicles
-        while(addVehicle.size())
-        {
-            if(addVehicle[0].getTimeStamp()!=time)
-                break;
-
-            Vehicle newVehicle=addVehicle[0].getVehicle();
-            addVehicle.erase(addVehicle.begin());
-            sortedByRightPos.insert(sortedByRightPos.begin(),newVehicle);
-            arrangeVehicle(sortedByRightPos,0);
-            road.addVehicle(newVehicle);
-        }
-
-
-
-
-        //show road
-        cout<<"\n\nTIME INSTANT "+to_string(time)+"\n\n";
-        road.showRoad(time);
-
-        //changing vehicle positions for time t+1
-        for(int i=sortedByRightPos.size()-1;i>=0;i--)
-        {
-
-            road.moveVehicle(sortedByRightPos[i], time);
-            arrangeVehicle(sortedByRightPos,i);
-        }
-
-        //deleting vehicles out of scene
-        for(int i=sortedByRightPos.size()-1;i>=0;i--)
-        {
-            if(sortedByRightPos[i].getPosition().rightPos<roadLength)
-                break;
-
-            int leftPos=sortedByRightPos[i].getPosition().rightPos - sortedByRightPos[i].getPosition().length + 1;
-            if(leftPos>=roadLength)
-            {
-                road.removeVehicle(sortedByRightPos[i]);
-                sortedByRightPos.erase(sortedByRightPos.begin()+i);
-            }
-        }
-
-    }
-    return 0;
-    
-
+  glutSwapBuffers();
+  glFlush();
 }
 
+void graphicsInitialization()
+{
+    glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
+    glutInitWindowSize(700,500);
+    glutInitWindowPosition(0,0);
+    glutCreateWindow("Traffic Road Simulation");
 
+    glClearColor(1,0.5,0.5,1); //Background Color
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0,700,0,500);
+    glMatrixMode(GL_MODELVIEW);
 
-
-
-
-
-
-
-
-
+    glutDisplayFunc(displayRoad);
+    glutIdleFunc(displayRoad);
+}
 
 
 
