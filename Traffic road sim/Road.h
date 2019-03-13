@@ -40,6 +40,8 @@ public:
     int getLength();
     int getWidth();
 
+    void glRoadTrafficLightShow(int t);
+
 
 };
 

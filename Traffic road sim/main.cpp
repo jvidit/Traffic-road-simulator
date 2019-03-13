@@ -35,7 +35,7 @@ void graphicsInitialization();
 
 void getRoad();
 
-void displayRoad();
+void displayRoad(int t);
 
 void runSimulation();
 
@@ -60,7 +60,7 @@ void runSimulation()
    
     int roadLength=road.getLength();
     //return 0;
-     cin.get();
+    cin.get();
     if(stop==1)
     {
         glutDestroyWindow(1);
@@ -89,7 +89,7 @@ void runSimulation()
         //show road
         cout<<"\n\nTIME INSTANT "+to_string(timeInstant)+"\n\n";
         road.showRoad(timeInstant);
-        displayRoad();
+        displayRoad(timeInstant);
         
          //changing vehicle positions for time t+1
         for(int i=sortedByRightPos.size()-1;i>=0;i--)
@@ -372,14 +372,15 @@ void arrangeVehicle(vector<Vehicle> &v,int ind)
 
 
 
-void displayRoad()
+void displayRoad(int t)
 {
   glClear(GL_COLOR_BUFFER_BIT);
   //Push and pop matrix for separating circle object from Background
   
   for(int i=0;i<sortedByRightPos.size();i++)
-        sortedByRightPos[i].glVehicleShow();
+        sortedByRightPos[i].glVehicleShow(road.getWidth());
 
+  road.glRoadTrafficLightShow(t);  
   glutSwapBuffers();
   glFlush();
 }

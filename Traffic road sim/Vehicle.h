@@ -58,7 +58,7 @@ public:
 
     void operator = (const Vehicle &vehicle);
 
-    void glVehicleShow();
+    void glVehicleShow(int roadWidth);
     
 };
 

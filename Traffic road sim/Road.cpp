@@ -94,9 +94,9 @@
 
     	char representation=vehicle.getRepresentation();
         int leftPos,downPos,upPos,rightPos;
-        
+
     	this->removeVehicle(vehicle);
-        
+
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time);
 
     	//moving to new place
@@ -105,7 +105,7 @@
         downPos=newVehiclePosition.upPos+newVehiclePosition.width-1;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         
-        
+
         /*
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
@@ -176,6 +176,23 @@
     int Road::getWidth()
     {   return width;     }
 
+
+    void Road::glRoadTrafficLightShow(int t)
+     {
+        
+        int trafficLightPosition = alpha*trafficLight.getPosition();
+        if(trafficLight.isRed(t))
+            glColor3f(1,0,0);
+        else
+            glColor3f(0,1,0);
+        glLoadIdentity();
+        glBegin(GL_POLYGON);
+        glVertex2i(trafficLightPosition,alpha*width);
+        glVertex2i(trafficLightPosition,0);
+        glVertex2i(trafficLightPosition+(alpha+5)/5,0);
+        glVertex2i(trafficLightPosition+(alpha+5)/5,alpha*width);
+        glEnd();    
+     }
 
 
 
