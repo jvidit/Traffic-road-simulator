@@ -60,7 +60,7 @@ void runSimulation()
    
     int roadLength=road.getLength();
     //return 0;
-    cin.get();
+    
     if(stop==1)
     {
         glutDestroyWindow(1);
@@ -119,7 +119,7 @@ void runSimulation()
     {
         stop =1;
     }
-
+    cin.get();
     
 }
 
@@ -379,6 +379,7 @@ void displayRoad(int t)
   
   for(int i=0;i<sortedByRightPos.size();i++)
         sortedByRightPos[i].glVehicleShow(road.getWidth());
+
 
   road.glRoadTrafficLightShow(t);  
   glutSwapBuffers();

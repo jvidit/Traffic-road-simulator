@@ -98,13 +98,14 @@
 	 void Vehicle::glVehicleShow(int roadWidth)
 	 {
 	 	
+	 	
 	 	int upPos = alpha*(roadWidth-position.upPos);
-	 	int rightPos = alpha*position.rightPos;
+	 	int rightPos = alpha*(position.rightPos+1);
 	 	int downPos = (upPos-alpha*width);
 	 	int leftPos = (rightPos-alpha*length);
-	 	
-	 	glColor3f(0,0,1);
+	 	cout<<rightPos<<endl;
 	 	glLoadIdentity();
+	 	glColor3f(0,0,1);
 	 	glBegin(GL_POLYGON);
    		glVertex2i(leftPos,upPos);
    		glVertex2i(leftPos,downPos);

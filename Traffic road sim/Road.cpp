@@ -180,7 +180,7 @@
     void Road::glRoadTrafficLightShow(int t)
      {
         
-        int trafficLightPosition = alpha*trafficLight.getPosition();
+        int trafficLightPosition = alpha*(trafficLight.getPosition()+1);
         if(trafficLight.isRed(t))
             glColor3f(1,0,0);
         else
