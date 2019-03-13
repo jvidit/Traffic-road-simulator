@@ -103,7 +103,6 @@
 	 	int rightPos = alpha*(position.rightPos+1);
 	 	int downPos = (upPos-alpha*width);
 	 	int leftPos = (rightPos-alpha*length);
-	 	cout<<rightPos<<endl;
 	 	glLoadIdentity();
 	 	glColor3f(0,0,1);
 	 	glBegin(GL_POLYGON);
