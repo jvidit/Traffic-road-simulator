@@ -94,9 +94,9 @@
 
     	char representation=vehicle.getRepresentation();
         int leftPos,downPos,upPos,rightPos;
-
+        
     	this->removeVehicle(vehicle);
-
+        
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time);
 
     	//moving to new place
@@ -104,6 +104,7 @@
         rightPos=min(newVehiclePosition.rightPos,length);
         downPos=newVehiclePosition.upPos+newVehiclePosition.width-1;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        
         
         /*
         if(downPos > width -1) 
@@ -172,6 +173,8 @@
     int Road::getLength()
     {   return length;     }
 
+    int Road::getWidth()
+    {   return width;     }
 
 
 

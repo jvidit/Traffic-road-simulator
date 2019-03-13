@@ -29,6 +29,7 @@ class Vehicle{
 	pair <int,int> accelerationRange;	//needs to be a multiple of 2
 	int acceleration;					//needs to be a multiple of 2
 	string type;
+	
 
 public:
 

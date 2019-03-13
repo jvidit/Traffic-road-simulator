@@ -34,11 +34,12 @@ public:
     void removeVehicle(Vehicle &vehicle);
     void moveVehicle(Vehicle &vehicle, int time);
     
-
     void showRoad(int time);    
     void operator = (const Road &road);
 
     int getLength();
+    int getWidth();
+
 
 };
 

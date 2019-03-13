@@ -13,12 +13,17 @@
 #include <stdio.h>
 #include <string.h>
 #include "AddVehicleEvent.h"
+#include "Constants.h"
 
 using namespace std;
 
 Specifications specifications;
 vector<AddVehicleEvent> addVehicle;
 vector<Vehicle> sortedByRightPos;
+Road road;
+int timeInstant;
+int stop = 0 ;
+
 
 void readSpecifications(string s);
 
@@ -30,32 +35,45 @@ void graphicsInitialization();
 
 void getRoad();
 
+void displayRoad();
+
+void runSimulation();
+
 int main(int argc, char **argv)
 {
+    readSpecifications (configFile);
+    road=specifications.getRoadTemplate();
+    addVehicle = readSimulationFlow(configFile);
+    timeInstant=-1;
 
     glutInit(&argc,argv);
     graphicsInitialization();
-    readSpecifications (configFile);
+    glutDisplayFunc(runSimulation);
+    glutIdleFunc(runSimulation);
+    glutMainLoop();
+    return 0;
+}
 
+void runSimulation()
+{
 
-    Road road=specifications.getRoadTemplate();
+   
     int roadLength=road.getLength();
-
-
-    addVehicle = readSimulationFlow(configFile);
-    
-
-    int time=-1;
-
-
     //return 0;
-    while(sortedByRightPos.size() || addVehicle.size())
-    {  
-        time++;
+     cin.get();
+    if(stop==1)
+    {
+        glutDestroyWindow(1);
+        return;
+    }
+
+    
+       
+        timeInstant++;
         //add new vehicles
         while(addVehicle.size())
         {
-            if(addVehicle[0].getTimeStamp()!=time)
+            if(addVehicle[0].getTimeStamp()!=timeInstant)
                 break;
 
             Vehicle newVehicle=addVehicle[0].getVehicle();
@@ -69,14 +87,16 @@ int main(int argc, char **argv)
 
 
         //show road
-        cout<<"\n\nTIME INSTANT "+to_string(time)+"\n\n";
-        road.showRoad(time);
-
-        //changing vehicle positions for time t+1
+        cout<<"\n\nTIME INSTANT "+to_string(timeInstant)+"\n\n";
+        road.showRoad(timeInstant);
+        displayRoad();
+        
+         //changing vehicle positions for time t+1
         for(int i=sortedByRightPos.size()-1;i>=0;i--)
         {
+            
+            road.moveVehicle(sortedByRightPos[i], timeInstant);
 
-            road.moveVehicle(sortedByRightPos[i], time);
             arrangeVehicle(sortedByRightPos,i);
         }
 
@@ -86,7 +106,8 @@ int main(int argc, char **argv)
             if(sortedByRightPos[i].getPosition().rightPos<roadLength)
                 break;
 
-            int leftPos=sortedByRightPos[i].getPosition().rightPos - sortedByRightPos[i].getPosition().length + 1;
+            int leftPos=sortedByRightPos[i].getPosition().rightPos - sortedByRightPos[i].getPosition().length;
+
             if(leftPos>=roadLength)
             {
                 road.removeVehicle(sortedByRightPos[i]);
@@ -94,12 +115,12 @@ int main(int argc, char **argv)
             }
         }
 
+    if(!(sortedByRightPos.size() || addVehicle.size()))
+    {
+        stop =1;
     }
 
-    glutMainLoop();
-    return 0;
     
-
 }
 
 
@@ -365,19 +386,19 @@ void displayRoad()
 
 void graphicsInitialization()
 {
+    
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
-    glutInitWindowSize(700,500);
+    glutInitWindowSize(alpha*road.getLength(),alpha*road.getWidth());
     glutInitWindowPosition(0,0);
     glutCreateWindow("Traffic Road Simulation");
 
     glClearColor(1,0.5,0.5,1); //Background Color
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0,700,0,500);
+    gluOrtho2D(0,alpha*road.getLength(),0,alpha*road.getWidth());
     glMatrixMode(GL_MODELVIEW);
 
-    glutDisplayFunc(displayRoad);
-    glutIdleFunc(displayRoad);
+    
 }
 
 
