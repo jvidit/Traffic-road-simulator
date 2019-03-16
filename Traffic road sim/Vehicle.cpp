@@ -111,10 +111,6 @@
 				}
 				dist[ind+2]=min(temp_dist,maxVelocity);
 			}
-			cout<<"Calculated distances in Vehicle "+type+"\n";
-			for(int i=0;i<5;i++)
-				cout<<dist[i]<<" ";
-			cout<<endl;
 
 			int priority[5]={-2,-1,2,1,0};
 			for(int i=0;i<5;i++)
@@ -165,10 +161,11 @@
 
 	void Vehicle::glVehicleShow(int roadWidth)
 	{
-	 	int upPos = alpha*(roadWidth-position.upPos);
-	 	int rightPos = alpha*(position.rightPos+1);
-	 	int downPos = (upPos-alpha*width);
-	 	int leftPos = (rightPos-alpha*length);
+		float spacingFactor = 0.4;
+	 	int upPos = alpha*(roadWidth-position.upPos) - spacingFactor*alpha;
+	 	int rightPos = alpha*(position.rightPos+1) - spacingFactor*alpha;
+	 	int downPos = (upPos-alpha*width) + spacingFactor*alpha;
+	 	int leftPos = (rightPos-alpha*length) + spacingFactor*alpha;
 	 	glLoadIdentity();
 	 	glColor3f(0,0,1);
 	 	glBegin(GL_POLYGON);
