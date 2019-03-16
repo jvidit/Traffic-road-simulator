@@ -33,6 +33,7 @@ class Vehicle{
 	int colourBlue;
 	int colourGreen;
 	
+	bool hasRedAhead(TrafficLight tl, int time, int nextDistance);
 
 public:
 
@@ -57,7 +58,8 @@ public:
 
     void setUpPos (int lane);
 
-    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength],int time);
+
+    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength],int time,vector<Vehicle> sortedByRightPos);
 
     void operator = (const Vehicle &vehicle);
 

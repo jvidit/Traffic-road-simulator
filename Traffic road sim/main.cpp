@@ -95,7 +95,7 @@ void runSimulation()
         for(int i=sortedByRightPos.size()-1;i>=0;i--)
         {
             
-            road.moveVehicle(sortedByRightPos[i], timeInstant);
+            road.moveVehicle(sortedByRightPos[i], timeInstant, sortedByRightPos);
 
             arrangeVehicle(sortedByRightPos,i);
         }

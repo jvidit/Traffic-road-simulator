@@ -1,0 +1,15 @@
+### Starting build.
+Backtrace:
+                      - Failed to build the target a0.cmo
+                          - Building a0.cmo:
+                              - Failed to build all of these:
+                                  - Building a0.ml:
+                                      - Failed to build all of these:
+                                          - Building a0.mly
+                                          - Building a0.mll
+                                  - Building a0.mli:
+                                      - Building a0.mly
+                                  - Building a0.mlpack
+                                  - Building a0.mli:
+                                      - Building a0.mly
+# Compilation unsuccessful.

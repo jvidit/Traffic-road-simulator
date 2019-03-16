@@ -32,7 +32,7 @@ public:
 
     void addVehicle(Vehicle &vehicle);
     void removeVehicle(Vehicle &vehicle);
-    void moveVehicle(Vehicle &vehicle, int time);
+    void moveVehicle(Vehicle &vehicle, int time,vector<Vehicle> sortedByRightPos);
     
     void showRoad(int time);    
     void operator = (const Road &road);
