@@ -10,7 +10,6 @@ public:
 	int upPos;
 	int length;
 	int width;
-
 	void operator = (const VehiclePosition &pvehiclePosition);
 };
 

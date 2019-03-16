@@ -35,7 +35,10 @@ public:
     int defaultVehicleVelocity;
     int defaultVehicleMaxVelocity;           //minimum velocity is 0....no backwards movement allowed as of now
     pair<int,int> defaultVehicleAccelerationRange;  
-    int defaultVehicleAcceleration;          
+    int defaultVehicleAcceleration;  
+    int defaultVehicleColourRed;
+    int defaultVehicleColourGreen;
+    int defaultVehicleColourBlue;      
 
     int maxAllowedVelocity;
     int minAllowedAcceleration;

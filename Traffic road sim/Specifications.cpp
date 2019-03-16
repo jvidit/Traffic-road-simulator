@@ -97,8 +97,12 @@ SpecConsts specConsts;
                 specConsts.defaultVehicleAccelerationRange.second = toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleAcceleration"))
                specConsts.defaultVehicleAcceleration = toBeAssigned;
-
-
+            else if(!strcmp(toBeCompared,"defaultVehicleColourRed"))
+               specConsts.defaultVehicleColourRed = toBeAssigned;
+            else if(!strcmp(toBeCompared,"defaultVehicleColourGreen"))
+               specConsts.defaultVehicleColourGreen = toBeAssigned;
+            else if(!strcmp(toBeCompared,"defaultVehicleColourBlue"))
+               specConsts.defaultVehicleColourBlue = toBeAssigned;
         }
     }
 
@@ -114,8 +118,10 @@ SpecConsts specConsts;
         int vehicleVelocity = specConsts.defaultVehicleVelocity;
         int vehicleMaxVelocity = specConsts.defaultVehicleMaxVelocity;                 //minimum velocity is 0...no backwards movement allowed as of now
         pair<int,int> vehicleAccelerationRange = specConsts.defaultVehicleAccelerationRange ; //needs to be a multiple of 2
-        int vehicleAcceleration = specConsts.defaultVehicleAcceleration;                   //needs to be a multiple of 2
-        
+        int vehicleAcceleration = specConsts.defaultVehicleAcceleration;                  
+        int vehicleColourRed = specConsts.defaultVehicleColourRed;
+        int vehicleColourGreen = specConsts.defaultVehicleColourGreen;
+        int vehicleColourBlue = specConsts.defaultVehicleColourBlue;
 
         const char *toBeCompared;
         int toBeAssigned;
@@ -152,6 +158,12 @@ SpecConsts specConsts;
                 vehicleAccelerationRange.second = min(toBeAssigned,specConsts.maxAllowedAcceleration);
             else if(!strcmp(toBeCompared,"vehicleAcceleration"))
                 vehicleAcceleration = max(specConsts.minAllowedAcceleration,min(specConsts.maxAllowedAcceleration,toBeAssigned));
+            else if(!strcmp(toBeCompared,"vehicleColourRed"))
+                vehicleColourRed = toBeAssigned;
+            else if(!strcmp(toBeCompared,"vehicleColourGreen"))
+                vehicleColourGreen = toBeAssigned;
+            else if(!strcmp(toBeCompared,"vehicleColourBlue"))
+                vehicleColourBlue = toBeAssigned;
         }
 
         if(vehicleRepresentation==' ')  
@@ -160,7 +172,7 @@ SpecConsts specConsts;
         vehiclePosition.length = vehicleLength;
         vehiclePosition.width = vehicleWidth;
         
-        vehicleTemplates[vehicleType] = *(new Vehicle(vehicleId, vehicleLength, vehicleWidth, vehicleRepresentation, vehiclePosition, vehicleVelocity, vehicleMaxVelocity, vehicleAccelerationRange, vehicleAcceleration, vehicleType));
+        vehicleTemplates[vehicleType] = *(new Vehicle(vehicleId, vehicleLength, vehicleWidth, vehicleRepresentation, vehiclePosition, vehicleVelocity, vehicleMaxVelocity, vehicleAccelerationRange, vehicleAcceleration, vehicleType, vehicleColourRed, vehicleColourGreen, vehicleColourBlue));
         
     }
     

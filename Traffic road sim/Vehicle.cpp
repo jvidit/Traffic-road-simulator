@@ -2,7 +2,7 @@
 #include "Vehicle.h"
 #include <iostream>
              
-	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type)
+	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type, int colourRed, int colourGreen, int colourBlue)
 	{
 
 		//If error arises, consider allocating space for user defined objects
@@ -16,6 +16,9 @@
 		this->accelerationRange=accelerationRange;
 		this->acceleration=acceleration;
 		this->type=type;
+		this->colourRed=colourRed;
+		this->colourBlue=colourBlue;
+		this->colourGreen=colourGreen;
 	}
 
 	Vehicle::Vehicle()
@@ -92,6 +95,9 @@
 		accelerationRange=vehicle.accelerationRange;
 		acceleration=vehicle.acceleration;
 		type=vehicle.type;
+		colourRed=vehicle.colourRed;
+		colourBlue=vehicle.colourBlue;
+		colourGreen=vehicle.colourGreen;
 	}
 
 
@@ -104,7 +110,7 @@
 	 	int downPos = (upPos-alpha*width);
 	 	int leftPos = (rightPos-alpha*length);
 	 	glLoadIdentity();
-	 	glColor3f(0,0,1);
+	 	glColor3f(colourRed,colourGreen,colourBlue);
 	 	glBegin(GL_POLYGON);
    		glVertex2i(leftPos,upPos);
    		glVertex2i(leftPos,downPos);
