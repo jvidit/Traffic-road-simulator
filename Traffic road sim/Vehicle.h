@@ -7,6 +7,7 @@
 #include <string>
 #include "Constants.h"
 #include "TrafficLight.h"
+#include <vector>
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>

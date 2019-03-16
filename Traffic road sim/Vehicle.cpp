@@ -1,6 +1,6 @@
 #include "Vehicle.h"
 #include <iostream>
-#include <vector>
+
              
 	Vehicle::Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type, int colourRed, int colourGreen, int colourBlue)
 	{
@@ -167,11 +167,11 @@
 
 	void Vehicle::glVehicleShow(int roadWidth)
 	{
-		float spacingFactor = 0.4;
-	 	int upPos = alpha*(roadWidth-position.upPos) - spacingFactor*alpha;
-	 	int rightPos = alpha*(position.rightPos+1) - spacingFactor*alpha;
-	 	int downPos = (upPos-alpha*width) + spacingFactor*alpha;
-	 	int leftPos = (rightPos-alpha*length) + spacingFactor*alpha;
+		
+	 	int upPos = alpha*(roadWidth-position.upPos) - spacingFact*alpha;
+	 	int rightPos = alpha*(position.rightPos+1) - spacingFact*alpha;
+	 	int downPos = (upPos-alpha*width) + 2*spacingFact*alpha;
+	 	int leftPos = (rightPos-alpha*length) + spacingFact*alpha;
 	 	glLoadIdentity();
 	 	glColor3f(colourRed,colourGreen,colourBlue);
 	 	glBegin(GL_POLYGON);

@@ -12,6 +12,7 @@ const int roadMaxLength = 1000;
 const int simulationTimeDuration = 1;
 const string configFile = "config.ini";
 const int alpha = 30;
+const float spacingFact = 0.1;
 
 class SpecConsts
 {

@@ -7,6 +7,7 @@
 #include "VehiclePosition.h"
 #include "Vehicle.h"
 #include "Constants.h"
+#include <vector>
 
 class Road
 {
