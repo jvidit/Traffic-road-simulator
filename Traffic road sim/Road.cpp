@@ -1,5 +1,6 @@
 #include "Road.h"
 #include <iostream>
+#include <vector>
     
     void Road::initialise_positionArr()
     {
@@ -88,7 +89,7 @@
         }
     }
 
-    void Road::moveVehicle(Vehicle &vehicle, int time)
+    void Road::moveVehicle(Vehicle &vehicle, int time, vector<Vehicle> sortedByRightPos)
     {
 
 
@@ -97,7 +98,7 @@
 
     	this->removeVehicle(vehicle);
 
-        VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time);
+        VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time, sortedByRightPos);
 
     	//moving to new place
         leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length+1,0); 

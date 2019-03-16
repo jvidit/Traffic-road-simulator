@@ -30,6 +30,7 @@ class Vehicle{
 	int acceleration;					//needs to be a multiple of 2
 	string type;
 	
+	bool hasRedAhead(TrafficLight tl, int time, int nextDistance);
 
 public:
 
@@ -54,7 +55,8 @@ public:
 
     void setUpPos (int lane);
 
-    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength],int time);
+
+    VehiclePosition updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength],int time,vector<Vehicle> sortedByRightPos);
 
     void operator = (const Vehicle &vehicle);
 
