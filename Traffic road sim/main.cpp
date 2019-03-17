@@ -14,6 +14,8 @@
 #include <string.h>
 #include "AddVehicleEvent.h"
 #include "Constants.h"
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -23,7 +25,9 @@ vector<Vehicle> sortedByRightPos;
 Road road;
 int timeInstant;
 int stop = 0 ;
+int start = 0;
 
+string configFile = "config.ini";
 
 void readSpecifications(string s);
 
@@ -41,6 +45,10 @@ void runSimulation();
 
 int main(int argc, char **argv)
 {
+    cout<<"Enter Configuration File name - ";
+    cin>>configFile;
+    cin.get();
+    cout<<endl;
     readSpecifications (configFile);
     road=specifications.getRoadTemplate();
     addVehicle = readSimulationFlow(configFile);
@@ -63,11 +71,20 @@ void runSimulation()
     
     if(stop==1)
     {
+        cout<<"\n\nTIME INSTANT "+to_string(timeInstant)+"\n\n";
+        road.showRoad(timeInstant);
+        displayRoad(timeInstant);
+        cout<<"Press Enter to exit"<<endl;
+        cin.get();
         glutDestroyWindow(1);
         return;
     }
-
-    
+    if(start == 0)
+    {
+        cout<<"Press Enter to start simulation"<<endl;
+        cin.get();  
+        start=1;  
+    }
        
         timeInstant++;
         //add new vehicles
@@ -119,7 +136,7 @@ void runSimulation()
     {
         stop =1;
     }
-    cin.get();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     
 }
 
@@ -392,7 +409,7 @@ void graphicsInitialization()
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
     glutInitWindowSize(alpha*road.getLength(),alpha*road.getWidth());
     glutInitWindowPosition(0,0);
-    glutCreateWindow("Traffic Road Simulation");
+    glutCreateWindow(("Traffic Road Simulation- "+configFile).c_str());
 
     glClearColor(1,0.5,0.5,1); //Background Color
     glMatrixMode(GL_PROJECTION);
