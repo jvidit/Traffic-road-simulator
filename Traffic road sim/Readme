@@ -1,0 +1,96 @@
+Indian Traffic Road Simulation:
+-------------------------------
+-------------------------------
+
+The code simulates a general one way Indian traffic road, which has a traffic light, along with several types of vehicles. The user must write a config file in which, they may specify various details pertaining to the characteristics of road, traffic light and vehicles. 
+
+Structure of the Config file:
+-----------------------------
+The config file is broadly divided in 2 parts : Specifications and Simulation. There can be comments at the end of lines and in new lines. Comments start with hash symbol(#). Note that error handling is not robust and the user must not enter wrong values in the Config file.
+
+SPECIFICATIONS:
+
+This section must start with the keyword "START_SPECIFICATIONS", with commands following in subsequent lines. The section is ended with the "END" keyword. 
+
+There are 4 broadly subsections in the Specifications part. In each subsection, the user can choose to define various parameters. In case a parameter isn't defined, a default value is assigned to it. All these default values are written in the file Constant.cpp and can be edited. 
+
+1. Road parameters: 
+a) roadId
+b) roadLength
+c) roadWidth
+
+2. Traffic Light parameters: 
+a) trafficLightId                                                
+b) trafficLightRedPeriod : time for which traffic signal stays red
+c) trafficLightGreenPeriod : time for which traffic siganl stays green
+d) trafficLightRedFirst : 1, if the traffic light is red initially, otherwise 0
+e) trafficLightPosition : position with respect to the length of the road
+
+3. Default Vehicle parameters: As will be discussed in section 4, the user can define standard templates for vehicles. Parameters which the user doesn't wish to specify are assigned default values. It might be the case that the user wishes to keep values of certain parameters the same across many templates. In that case, the user may define their own default values for those parameters in this section. Note that if the user leaves some value in this, as well as section 4 empty, a default value is assigned to it.
+a) defaultVehicleId 
+b) defaultVehicleLength
+c) defaultVehicleWidth
+d) defaultVehicleRepresentation      
+e) defaultVehiclePosition
+f) defaultVehicleLane
+g) defaultVehicleVelocity
+h) defaultVehicleMaxVelocity        
+i) defaultVehicleMinAcceleration              
+j) defaultVehicleMaxAcceleration 
+k) defaultVehicleAcceleration
+l) defaultVehicleColourRed : takes value between 0 and 255
+m) defaultVehicleColourGreen : takes value between 0 and 255
+n) defaultVehicleColourBlue : takes value between 0 and 255
+
+4. One may define a vehicle template in this section. Each template must start with the keyword "startVehicleDef", with commands following in subsquent lines. The section is ended with the "end" keyword. Note that the first parameter in this section must be vehicleType which can't be skipped.
+a) vehicleType
+b) vehicleId 
+b) vehicleLength
+d) vehicleWidth
+e) vehicleRepresentation      
+f) vehiclePosition
+g) vehicleLane
+h) vehicleVelocity
+i) vehicleMaxVelocity        
+j) vehicleMinAcceleration              
+k) vehicleMaxAcceleration 
+l) vehicleAcceleration
+m) vehicleColourRed
+n) vehicleColourGreen
+o) vehicleColourBlue
+
+
+
+
+SIMULATION:
+
+This section must start with the keyword "START_SIMULATION", with commands following in subsequent lines. The section is ended with the "END" keyword.
+
+There are 2 types of commands in this section which can be called as desired to determine the simulation flow. 
+
+1. The "pass" command : Writing pass = <i>, where i is some integer runs the simulation for i more time units. 
+
+2. adding vehicles: Each add vehicle command begins with the keyword "startVehicleSim", with commands following in subsequent lines. The sub-section is ended with the "end" keyword. The first parameter in this section must be vehicleType which can't be skipped. Here we specify vehicleType to be one among those defined in section 4 of SPECIFICATIONS section. vehicleLane specifies the lane where vehicle enters the simulation, 0 being the top-most on screen. Caution must be observed to ensure that lane should not be such that vehicle lies outside road. 
+
+
+Simulation output:
+------------------
+
+The code was tested on three different configuration files (config1.ini, config2.ini and config3.ini) and their openGL and terminal outputs captured (simulation1.webm, simulation2.webm, simulation3.webm). The following was observed: vehicles overtake and try to utilize all the lanes at traffic stop, vehicles slow-down and stop at traffic-light and also if there is some stationary vehicle ahead of them, vehicles don't stop if some part of them have passed through traffic-light while it turns red, and vehicles speed-up and start again when traffic-light turns green. Variation in speeds can also be observed.  
+
+
+Simulation1:
+—————————————
+Initially, a blue car enters the road. As it sees no obstruction, it accelerates and attains its maximum velocity. Seeing the light as red, it decelerates and stops. Meanwhile, a blue bike and a red truck enter the road, also moving at maximum speeds. A pink bus, along with a blue car behind it enters the road. Seeing the truck as slow, this car overtakes the bus choosing the most convenient route. Another blue bike enters. Seeing the green light, the car in front moves out the road. Seeing the red light, all the other 4 vehicles stop. All vehicles obtain optimum positions so as to maximise their distance covered. As the light turns green, all vehicles proceed to move out of view.   
+ 
+
+Simulation2:
+—————————————
+A standard movement of vehicles in straight lines. The vehicles stop seeing the red light, and move out of the scene as the light turns green. 
+
+Simulation1:
+—————————————
+One may observe the overtaking of the slow truck by 2 bikes, trying to maintain their maximum velocities. Preference is given to overtaking by right. 
+
+
+
