@@ -69,7 +69,7 @@
 					flag=1;
 					break;
 				}
-				if((positionArr[i][rightPos + 1 + nextDistance] != '-'))		//Has a car ahead
+				if((positionArr[i][rightPos + 1 + nextDistance*alpha] != '-'))		//Has a car ahead
 				{
 					if(expectedDistance>nextDistance)
 						considerOverTaking=true;
@@ -88,12 +88,12 @@
 		//In our model, that implies an increase in the lane position of the car
 		if(considerOverTaking)
 		{
-			int dist[5];										//disti is the distance available in lane[downPos+i-2]
-			for(int ind=-2;ind<=2;ind++)
+			int dist[5*alpha];										//disti is the distance available in lane[downPos+i-2]
+			for(int ind=-2*alpha;ind<=2*alpha;ind++)
 			{
 				if(upPos+ind<0 || downPos+ind>=roadWidth)
 				{
-					dist[ind+2]=0;
+					dist[ind+2*alpha]=0;
 					continue;
 				}
 				int temp_dist=0;
@@ -112,13 +112,13 @@
 						break;
 					temp_dist++;
 				}
-				dist[ind+2]=min(temp_dist,maxVelocity);
+				dist[ind+2*alpha]=min(temp_dist,maxVelocity);
 			}
 
 			int priority[5]={-2,-1,2,1,0};
 			for(int i=0;i<5;i++)
 			{
-				int temp_dist=dist[priority[i]+2];
+				int temp_dist=dist[priority[i]+2*alpha];
 				if(temp_dist>=nextDistance || temp_dist>=expectedDistance)		
 				{	
 					laneShift=priority[i];
@@ -168,10 +168,10 @@
 	void Vehicle::glVehicleShow(int roadWidth)
 	{
 		
-	 	int upPos = alpha*(roadWidth-position.upPos) - spacingFact*alpha;
-	 	int rightPos = alpha*(position.rightPos+1) - spacingFact*alpha;
-	 	int downPos = (upPos-alpha*width) + 2*spacingFact*alpha;
-	 	int leftPos = (rightPos-alpha*length) + spacingFact*alpha;
+	 	int upPos = (roadWidth-position.upPos) - spacingFact*alpha;
+	 	int rightPos = (position.rightPos+1) - spacingFact*alpha;
+	 	int downPos = (upPos-width) + 2*spacingFact*alpha;
+	 	int leftPos = (rightPos-length) + spacingFact*alpha;
 	 	glLoadIdentity();
 	 	glColor3f(colourRed,colourGreen,colourBlue);
 	 	glBegin(GL_POLYGON);

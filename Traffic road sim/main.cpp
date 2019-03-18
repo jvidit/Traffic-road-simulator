@@ -136,7 +136,7 @@ void runSimulation()
     {
         stop =1;
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(pauseTime));
     
 }
 
@@ -336,7 +336,7 @@ vector<AddVehicleEvent> readSimulationFlow(string fileName)
                         int RHS = stoi(line.substr(delimiterPos + 1, commentPos));
                         
                         if(!strcmp(LHS.c_str(),"vehicleLane"))
-                            lane = RHS;
+                            lane = alpha*RHS;
                         
                     }
                     else if (line.size()>=3&&!strcmp(line.substr(0, 3).c_str(),"end"))
@@ -407,14 +407,14 @@ void graphicsInitialization()
 {
     
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
-    glutInitWindowSize(alpha*road.getLength(),alpha*road.getWidth());
+    glutInitWindowSize(road.getLength(),road.getWidth());
     glutInitWindowPosition(0,0);
     glutCreateWindow(("Traffic Road Simulation- "+configFile).c_str());
 
     glClearColor(1,0.5,0.5,1); //Background Color
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0,alpha*road.getLength(),0,alpha*road.getWidth());
+    gluOrtho2D(0,road.getLength(),0,road.getWidth());
     glMatrixMode(GL_MODELVIEW);
 
     

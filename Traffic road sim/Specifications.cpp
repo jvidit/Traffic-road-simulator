@@ -39,16 +39,16 @@ SpecConsts specConsts;
                 roadId = toBeAssigned;
             else if(!strcmp(toBeCompared,"roadLength"))
                 {
-                    roadLength = toBeAssigned;
-                    trafficLightPosition = toBeAssigned/2;
+                    roadLength = alpha*toBeAssigned;
+                    trafficLightPosition = alpha*toBeAssigned/2;
                 }
             else if(!strcmp(toBeCompared,"roadWidth"))
-                roadWidth = toBeAssigned;
+                roadWidth = alpha*toBeAssigned;
 
             else if(!strcmp(toBeCompared,"trafficLightId"))
                 trafficLightId = toBeAssigned;
             else if(!strcmp(toBeCompared,"trafficLightPosition"))
-                trafficLightPosition = toBeAssigned;
+                trafficLightPosition = alpha*toBeAssigned;
             else if(!strcmp(toBeCompared,"trafficLightRedPeriod"))
                 trafficLightRedPeriod = toBeAssigned;
             else if(!strcmp(toBeCompared,"trafficLightGreenPeriod"))
@@ -77,14 +77,14 @@ SpecConsts specConsts;
             if(!strcmp(toBeCompared,"defaultVehicleId"))
                 specConsts.defaultVehicleId = toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleLength"))
-                specConsts.defaultVehicleLength = toBeAssigned;
+                specConsts.defaultVehicleLength = alpha*toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleWidth"))
-                specConsts.defaultVehicleWidth = toBeAssigned;
+                specConsts.defaultVehicleWidth = alpha*toBeAssigned;
             else if(!strcmp(toBeCompared,"defaultVehicleRepresentation"))
                 specConsts.defaultVehicleRepresentation = char(toBeAssigned);
             else if(!strcmp(toBeCompared,"defaultVehicleLane"))
                 {
-                    specConsts.defaultVehiclePosition.upPos = toBeAssigned;
+                    specConsts.defaultVehiclePosition.upPos = alpha*toBeAssigned;
                     specConsts.defaultVehiclePosition.rightPos = 0;
                 }
             else if(!strcmp(toBeCompared,"defaultVehicleVelocity"))
@@ -137,15 +137,15 @@ SpecConsts specConsts;
             if(!strcmp(toBeCompared,"vehicleId"))
                 vehicleId = toBeAssigned;
             else if(!strcmp(toBeCompared,"vehicleLength"))
-                vehicleLength = toBeAssigned;
+                vehicleLength = alpha*toBeAssigned;
             else if(!strcmp(toBeCompared,"vehicleWidth"))
-                vehicleWidth = toBeAssigned;
+                vehicleWidth = alpha*toBeAssigned;
             else if(!strcmp(toBeCompared,"vehicleRepresentation"))
                 vehicleRepresentation = char(toBeAssigned);
                 
             else if(!strcmp(toBeCompared,"vehicleLane"))
                 {
-                    vehiclePosition.upPos = toBeAssigned;
+                    vehiclePosition.upPos = alpha*toBeAssigned;
                     vehiclePosition.rightPos = 0;
                 }
             else if(!strcmp(toBeCompared,"vehicleVelocity"))

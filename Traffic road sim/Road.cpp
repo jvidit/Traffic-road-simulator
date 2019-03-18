@@ -137,11 +137,14 @@
             for(int i=0;i<width;i++)
             {
                 for(int j = 0;j<length;j++)
-                    if (j==trafficLight.getPosition())
+                    {
+                        if ((i%alpha==0) &&(j==trafficLight.getPosition()))
                         cout<<positionArr[i][j]<<'|';
-                    else
+                        else if((i%alpha==0) && (j%alpha==0))
                         cout<<positionArr[i][j];
-                cout<<endl;
+                    }
+                if(i%alpha==0)
+                    cout<<endl;
             }
         }
         else
@@ -149,8 +152,10 @@
             for(int i=0;i<width;i++)
             {
                 for(int j = 0;j<length;j++)
+                        if((i%alpha==0) && (j%alpha==0))
                         cout<<positionArr[i][j];
-                cout<<endl;
+                if(i%alpha==0)
+                    cout<<endl;
             }
         }
 
@@ -181,17 +186,17 @@
     void Road::glRoadTrafficLightShow(int t)
      {
         
-        int trafficLightPosition = alpha*(trafficLight.getPosition()+1);
+        int trafficLightPosition = (trafficLight.getPosition()+1);
         if(trafficLight.isRed(t))
             glColor3f(1,0,0);
         else
             glColor3f(0,1,0);
         glLoadIdentity();
         glBegin(GL_POLYGON);
-        glVertex2i(trafficLightPosition,alpha*width);
+        glVertex2i(trafficLightPosition,width);
         glVertex2i(trafficLightPosition,0);
         glVertex2i(trafficLightPosition+(alpha+5)/5,0);
-        glVertex2i(trafficLightPosition+(alpha+5)/5,alpha*width);
+        glVertex2i(trafficLightPosition+(alpha+5)/5,width);
         glEnd();    
      }
 
