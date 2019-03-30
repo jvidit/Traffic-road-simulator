@@ -180,6 +180,8 @@
    		glVertex2i(rightPos,downPos);
    		glVertex2i(rightPos,upPos);
    		glEnd();	
+
+
 	}
 
 

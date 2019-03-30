@@ -11,7 +11,7 @@ const int roadMaxWidth = 200;
 const int roadMaxLength = 2000;
 const int simulationTimeDuration = 1;
 const int alpha = 30;
-const float spacingFact = 0.2;
+const float spacingFact = 0;
 const int pauseTime = 100;
 
 class SpecConsts
