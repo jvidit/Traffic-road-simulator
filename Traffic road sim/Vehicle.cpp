@@ -168,20 +168,32 @@
 	void Vehicle::glVehicleShow(int roadWidth)
 	{
 		
-	 	int upPos = (roadWidth-position.upPos) - spacingFact*alpha;
-	 	int rightPos = (position.rightPos+1) - spacingFact*alpha;
-	 	int downPos = (upPos-width) + 2*spacingFact*alpha;
-	 	int leftPos = (rightPos-length) + spacingFact*alpha;
+	 	
+
+
+   		pair<int,int> vertex1 = position.clockwiseVertex1();
+	 	pair<int,int> vertex2 = position.clockwiseVertex2();
+	 	pair<int,int> vertex3 = position.clockwiseVertex3();
+	 	pair<int,int> vertex4 = position.clockwiseVertex4();
+
+	 	int x1=vertex1.first - spacingFact*alpha; 
+	 	int y1=roadWidth-(vertex1.second + spacingFact*alpha); 
+	 	int x2=vertex2.first - spacingFact*alpha; 
+	 	int y2=roadWidth-(vertex2.second - spacingFact*alpha); 
+	 	int x3=vertex3.first + spacingFact*alpha; 
+	 	int y3=roadWidth-(vertex3.second - spacingFact*alpha); 
+	 	int x4=vertex4.first + spacingFact*alpha; 
+	 	int y4=roadWidth-(vertex4.second + spacingFact*alpha); 
+	 	
+
 	 	glLoadIdentity();
 	 	glColor3f(colourRed,colourGreen,colourBlue);
 	 	glBegin(GL_POLYGON);
-   		glVertex2i(leftPos,upPos);
-   		glVertex2i(leftPos,downPos);
-   		glVertex2i(rightPos,downPos);
-   		glVertex2i(rightPos,upPos);
+   		glVertex2i(x4,y4);
+   		glVertex2i(x3,y3);
+   		glVertex2i(x2,y2);
+   		glVertex2i(x1,y1);
    		glEnd();	
-
-
 	}
 
 

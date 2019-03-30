@@ -29,7 +29,7 @@
 		pair <int, int> pos ; 
 		double x = theta*3.14159/180;
   		pos.first = rightPos+width*sin(x); 
-    	pos.second = upPos-width*cos(x) ; 
+    	pos.second = upPos+width*cos(x) ; 
     	return pos;
     }
 
@@ -38,7 +38,7 @@
 		pair <int, int> pos ; 
 		double x = theta*3.14159/180;
   		pos.first = rightPos-length*cos(x)+width*sin(x); 
-    	pos.second = upPos-length*sin(x)-width*cos(x); 
+    	pos.second = upPos+length*sin(x)+width*cos(x); 
     	return pos;
     }
 
@@ -47,7 +47,7 @@
 		pair <int, int> pos ; 
 		double x = theta*3.14159/180;
   		pos.first = rightPos-length*cos(x); 
-    	pos.second = upPos-length*sin(x); 
+    	pos.second = upPos+length*sin(x); 
     	return pos;
     }
 
