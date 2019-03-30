@@ -36,6 +36,11 @@ class Vehicle{
 	
 	bool hasRedAhead(TrafficLight tl, int time, int nextDistance);
 
+	bool isAttainable(double phi, char positionArr[roadMaxWidth][roadMaxLength],int roadWidth);//returns whether vehicle attain an absolute rotation of phi
+
+	pair<double,double> attainableRange(char positionArr[roadMaxWidth][roadMaxLength],int roadWidth);//returns the range of angles in which car can move
+
+
 public:
 
 	Vehicle( int id, int length, int width, char representation, VehiclePosition position, int velocity, int maxVelocity, pair<int,int> accelerationRange, int acceleration, string type, int colourRed, int colourBlue, int colourGreen);

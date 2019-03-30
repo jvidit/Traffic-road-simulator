@@ -87,8 +87,8 @@
         
         while(d1!=w)
         {
-            int ptx1=ptx+d1*cos(ang*3.14/180);
-            int pty1=pty+d1*sin(ang*3.14/180);
+            int ptx1=ptx+d1*cos(ang*3.14/180);              //x moves along with lanes
+            int pty1=pty+d1*sin(ang*3.14/180);              //y moves along road length
             
             int d2=0;
             while(d2!=l)
@@ -134,8 +134,8 @@
         int d1=0;
         while(d1!=w)
         {
-            int ptx1=ptx+d1*cos(ang*3.14/180);
-            int pty1=pty+d1*sin(ang*3.14/180);
+            int ptx1=ptx+d1*cos(ang*3.14/180);              //x moves along with lanes
+            int pty1=pty+d1*sin(ang*3.14/180);              //y moves along road length
         
             
             int d2=0;

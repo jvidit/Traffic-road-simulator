@@ -34,6 +34,66 @@
 	char Vehicle::getRepresentation()
 	{	return representation;		}
 
+	bool Vehicle::isAttainable(double phi, char positionArr[roadMaxWidth][roadMaxLength],int roadWidth)
+	{
+
+		int ptx=position.upPos,pty=position.rightPos,l=position.length,w=position.width;
+        double ang = phi;
+        int d1=0;
+        while(d1!=w)
+        {
+            int ptx1=ptx+d1*cos(ang*3.14/180);				//x moves along with lanes
+            int pty1=pty+d1*sin(ang*3.14/180);				//y moves along road length
+        
+            
+            int d2=0;
+            while(d2!=l)
+            {
+
+                int ptx2=ptx1+d2*sin(ang*3.14/180);
+                if(ptx2<0 || ptx2>=roadWidth)
+                	return false;
+
+                int pty2=max(0,int(pty1-d2*cos(ang*3.14/180)));
+                
+                if(positionArr[ptx2][pty2]!='-')
+                	return false;
+
+                d2++;
+            }
+            d1++;
+        }
+        return true;
+	}
+
+
+	pair<double,double> Vehicle::attainableRange(char positionArr[roadMaxWidth][roadMaxLength],int roadWidth)
+	{
+		double theta=position.theta;
+		pair<double,double> ans = make_pair(theta,theta);
+
+		while(theta!=turningRange)
+		{
+			if(isAttainable(theta,positionArr,roadWidth))
+				ans.second+=turningShift;
+			else 
+				break;
+			theta+=turningShift;
+		}
+
+		theta=position.theta;
+		while(theta!=-turningRange)
+		{
+			if(isAttainable(theta,positionArr,roadWidth))
+				ans.first-=turningShift;
+			else 
+				break;
+			theta-=turningShift;
+		}
+
+		return ans;
+	}
+
 
 	void Vehicle::setId(int id)
 	{	this->id=id;	}
