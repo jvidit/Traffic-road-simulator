@@ -13,6 +13,9 @@ const int simulationTimeDuration = 1;
 const int alpha = 30;
 const float spacingFact = 0.1;
 const int pauseTime = 100;
+const double turningRange = 60;
+const double turningShift = 5;
+const double angularVelocity = 5;
 
 class SpecConsts
 {
