@@ -81,7 +81,7 @@
             throw "vehiclePosition cannot be resolved!";
         */
 
-        int ptx=rightPos,pty=upPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
+        int ptx=upPos,pty=rightPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
         double ang = currentVehiclePosition.theta;
         int d1=0;
         
@@ -95,10 +95,9 @@
             {
 
                 
-                int ptx2=min(max(0,int(ptx1+d2*sin(ang*3.14/180))),width);
-                int pty2=min(max(0,int(pty1-d2*cos(ang*3.14/180))),length);
+                int ptx2=max(0,int(ptx1+d2*sin(ang*3.14/180)));
+                int pty2=max(0,int(pty1-d2*cos(ang*3.14/180)));
                
-                cout<<" "<<ptx2<<" "<<pty2<<endl;
                 positionArr[ptx2][pty2]='-';
                 d2++;
             }
@@ -130,7 +129,7 @@
         */
 
 
-        int ptx=rightPos,pty=upPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
+        int ptx=upPos,pty=rightPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
         double ang = newVehiclePosition.theta;
         int d1=0;
         while(d1!=w)
@@ -143,9 +142,9 @@
             while(d2!=l)
             {
 
-                int ptx2=min(max(0,int(ptx1+d2*sin(ang*3.14/180))),width);
-                int pty2=min(max(0,int(pty1-d2*cos(ang*3.14/180))),length);
-                cout<<" "<<ptx2<<" "<<pty2<<endl;
+                int ptx2=max(0,int(ptx1+d2*sin(ang*3.14/180)));
+                int pty2=max(0,int(pty1-d2*cos(ang*3.14/180)));
+            
                 positionArr[ptx2][pty2]=representation;
                 d2++;
             }
