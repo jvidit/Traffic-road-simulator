@@ -16,12 +16,13 @@ public:
 	int length;
 	int width;
 	double theta;
-	void operator = (const VehiclePosition &pvehiclePosition);
-	VehiclePosition();
 	pair<int,int> clockwiseVertex1();
 	pair<int,int> clockwiseVertex2();
 	pair<int,int> clockwiseVertex3();
 	pair<int,int> clockwiseVertex4(); 
+	void operator = (const VehiclePosition &pvehiclePosition);
+	VehiclePosition();
+	void updatePos(int velocity);
 };
 
 

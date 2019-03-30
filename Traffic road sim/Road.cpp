@@ -108,7 +108,7 @@
     	char representation=vehicle.getRepresentation();
         int leftPos,downPos,upPos,rightPos;
 
-    this->removeVehicle(vehicle);
+        this->removeVehicle(vehicle);
 
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time, sortedByRightPos);
 

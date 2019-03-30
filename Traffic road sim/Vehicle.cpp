@@ -42,7 +42,7 @@
 
 	bool Vehicle::hasRedAhead(TrafficLight tl, int time, int nextDistance)
 	{
-		return (tl.isRed(time) && (position.rightPos+nextDistance)==tl.getPosition());
+		return (tl.isRed(time) && (position.rightPos+nextDistance)>=tl.getPosition() && (position.rightPos+nextDistance - length/2)<tl.getPosition()) ;
 	}
 
 

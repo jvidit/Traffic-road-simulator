@@ -42,13 +42,20 @@
     	return pos;
     }
 
-     pair<int,int> VehiclePosition::clockwiseVertex4()
+    pair<int,int> VehiclePosition::clockwiseVertex4()
 	{
 		pair <int, int> pos ; 
 		double x = theta*3.14159/180;
   		pos.first = rightPos-length*cos(x); 
     	pos.second = upPos+length*sin(x); 
     	return pos;
+    }
+
+    void updatePos(int velocity)
+    {
+    	double x = theta*3.14159/180;
+    	rightPos = rightPos + velocity*cos(x);
+    	upPos = upPos - velocity*sin(x);
     }
 
 
