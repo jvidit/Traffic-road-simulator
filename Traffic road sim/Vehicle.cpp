@@ -95,14 +95,46 @@
 	}
 
 
-	void Vehicle::setId(int id)
-	{	this->id=id;	}
 
-
-
-	bool Vehicle::hasRedAhead(TrafficLight tl, int time, int nextDistance)
+	int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time)
 	{
-		return (tl.isRed(time) && (position.rightPos+nextDistance)>=tl.getPosition() && (position.rightPos+nextDistance - length/2)<tl.getPosition()) ;
+		int ptx=position.upPos,pty=position.rightPos,w=position.width,distanceAvailable=1;
+        double ang = phi;
+        
+
+        while(distanceAvailable<=maxVelocity)
+        {
+            int d1=0,flag=0;
+
+            int ptx1 = ptx - distanceAvailable*sin(ang*3.14/180);
+            int pty1 = pty + distanceAvailable*cos(ang*3.14/180);
+
+            while(d1!=w)
+            {
+            	int ptx2 = ptx1 + d1*cos(ang*3.14/180);
+            	int pty2 = max(0,int(pty1 + d1*sin(ang*3.14/180)));
+
+            	if(ptx2<0 || ptx2>=roadWidth || positionArr[ptx2][pty2]!='-' || hasRedAhead(trafficLight, time, pty2))
+            	{
+            		flag=1;
+            		break;
+            	}
+
+            	d1++;
+            }
+            if(flag)
+            	break;
+            distanceAvailable++;
+        }
+
+        //distanceAvailable is the least value to which the vehicle cant move inline, hence 1 must be subtracted from it
+        return (distanceAvailable--)*cos(ang*3.14/180);	
+	}
+
+
+	bool Vehicle::hasRedAhead(TrafficLight tl, int time, int pos)
+	{
+		return (tl.isRed(time) && (pos==tl.getPosition())) ;
 	}
 
 
@@ -110,95 +142,63 @@
     // execute once at time 0 
 	VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength], int time, vector<Vehicle> sortedByRightPos)
 	{
-		int nextDistance=0,nextVelocity,nextAcceleration,laneShift=0;	
 
-		bool considerOverTaking=false;
-		int expectedDistance=max(this->velocity, maxVelocity/2); 	
-		int rightPos=position.rightPos;
-		int upPos=position.upPos;
-		int downPos=upPos+width-1;
+		double theta = position.theta;
+		int aspiredRightDistance = max(maxVelocity/2,int(velocity*cos(theta))),availableRightDistance;
 
 
-		while(nextDistance<=maxVelocity)
+		pair<double,double> p = attainableRange(positionArr, roadWidth);
+		double ambientAngle = theta;
+		availableRightDistance=getRightDistance(ambientAngle, positionArr, roadWidth, trafficLight, time);
+
+
+		for(double ang = p.first;ang<=p.second;ang+=turningShift)
 		{
-			int flag=0;
-			for(int i=upPos;i<=downPos;i++)
+			int temp_dist = getRightDistance(ang, positionArr, roadWidth, trafficLight, time);
+			int updateAngle=0;
+			if(availableRightDistance>=aspiredRightDistance)						//already have an angle >= aspiredRightDistance
 			{
-				if(hasRedAhead(trafficLight, time, nextDistance))						//Traffic light is red ahead 
-				{
-					flag=1;
-					break;
-				}
-				if((positionArr[i][rightPos + 1 + nextDistance*alpha] != '-'))		//Has a car ahead
-				{
-					if(expectedDistance>nextDistance)
-						considerOverTaking=true;
-					flag=1;
-					break;
-				}
+				if(temp_dist>=aspiredRightDistance && abs(ang)<abs(ambientAngle))	//found an angle with lesser magnitude
+					updateAngle=1;
 			}
-			if(flag)
-				break;
-			nextDistance++;
-		}
-
-		//cout<<"In Vehicle "+type+" "<<expectedDistance<<" "<<nextDistance<<" "<<considerOverTaking*987<<endl; 
-
-		//Note: the vehicle will attempt only 2 lanes of overtaking at one time instant, also it will prefer to overtake from the right
-		//In our model, that implies an increase in the lane position of the car
-		/*if(considerOverTaking)
-		{
-			int dist[5*alpha];										//disti is the distance available in lane[downPos+i-2]
-			for(int ind=-2*alpha;ind<=2*alpha;ind++)
+			else																	//dont have an angle >= aspiredRightDistance
 			{
-				if(upPos+ind<0 || downPos+ind>=roadWidth)
-				{
-					dist[ind+2*alpha]=0;
-					continue;
-				}
-				int temp_dist=0;
-				while(temp_dist<=maxVelocity)
-				{
-					int flag=0;
-					for(int i=upPos+ind;i<=downPos+ind;i++)
-					{
-						if(hasRedAhead(trafficLight, time, temp_dist) || (positionArr[i][rightPos + 1 + temp_dist] != '-'))
-						{
-							flag=1;
-							break;
-						}
-					}
-					if(flag)
-						break;
-					temp_dist++;
-				}
-				dist[ind+2*alpha]=min(temp_dist,maxVelocity);
+				if(temp_dist>availableRightDistance)								//found an angle with higher availableRightDistance
+					updateAngle=1;
 			}
 
-			int priority[5]={-2,-1,2,1,0};
-			for(int i=0;i<5;i++)
+			if(updateAngle)
 			{
-				int temp_dist=dist[priority[i]+2*alpha];
-				if(temp_dist>=nextDistance || temp_dist>=expectedDistance)		
-				{	
-					laneShift=priority[i];
-					nextDistance=temp_dist;
-				}
+				ambientAngle = ang;
+				availableRightDistance = temp_dist;
 			}
 		}
 
-		*/
-		nextDistance=min(maxVelocity,nextDistance);		
-		nextVelocity=nextDistance;									//next distance is always less then or equal to maxVelocity
-		nextAcceleration =  min(  max((nextVelocity - (this->velocity)),(this->accelerationRange).first) , (this->accelerationRange).second);
+
+		//tilting vehicle 
+		if(theta>ambientAngle)
+			theta-=min(theta-ambientAngle, angularVelocity);
+		else
+			theta+=min(ambientAngle-theta, angularVelocity);
+
+
+		//acceleration logic
+		
+
+		int nextDistance=min(int(availableRightDistance/(cos(theta*3.14/180))),maxVelocity);	
+
+		int nextVelocity=nextDistance;									//next distance is always less then or equal to maxVelocity
+		int nextAcceleration =  min(  max((nextVelocity - (this->velocity)),(this->accelerationRange).first) , (this->accelerationRange).second);
 		
 		acceleration=nextAcceleration;
 		this->velocity+=acceleration;
-		position.rightPos+=this->velocity;
 
-		position.upPos+=laneShift;
-		//need to consider collisions here
+		position.updatePos(velocity);
+ 		
 
+ 		if(time%25==0)
+ 			cin.get();
+ 		cout<<representation<<" "<<nextDistance<<endl;
 		return position;
 	}
 
@@ -255,6 +255,12 @@
    		glVertex2i(x1,y1);
    		glEnd();	
 	}
+
+
+
+
+	void Vehicle::setId(int id)
+	{	this->id=id;	}
 
 
 
