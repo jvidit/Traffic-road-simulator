@@ -93,7 +93,7 @@
             {
                 int ptx2=ptx1-d2*cos(ang*3.14/180);
                 int pty2=pty1-d2*sin(ang*3.14/180);
-                arr[ptx2][pty2]='-';
+                positionArr[ptx2][pty2]='-';
                 d2++;
             }
             d1++;
@@ -136,7 +136,7 @@
             {
                 int ptx2=ptx1-d2*cos(ang*3.14/180);
                 int pty2=pty1-d2*sin(ang*3.14/180);
-                arr[ptx2][pty2]='.';
+                positionArr[ptx2][pty2]=representation;
                 d2++;
             }
             d1++;
