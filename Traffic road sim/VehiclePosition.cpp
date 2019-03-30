@@ -51,7 +51,7 @@
     	return pos;
     }
 
-    void updatePos(int velocity)
+    void VehiclePosition::updatePos(int velocity)
     {
     	double x = theta*3.14159/180;
     	rightPos = rightPos + velocity*cos(x);
