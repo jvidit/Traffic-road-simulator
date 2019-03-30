@@ -86,7 +86,7 @@
 
 		//Note: the vehicle will attempt only 2 lanes of overtaking at one time instant, also it will prefer to overtake from the right
 		//In our model, that implies an increase in the lane position of the car
-		if(considerOverTaking)
+		/*if(considerOverTaking)
 		{
 			int dist[5*alpha];										//disti is the distance available in lane[downPos+i-2]
 			for(int ind=-2*alpha;ind<=2*alpha;ind++)
@@ -127,7 +127,7 @@
 			}
 		}
 
-
+		*/
 		nextDistance=min(maxVelocity,nextDistance);		
 		nextVelocity=nextDistance;									//next distance is always less then or equal to maxVelocity
 		nextAcceleration =  min(  max((nextVelocity - (this->velocity)),(this->accelerationRange).first) , (this->accelerationRange).second);
