@@ -70,7 +70,7 @@
         
         //clear vehicle from current position
         VehiclePosition currentVehiclePosition=vehicle.getPosition();
-        int leftPos,downPos,upPos,rightPos;
+        int upPos,rightPos;
 
         
         
@@ -84,16 +84,22 @@
         int ptx=rightPos,pty=upPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
         double ang = currentVehiclePosition.theta;
         int d1=0;
-        while(d1!=l)
+        
+        while(d1!=w)
         {
-            int ptx1=ptx+d1*sin(ang*3.14/180);
-            int pty1=pty-d1*cos(ang*3.14/180);
+            int ptx1=ptx+d1*cos(ang*3.14/180);
+            int pty1=pty+d1*sin(ang*3.14/180);
+            
             int d2=0;
-            while(d2!=w)
+            while(d2!=l)
             {
-                int ptx2=ptx1-d2*cos(ang*3.14/180);
-                int pty2=pty1-d2*sin(ang*3.14/180);
-                arr[ptx2][pty2]='-';
+
+                
+                int ptx2=min(max(0,int(ptx1+d2*sin(ang*3.14/180))),width);
+                int pty2=min(max(0,int(pty1-d2*cos(ang*3.14/180))),length);
+               
+                cout<<" "<<ptx2<<" "<<pty2<<endl;
+                positionArr[ptx2][pty2]='-';
                 d2++;
             }
             d1++;
@@ -106,7 +112,7 @@
 
 
     	char representation=vehicle.getRepresentation();
-        int leftPos,downPos,upPos,rightPos;
+        int upPos,rightPos;
 
     this->removeVehicle(vehicle);
 
@@ -127,20 +133,25 @@
         int ptx=rightPos,pty=upPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
         double ang = newVehiclePosition.theta;
         int d1=0;
-        while(d1!=l)
+        while(d1!=w)
         {
-            int ptx1=ptx+d1*sin(ang*3.14/180);
-            int pty1=pty-d1*cos(ang*3.14/180);
+            int ptx1=ptx+d1*cos(ang*3.14/180);
+            int pty1=pty+d1*sin(ang*3.14/180);
+        
+            
             int d2=0;
-            while(d2!=w)
+            while(d2!=l)
             {
-                int ptx2=ptx1-d2*cos(ang*3.14/180);
-                int pty2=pty1-d2*sin(ang*3.14/180);
-                arr[ptx2][pty2]='.';
+
+                int ptx2=min(max(0,int(ptx1+d2*sin(ang*3.14/180))),width);
+                int pty2=min(max(0,int(pty1-d2*cos(ang*3.14/180))),length);
+                cout<<" "<<ptx2<<" "<<pty2<<endl;
+                positionArr[ptx2][pty2]=representation;
                 d2++;
             }
             d1++;
         }
+
 
     }
 
