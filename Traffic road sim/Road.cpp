@@ -73,20 +73,32 @@
         int leftPos,downPos,upPos,rightPos;
 
         
-        leftPos=max(currentVehiclePosition.rightPos-currentVehiclePosition.length+1,0); 
+        
         rightPos=min(currentVehiclePosition.rightPos,length);
-        downPos=currentVehiclePosition.upPos+currentVehiclePosition.width-1;
         upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         /*
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
         */
 
-        for(int i=upPos;i<=downPos;i++)
+        int ptx=rightPos,pty=downPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
+        double ang = currentVehiclePosition.theta;
+        int d1=0;
+        while(d1!=l)
         {
-            for(int j=leftPos;j<=rightPos;j++)
-                positionArr[i][j]='-';
+            int ptx1=ptx+d1*sin(ang*3.14/180);
+            int pty1=pty-d1*cos(ang*3.14/180);
+            int d2=0;
+            while(d2!=w)
+            {
+                int ptx2=ptx1-d2*cos(ang*3.14/180);
+                int pty2=pty1-d2*sin(ang*3.14/180);
+                arr[ptx2][pty2]='-';
+                d2++;
+            }
+            d1++;
         }
+
     }
 
     void Road::moveVehicle(Vehicle &vehicle, int time, vector<Vehicle> sortedByRightPos)
@@ -96,14 +108,13 @@
     	char representation=vehicle.getRepresentation();
         int leftPos,downPos,upPos,rightPos;
 
-    	this->removeVehicle(vehicle);
+    this->removeVehicle(vehicle);
 
         VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time, sortedByRightPos);
 
-    	//moving to new place
-        leftPos=max(newVehiclePosition.rightPos-newVehiclePosition.length+1,0); 
+    //moving to new place
+        
         rightPos=min(newVehiclePosition.rightPos,length);
-        downPos=newVehiclePosition.upPos+newVehiclePosition.width-1;
         upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
         
 
@@ -111,21 +122,25 @@
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
         */
-        
 
-    	for(int i=upPos;i<=downPos;i++)
-    	{ 
-    		for(int j=leftPos;j<=rightPos;j++)
-    		{
-    			/////RAISE ERROR HERE TO HANDLE COLLISIONS
-                
-    			positionArr[i][j]=representation;
 
-    	   }
-
+        int ptx=rightPos,pty=downPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
+        double ang = newVehiclePosition.theta;
+        int d1=0;
+        while(d1!=l)
+        {
+            int ptx1=ptx+d1*sin(ang*3.14/180);
+            int pty1=pty-d1*cos(ang*3.14/180);
+            int d2=0;
+            while(d2!=w)
+            {
+                int ptx2=ptx1-d2*cos(ang*3.14/180);
+                int pty2=pty1-d2*sin(ang*3.14/180);
+                arr[ptx2][pty2]='.';
+                d2++;
+            }
+            d1++;
         }
-
-        
 
     }
 
