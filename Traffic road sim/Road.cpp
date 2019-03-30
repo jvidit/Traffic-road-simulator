@@ -81,7 +81,7 @@
             throw "vehiclePosition cannot be resolved!";
         */
 
-        int ptx=rightPos,pty=downPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
+        int ptx=rightPos,pty=upPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
         double ang = currentVehiclePosition.theta;
         int d1=0;
         while(d1!=l)
@@ -124,7 +124,7 @@
         */
 
 
-        int ptx=rightPos,pty=downPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
+        int ptx=rightPos,pty=upPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
         double ang = newVehiclePosition.theta;
         int d1=0;
         while(d1!=l)
