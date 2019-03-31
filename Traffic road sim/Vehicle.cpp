@@ -51,11 +51,11 @@
             while(d2!=l)
             {
 
-                int ptx2=ptx1+d2*sin(ang*3.14/180);
+                int ptx2=ptx1-d2*sin(ang*3.14/180);
                 if(ptx2<0 || ptx2>=roadWidth)
                     return false;
 
-                int pty2=max(0,int(pty1-d2*cos(ang*3.14/180)));
+                int pty2=max(0,int(pty1+d2*cos(ang*3.14/180)));
              
                 if(positionArr[ptx2][pty2]!='-')
                     return false;
@@ -77,7 +77,7 @@
         {  
             theta+=turningShift;
             if(isAttainable(theta,positionArr,roadWidth))
-                ans.second+=turningShift;
+                ans.second=theta;
             else
                 break;
         }
@@ -87,7 +87,7 @@
         {
             theta-=turningShift;
             if(isAttainable(theta,positionArr,roadWidth))
-                ans.first-=turningShift;
+                ans.first=theta;
             else
                 break;
         }
@@ -100,11 +100,11 @@
     int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
     {
         pair<int, int> v1 = position.clockwiseVertex3(), v2 = position.clockwiseVertex4();
-        int ptx=(v1.second+v2.second)/2,pty=(v1.first+v2.first)/2,w=position.width,distanceAvailable=1;
+        int ptx=(v1.second+v2.second)/2,pty=(v1.first+v2.first)/2,w=position.width,distanceAvailable=length;
         double ang = phi;
      
 
-        while(distanceAvailable<lookAheadFactor*maxVelocity)
+        while(distanceAvailable<lookAheadFactor*maxVelocity+length)
         {
             int flag=0;
 
@@ -131,7 +131,7 @@
         }
 
         //distanceAvailable is the least value to which the vehicle cant move inline, hence 1 must be subtracted from it
-        return (--distanceAvailable)*cos(ang*3.14/180);    
+        return (distanceAvailable-length-1)*cos(ang*3.14/180);    
     }
 
 
@@ -179,6 +179,25 @@
         }
 
 
+
+
+
+        double leastAngle=0;
+        if(p.second<0)
+            leastAngle = p.second;
+        else if(p.first>0)
+            leastAngle = p.first;
+
+
+        int leastAngleDist=getRightDistance(leastAngle, positionArr, roadWidth, trafficLight, time, roadLength);
+        if(leastAngleDist*straighteningTendency>=availableRightDistance)
+        {
+            ambientAngle = leastAngle;
+            availableRightDistance = leastAngleDist;
+        }
+        
+
+
         //tilting vehicle
         if(theta>ambientAngle)
             theta-=min(theta-ambientAngle, angularVelocity);
@@ -210,6 +229,9 @@
 
          
         cout<<representation<<" aspiredRightDistance "<<aspiredRightDistance<<"availableRightDistance "<<availableRightDistance<<"nextDistance "<<nextDistance<<"\navailableAngle "<<p.first<<" "<<p.second<<" ambientAngle "<<ambientAngle<<endl;
+        cout<<"     "<<position.upPos<<" "<<position.rightPos<<" "<<theta<<endl;
+        cout<<"     "<<position.clockwiseVertex3().first<<" "<<position.clockwiseVertex4().second<<endl;
+        cout<<"  Least Angle Distance "<<leastAngleDist<<" "<<"LeastAngle "<<leastAngle<<endl;
         return position;
     }
 
@@ -272,6 +294,10 @@
 
     void Vehicle::setId(int id)
     {   this->id=id;    }
+
+
+
+
 
 
 
