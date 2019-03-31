@@ -23,6 +23,7 @@ public:
 	void operator = (const VehiclePosition &pvehiclePosition);
 	VehiclePosition();
 	void updatePos(int velocity);
+	void updateAngle(double ang);
 };
 
 

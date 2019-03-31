@@ -36,11 +36,12 @@
 
     bool Vehicle::isAttainable(double phi, char positionArr[roadMaxWidth][roadMaxLength],int roadWidth)
     {
+        pair<int, int> v3 = position.clockwiseVertex3(), v4 = position.clockwiseVertex4();
 
-        int ptx=position.upPos,pty=position.rightPos,l=position.length,w=position.width;
+        int ptx=(v3.second+v4.second)/2,pty=(v3.first+v4.first)/2,l=position.length,w=position.width;
         double ang = phi;
-        int d1=0;
-        while(d1!=w)
+        int d1=(-w/2);
+        while(d1!=(w/2))
         {
             int ptx1=ptx+d1*cos(ang*3.14/180);              //x moves along with lanes
             int pty1=pty+d1*sin(ang*3.14/180);              //y moves along road length
@@ -98,18 +99,20 @@
 
     int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
     {
-        int ptx=position.upPos,pty=position.rightPos,w=position.width,distanceAvailable=0;
+        pair<int, int> v3 = position.clockwiseVertex3(), v4 = position.clockwiseVertex4();
+        int ptx=(v3.second+v4.second)/2,pty=(v3.first+v4.first)/2,w=position.width,distanceAvailable=1;
         double ang = phi;
      
 
         while(distanceAvailable<lookAheadFactor*maxVelocity)
         {
-            int d1=0,flag=0;
+            int flag=0;
 
             int ptx1 = ptx - distanceAvailable*sin(ang*3.14/180);
             int pty1 = pty + distanceAvailable*cos(ang*3.14/180);
 
-            while(d1!=w)
+            int d1=(-w/2);
+            while(d1!=(w/2))
             {
                 int ptx2 = ptx1 + d1*cos(ang*3.14/180);
                 int pty2 = max(0,int(pty1 + d1*sin(ang*3.14/180)));
@@ -128,7 +131,7 @@
         }
 
         //distanceAvailable is the least value to which the vehicle cant move inline, hence 1 must be subtracted from it
-        return (distanceAvailable--)*cos(ang*3.14/180);    
+        return (--distanceAvailable)*cos(ang*3.14/180);    
     }
 
 

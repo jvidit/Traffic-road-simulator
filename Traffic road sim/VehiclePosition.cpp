@@ -51,6 +51,18 @@
     	return pos;
     }
 
+
+    void VehiclePosition::updateAngle(double ang)
+    {
+        pair<int, int> v3 = clockwiseVertex3(), v4 = clockwiseVertex4();
+
+        int backmidx=(v3.first+v4.first)/2;
+        int backmidy=(v3.second+v4.second)/2;
+
+        rightPos = backmidx + (length*cos(ang*3.14159/180) - (width*sin(ang*3.14159/180)/2));
+        upPos= backmidy - (length*sin(ang*3.14159/180) + (width*cos(ang*3.14159/180)/2));
+    }
+
     void VehiclePosition::updatePos(int velocity)
     {
     	double x = theta*3.14159/180;
