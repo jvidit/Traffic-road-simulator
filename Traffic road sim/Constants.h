@@ -17,6 +17,7 @@ const double turningRange = 45;
 const double turningShift = 5;
 const double angularVelocity = 2;
 const int lookAheadFactor = 30;
+const double straighteningTendency= 1.5;
 
 class SpecConsts
 {
