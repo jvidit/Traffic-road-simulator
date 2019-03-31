@@ -16,6 +16,7 @@ const int pauseTime = 100;
 const double turningRange = 60;
 const double turningShift = 5;
 const double angularVelocity = 2;
+const int lookAheadFactor = 30;
 
 class SpecConsts
 {

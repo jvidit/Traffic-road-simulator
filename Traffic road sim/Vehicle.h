@@ -40,7 +40,7 @@ class Vehicle{
 
 	pair<double,double> attainableRange(char positionArr[roadMaxWidth][roadMaxLength],int roadWidth);//returns the range of angles in which car can move
 
-	int getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight,int time);//returns the horizontal component of distance available in the in-line path of the car
+	int getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight,int time, int roadLength);//returns the horizontal component of distance available in the in-line path of the car
 
 
 public:
