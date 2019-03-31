@@ -71,8 +71,8 @@
     {
         double theta=position.theta;
         pair<double,double> ans = make_pair(theta,theta);
-         
-        while(theta!=turningRange)
+
+        while(theta<turningRange)
         {  
             theta+=turningShift;
             if(isAttainable(theta,positionArr,roadWidth))
@@ -82,7 +82,7 @@
         }
 
         theta=position.theta;
-        while(theta!=-turningRange)
+        while(theta>-turningRange)
         {
             theta-=turningShift;
             if(isAttainable(theta,positionArr,roadWidth))
@@ -96,13 +96,13 @@
 
 
 
-    int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
+    int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time, int roadLength)
     {
-        int ptx=position.upPos,pty=position.rightPos,w=position.width,distanceAvailable=0;
+        int ptx=position.upPos,pty=position.rightPos,w=position.width,distanceAvailable=1;
         double ang = phi;
         
 
-        while(distanceAvailable<(roadLength-position.rightPos))
+        while(distanceAvailable<lookAheadFactor*maxVelocity)
         {
             int d1=0,flag=0;
 
@@ -128,15 +128,14 @@
         }
 
         //distanceAvailable is the least value to which the vehicle cant move inline, hence 1 must be subtracted from it
-        return (distanceAvailable--)*cos(ang*3.14/180);    
+        return (--distanceAvailable)*cos(ang*3.14/180);    
     }
 
 
     bool Vehicle::hasRedAhead(TrafficLight tl, int time, int pos)
-    {
-        return (tl.isRed(time) && (pos==tl.getPosition())) ;
-    }
-
+	{
+		return (tl.isRed(time) && (pos)>=tl.getPosition() && (pos - length/2)<tl.getPosition()) ;
+	}
 
     // notice the order of update 
     // execute once at time 0 
@@ -154,7 +153,7 @@
         availableRightDistance=getRightDistance(ambientAngle, positionArr, roadWidth, trafficLight, time, roadLength);
 
 
-        for(double ang = p.first;ang<=p.second;ang+=turningShift)
+        for(double ang = p.first;ang<=p.second;ang++)
         {
             int temp_dist = getRightDistance(ang, positionArr, roadWidth, trafficLight, time, roadLength);
             int updateAngle=0;
@@ -201,8 +200,8 @@
 
         position.updatePos(velocity);
          
-
-         
+        if(time%25==0)
+         cin.get();
          cout<<representation<<" aspiredRightDistance "<<aspiredRightDistance<<"availableRightDistance "<<availableRightDistance<<"nextDistance "<<nextDistance<<"\navailableAngle "<<p.first<<" "<<p.second<<" ambientAngle "<<ambientAngle<<endl;
         return position;
     }

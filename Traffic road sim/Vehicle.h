@@ -34,7 +34,7 @@ class Vehicle{
 	int colourBlue;
 	int colourGreen;
 	
-	bool hasRedAhead(TrafficLight tl, int time, int nextDistance);
+	bool hasRedAhead(TrafficLight tl, int time, int pos);
 
 	bool isAttainable(double phi, char positionArr[roadMaxWidth][roadMaxLength],int roadWidth);//returns whether vehicle attain an absolute rotation of phi
 
