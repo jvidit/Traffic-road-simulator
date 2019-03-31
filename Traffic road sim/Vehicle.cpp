@@ -72,11 +72,7 @@
     {
         double theta=position.theta;
         pair<double,double> ans = make_pair(theta,theta);
-<<<<<<< HEAD
-
-=======
          
->>>>>>> 462fb0070ca1ce76961f46fa52b5dd2f7f98cf87
         while(theta<turningRange)
         {  
             theta+=turningShift;
@@ -101,14 +97,10 @@
 
 
 
-    int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time, int roadLength)
+    int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
     {
-<<<<<<< HEAD
-        int ptx=position.upPos,pty=position.rightPos,w=position.width,distanceAvailable=1;
-=======
         pair<int, int> v3 = position.clockwiseVertex3(), v4 = position.clockwiseVertex4();
         int ptx=(v3.second+v4.second)/2,pty=(v3.first+v4.first)/2,w=position.width,distanceAvailable=1;
->>>>>>> 462fb0070ca1ce76961f46fa52b5dd2f7f98cf87
         double ang = phi;
      
 
@@ -144,21 +136,12 @@
 
 
     bool Vehicle::hasRedAhead(TrafficLight tl, int time, int pos)
-<<<<<<< HEAD
-	{
-		return (tl.isRed(time) && (pos)>=tl.getPosition() && (pos - length/2)<tl.getPosition()) ;
-	}
-
-    // notice the order of update 
-    // execute once at time 0 
-=======
     {
         return (tl.isRed(time) && pos>=tl.getPosition() && (pos - length/2)<tl.getPosition()) ;
     }
 
     // notice the order of update
     // execute once at time 0
->>>>>>> 462fb0070ca1ce76961f46fa52b5dd2f7f98cf87
     VehiclePosition Vehicle::updatePositionVelocityAcceleration (int roadLength, int roadWidth, TrafficLight trafficLight, char positionArr[roadMaxWidth][roadMaxLength], int time, vector<Vehicle> sortedByRightPos)
     {
 
@@ -202,7 +185,7 @@
         else
             theta+=min(ambientAngle-theta, angularVelocity);
 
-        position.theta=theta;
+        position.updateAngle(theta);
 
         availableRightDistance = getRightDistance(theta, positionArr, roadWidth, trafficLight, time, roadLength);
 
@@ -224,15 +207,9 @@
 
         position.updatePos(velocity);
          
-<<<<<<< HEAD
-        if(time%25==0)
-         cin.get();
-         cout<<representation<<" aspiredRightDistance "<<aspiredRightDistance<<"availableRightDistance "<<availableRightDistance<<"nextDistance "<<nextDistance<<"\navailableAngle "<<p.first<<" "<<p.second<<" ambientAngle "<<ambientAngle<<endl;
-=======
 
          
         cout<<representation<<" aspiredRightDistance "<<aspiredRightDistance<<"availableRightDistance "<<availableRightDistance<<"nextDistance "<<nextDistance<<"\navailableAngle "<<p.first<<" "<<p.second<<" ambientAngle "<<ambientAngle<<endl;
->>>>>>> 462fb0070ca1ce76961f46fa52b5dd2f7f98cf87
         return position;
     }
 
@@ -295,6 +272,7 @@
 
     void Vehicle::setId(int id)
     {   this->id=id;    }
+
 
 
 
