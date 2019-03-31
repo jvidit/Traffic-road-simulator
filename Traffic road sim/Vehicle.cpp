@@ -99,8 +99,8 @@
 
     int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
     {
-        pair<int, int> v3 = position.clockwiseVertex3(), v4 = position.clockwiseVertex4();
-        int ptx=(v3.second+v4.second)/2,pty=(v3.first+v4.first)/2,w=position.width,distanceAvailable=1;
+        pair<int, int> v1 = position.clockwiseVertex3(), v2 = position.clockwiseVertex4();
+        int ptx=(v1.second+v2.second)/2,pty=(v1.first+v2.first)/2,w=position.width,distanceAvailable=1;
         double ang = phi;
      
 
