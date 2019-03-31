@@ -61,6 +61,8 @@
 
         rightPos = backmidx + (length*cos(ang*3.14159/180) - (width*sin(ang*3.14159/180)/2));
         upPos= backmidy - (length*sin(ang*3.14159/180) + (width*cos(ang*3.14159/180)/2));
+
+        theta = ang;
     }
 
     void VehiclePosition::updatePos(int velocity)

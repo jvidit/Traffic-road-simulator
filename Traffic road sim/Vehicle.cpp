@@ -185,7 +185,7 @@
         else
             theta+=min(ambientAngle-theta, angularVelocity);
 
-        position.theta=theta;
+        position.updateAngle(theta);
 
         availableRightDistance = getRightDistance(theta, positionArr, roadWidth, trafficLight, time, roadLength);
 

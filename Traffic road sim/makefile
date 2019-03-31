@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-g -Wall
+CFLAGS=-g -Wall -Wno-deprecated
 RM=/bin/rm -f
 
 all:	task2
@@ -21,6 +21,6 @@ main.o: main.cpp
 	${CC} ${CFLAGS} -c main.cpp
 task2:main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o Constants.o
 
-	${CC} ${CFLAGS} -o task2 main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o Constants.o -lglut -lGLU -lGL
+	${CC} ${CFLAGS} -o task2 main.o Road.o Vehicle.o Specifications.o TrafficLight.o VehiclePosition.o AddVehicleEvent.o Constants.o -framework GLUT -framework OpenGL -framework Cocoa
 clean:
 	${RM} *.o task2
