@@ -7,17 +7,18 @@
 
 using namespace std;
 
-const int roadMaxWidth = 200;
+const int roadMaxWidth = 300;
 const int roadMaxLength = 2000;
 const int simulationTimeDuration = 1;
 const int alpha = 30;
-const float spacingFact = 0.1;
+const float spacingFact = 0;
 const int pauseTime = 100;
 const double turningRange = 45;
 const double turningShift = 5;
 const double angularVelocity = 2;
 const int lookAheadFactor = 30;
 const double straighteningTendency= 1.5;
+const double pi = 3.141592;
 
 class SpecConsts
 {

@@ -84,8 +84,8 @@ SpecConsts specConsts;
                 specConsts.defaultVehicleRepresentation = char(toBeAssigned);
             else if(!strcmp(toBeCompared,"defaultVehicleLane"))
                 {
-                    specConsts.defaultVehiclePosition.upPos = alpha*toBeAssigned;
-                    specConsts.defaultVehiclePosition.rightPos = 0;
+                    specConsts.defaultVehiclePosition.backmidy = alpha*toBeAssigned;
+                    specConsts.defaultVehiclePosition.backmidx = 0;
                 }
             else if(!strcmp(toBeCompared,"defaultVehicleVelocity"))
                 specConsts.defaultVehicleVelocity = toBeAssigned;
@@ -145,8 +145,8 @@ SpecConsts specConsts;
                 
             else if(!strcmp(toBeCompared,"vehicleLane"))
                 {
-                    vehiclePosition.upPos = alpha*toBeAssigned;
-                    vehiclePosition.rightPos = 0;
+                    vehiclePosition.backmidy = alpha*toBeAssigned;
+                    vehiclePosition.backmidx = 0;
                 }
             else if(!strcmp(toBeCompared,"vehicleVelocity"))
                 vehicleVelocity = min(toBeAssigned,specConsts.maxAllowedVelocity);

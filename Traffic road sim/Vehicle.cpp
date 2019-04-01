@@ -36,28 +36,28 @@
 
     bool Vehicle::isAttainable(double phi, char positionArr[roadMaxWidth][roadMaxLength],int roadWidth)
     {
-        pair<int, int> v3 = position.clockwiseVertex3(), v4 = position.clockwiseVertex4();
+        
 
-        int ptx=(v3.second+v4.second)/2,pty=(v3.first+v4.first)/2,l=position.length,w=position.width;
+        double ptx=position.backmidy,pty=position.backmidx,l=position.length,w=position.width;
         double ang = phi;
-        int d1=(-w/2);
+        double d1=(-w/2);
         while(d1!=(w/2))
         {
-            int ptx1=ptx+d1*cos(ang*3.14/180);              //x moves along with lanes
-            int pty1=pty+d1*sin(ang*3.14/180);              //y moves along road length
+            double ptx1=ptx+d1*cos(ang*pi/180);              //x moves along with lanes
+            double pty1=pty+d1*sin(ang*pi/180);              //y moves along road length
      
          
-            int d2=0;
+            double d2=0;
             while(d2!=l)
             {
 
-                int ptx2=ptx1-d2*sin(ang*3.14/180);
+                double ptx2=ptx1-d2*sin(ang*pi/180);
                 if(ptx2<0 || ptx2>=roadWidth)
                     return false;
 
-                int pty2=max(0,int(pty1+d2*cos(ang*3.14/180)));
+                double pty2=max((double)0,(pty1+d2*cos(ang*pi/180)));
              
-                if(positionArr[ptx2][pty2]!='-')
+                if(positionArr[(int)ptx2][(int)pty2]!='-')
                     return false;
 
                 d2++;
@@ -97,27 +97,27 @@
 
 
 
-    int Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
+    double Vehicle::getRightDistance(double phi,char positionArr[roadMaxWidth][roadMaxLength],int roadWidth, TrafficLight trafficLight, int time,int roadLength)
     {
-        pair<int, int> v1 = position.clockwiseVertex3(), v2 = position.clockwiseVertex4();
-        int ptx=(v1.second+v2.second)/2,pty=(v1.first+v2.first)/2,w=position.width,distanceAvailable=length;
+       
+        double ptx=position.backmidy,pty=position.backmidx,l=position.length,w=position.width,distanceAvailable=length;
         double ang = phi;
      
 
-        while(distanceAvailable<lookAheadFactor*maxVelocity+length)
+        while(distanceAvailable<maxVelocity*lookAheadFactor+length)
         {
             int flag=0;
 
-            int ptx1 = ptx - distanceAvailable*sin(ang*3.14/180);
-            int pty1 = pty + distanceAvailable*cos(ang*3.14/180);
+            double ptx1 = ptx - distanceAvailable*sin(ang*pi/180);
+            double pty1 = pty + distanceAvailable*cos(ang*pi/180);
 
-            int d1=(-w/2);
+            double d1=(-w/2);
             while(d1!=(w/2))
             {
-                int ptx2 = ptx1 + d1*cos(ang*3.14/180);
-                int pty2 = max(0,int(pty1 + d1*sin(ang*3.14/180)));
+                double ptx2 = ptx1 + d1*cos(ang*pi/180);
+                double pty2 = max((double)0,(pty1 + d1*sin(ang*pi/180)));
 
-                if(ptx2<0 || ptx2>=roadWidth || positionArr[ptx2][pty2]!='-' || hasRedAhead(trafficLight, time, pty2))
+                if(ptx2<0 || ptx2>=roadWidth || positionArr[(int)ptx2][(int)pty2]!='-' || hasRedAhead(trafficLight, time, (int)pty2))
                 {
                     flag=1;
                     break;
@@ -131,13 +131,14 @@
         }
 
         //distanceAvailable is the least value to which the vehicle cant move inline, hence 1 must be subtracted from it
-        return (distanceAvailable-length-1)*cos(ang*3.14/180);    
+
+        return cos(ang*pi/180)*(max((double)0,distanceAvailable-length-2));    
     }
 
 
     bool Vehicle::hasRedAhead(TrafficLight tl, int time, int pos)
     {
-        return (tl.isRed(time) && pos>=tl.getPosition() && (pos - length/2)<tl.getPosition()) ;
+        return (tl.isRed(time) && (pos==tl.getPosition()||pos==tl.getPosition()-1||pos==tl.getPosition()-2||pos==tl.getPosition()-3) ) ;
     }
 
     // notice the order of update
@@ -146,7 +147,8 @@
     {
 
         double theta = position.theta;
-        int aspiredRightDistance = alpha*max(maxVelocity/2,int(velocity*cos(theta))),availableRightDistance;
+        int aspiredRightDistance = lookAheadFactor*max(maxVelocity/2,int(velocity*cos(theta)));
+        double availableRightDistance;
 
 
         pair<double,double> p = attainableRange(positionArr, roadWidth);
@@ -158,7 +160,7 @@
 
         for(double ang = p.first;ang<=p.second;ang++)
         {
-            int temp_dist = getRightDistance(ang, positionArr, roadWidth, trafficLight, time, roadLength);
+            double temp_dist = getRightDistance(ang, positionArr, roadWidth, trafficLight, time, roadLength);
             int updateAngle=0;
             if(availableRightDistance>=aspiredRightDistance)                        //already have an angle >= aspiredRightDistance
             {
@@ -189,8 +191,8 @@
             leastAngle = p.first;
 
 
-        int leastAngleDist=getRightDistance(leastAngle, positionArr, roadWidth, trafficLight, time, roadLength);
-        if(leastAngleDist*straighteningTendency>=availableRightDistance)
+        double leastAngleDist=getRightDistance(leastAngle, positionArr, roadWidth, trafficLight, time, roadLength);
+        if((leastAngleDist+length/2)>=availableRightDistance)
         {
             ambientAngle = leastAngle;
             availableRightDistance = leastAngleDist;
@@ -204,15 +206,15 @@
         else
             theta+=min(ambientAngle-theta, angularVelocity);
 
-        position.updateAngle(theta);
+        position.theta=theta;
 
-        availableRightDistance = getRightDistance(theta, positionArr, roadWidth, trafficLight, time, roadLength);
+        double finalRightDistance = getRightDistance(theta, positionArr, roadWidth, trafficLight, time, roadLength);
 
 
         //acceleration logic
      
 
-        int nextDistance=min(int(availableRightDistance/(cos(theta*3.14/180))),maxVelocity);    
+        int nextDistance=min(int(finalRightDistance/(cos(theta*pi/180))),maxVelocity);    
 
         int nextVelocity=nextDistance;                                  //next distance is always less then or equal to maxVelocity
         int nextAcceleration =  min(  max((nextVelocity - (this->velocity)),(this->accelerationRange).first) , (this->accelerationRange).second);
@@ -229,16 +231,14 @@
 
          
         cout<<representation<<" aspiredRightDistance "<<aspiredRightDistance<<"availableRightDistance "<<availableRightDistance<<"nextDistance "<<nextDistance<<"\navailableAngle "<<p.first<<" "<<p.second<<" ambientAngle "<<ambientAngle<<endl;
-        cout<<"     "<<position.upPos<<" "<<position.rightPos<<" "<<theta<<endl;
-        cout<<"     "<<position.clockwiseVertex3().first<<" "<<position.clockwiseVertex4().second<<endl;
+        cout<<"     "<<position.backmidx<<" "<<position.backmidy<<" "<<theta<<endl;
         cout<<"  Least Angle Distance "<<leastAngleDist<<" "<<"LeastAngle "<<leastAngle<<endl;
         return position;
     }
 
     void Vehicle::setUpPos (int lane)
     {
-        position.upPos = lane;
-
+        position.backmidy = lane;
     }
 
     void Vehicle::operator = (const Vehicle &vehicle)
@@ -264,28 +264,30 @@
          
 
 
-        pair<int,int> vertex1 = position.clockwiseVertex1();
-        pair<int,int> vertex2 = position.clockwiseVertex2();
-        pair<int,int> vertex3 = position.clockwiseVertex3();
-        pair<int,int> vertex4 = position.clockwiseVertex4();
+        pair<double,double> vertex1 = position.clockwiseVertex1();
+        pair<double,double> vertex2 = position.clockwiseVertex2();
+        pair<double,double> vertex3 = position.clockwiseVertex3();
+        pair<double,double> vertex4 = position.clockwiseVertex4();
 
-        int x1=vertex1.first - spacingFact*alpha;
-        int y1=roadWidth-(vertex1.second + spacingFact*alpha);
-        int x2=vertex2.first - spacingFact*alpha;
-        int y2=roadWidth-(vertex2.second - spacingFact*alpha);
-        int x3=vertex3.first + spacingFact*alpha;
-        int y3=roadWidth-(vertex3.second - spacingFact*alpha);
-        int x4=vertex4.first + spacingFact*alpha;
-        int y4=roadWidth-(vertex4.second + spacingFact*alpha);
+        double x1=vertex1.first - spacingFact*alpha;
+        double y1=roadWidth-(vertex1.second + spacingFact*alpha);
+        double x2=vertex2.first - spacingFact*alpha;
+        double y2=roadWidth-(vertex2.second - spacingFact*alpha);
+        double x3=vertex3.first + spacingFact*alpha;
+        double y3=roadWidth-(vertex3.second - spacingFact*alpha);
+        double x4=vertex4.first + spacingFact*alpha;
+        double y4=roadWidth-(vertex4.second + spacingFact*alpha);
          
+
+
 
         glLoadIdentity();
         glColor3f(colourRed,colourGreen,colourBlue);
         glBegin(GL_POLYGON);
-        glVertex2i(x4,y4);
-        glVertex2i(x3,y3);
-        glVertex2i(x2,y2);
-        glVertex2i(x1,y1);
+        glVertex2d(x4,y4);
+        glVertex2d(x3,y3);
+        glVertex2d(x2,y2);
+        glVertex2d(x1,y1);
         glEnd();    
     }
 

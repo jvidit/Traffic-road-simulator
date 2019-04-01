@@ -40,10 +40,12 @@
         int leftPos,downPos,upPos,rightPos;
 
         
-        leftPos=max(vehiclePosition.rightPos-vehiclePosition.length+1,0); 
-        rightPos=min(vehiclePosition.rightPos,length);
-        downPos=vehiclePosition.upPos+vehiclePosition.width-1;
-        upPos=vehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+        leftPos=(int)(vehiclePosition.backmidx); 
+        rightPos=(int)(leftPos+vehiclePosition.length-1);
+        downPos=(int)(vehiclePosition.backmidy+vehiclePosition.width/2-1);
+        upPos=(int)(downPos-vehiclePosition.width+1);            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
+
+        cout<<"\n"<<leftPos<<" "<<rightPos<<" "<<downPos<<" "<<upPos;
         /*
         if(downPos > width -1) 
             throw "vehiclePosition cannot be resolved!";
@@ -61,6 +63,7 @@
 
         }
 
+
         
 
     }
@@ -69,41 +72,30 @@
     {
         
         //clear vehicle from current position
-        VehiclePosition currentVehiclePosition=vehicle.getPosition();
-        int upPos,rightPos;
-
-        
-        
-        rightPos=min(currentVehiclePosition.rightPos,length-1);
-        upPos=currentVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
-        /*
-        if(downPos > width -1) 
-            throw "vehiclePosition cannot be resolved!";
-        */
-
-        int ptx=upPos,pty=rightPos,l=currentVehiclePosition.length,w=currentVehiclePosition.width;
-        double ang = currentVehiclePosition.theta;
-        int d1=0;
-        
-        while(d1!=w)
+        VehiclePosition position = vehicle.getPosition();
+        double ptx=position.backmidy,pty=position.backmidx,l=position.length,w=position.width;
+        double ang = position.theta;
+        double d1=(-w/2);
+        while(d1!=(w/2))
         {
-            int ptx1=ptx+d1*cos(ang*3.14/180);              //x moves along with lanes
-            int pty1=pty+d1*sin(ang*3.14/180);              //y moves along road length
-            
-            int d2=0;
+            double ptx1=ptx+d1*cos(ang*pi/180);              //x moves along with lanes
+            double pty1=pty+d1*sin(ang*pi/180);              //y moves along road length
+     
+         
+            double d2=0;
             while(d2!=l)
             {
 
-
+                double ptx2=ptx1-d2*sin(ang*pi/180);
+                double pty2=max((double)0,(pty1+d2*cos(ang*pi/180)));
+                positionArr[(int)ptx2][(int)pty2]='-';
                 
-                int ptx2=max(0,int(ptx1+d2*sin(ang*3.14/180)));
-                int pty2=max(0,int(pty1-d2*cos(ang*3.14/180)));
-               
-                positionArr[ptx2][pty2]='-';
                 d2++;
             }
             d1++;
         }
+
+
 
     }
 
@@ -112,47 +104,34 @@
 
 
     	char representation=vehicle.getRepresentation();
-        int upPos,rightPos;
-
+        
         this->removeVehicle(vehicle);
 
-        VehiclePosition newVehiclePosition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time, sortedByRightPos);
+        VehiclePosition newVehicleposition = vehicle.updatePositionVelocityAcceleration (length, width, trafficLight, positionArr, time, sortedByRightPos);
 
     //moving to new place
-        
-        rightPos=min(newVehiclePosition.rightPos,length-1);
-        upPos=newVehiclePosition.upPos;            //Note that downPos>upPos in matrix notationif((currentPosition.rightPos-vehicle.getLength())<0 ) 
-        
-
-        /*
-        if(downPos > width -1) 
-            throw "vehiclePosition cannot be resolved!";
-        */
-
-
-        int ptx=upPos,pty=rightPos,l=newVehiclePosition.length,w=newVehiclePosition.width;
-        double ang = newVehiclePosition.theta;
-        int d1=0;
-        while(d1!=w)
+       
+        double ptx=newVehicleposition.backmidy,pty=newVehicleposition.backmidx,l=newVehicleposition.length,w=newVehicleposition.width;
+        double ang = newVehicleposition.theta;
+        double d1=(-w/2);
+        while(d1!=(w/2))
         {
-            int ptx1=ptx+d1*cos(ang*3.14/180);              //x moves along with lanes
-            int pty1=pty+d1*sin(ang*3.14/180);              //y moves along road length
-        
-            
-            int d2=0;
+            double ptx1=ptx+d1*cos(ang*pi/180);              //x moves along with lanes
+            double pty1=pty+d1*sin(ang*pi/180);              //y moves along road length
+     
+         
+            double d2=0;
             while(d2!=l)
             {
 
-                int ptx2=max(0,int(ptx1+d2*sin(ang*3.14/180)));
-                int pty2=max(0,int(pty1-d2*cos(ang*3.14/180)));
-            
-                positionArr[ptx2][pty2]=representation;
+                double ptx2=ptx1-d2*sin(ang*pi/180);
+                double pty2=max((double)0,(pty1+d2*cos(ang*pi/180)));
+                positionArr[(int)ptx2][(int)pty2]=representation;
+                
                 d2++;
             }
             d1++;
         }
-
-        
 
 
     }
