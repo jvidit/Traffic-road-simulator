@@ -1,0 +1,30 @@
+
+Config write up : 1
+
+A car(dark blue) is sent in the beginning in an upper lane, with a bus right behind it. 
+The bus(pink) explored opportunities to overtake the car, but stopped soon seeing the car is faster.
+
+Meanwhile, another bus is sent in the lower lane. A truck follows this bus and tries to change lane, seeing more distance there. 2 bikes(light blue) are sent right behind the truck, and quickly overtake it from either of its sides. 2 more bikes are sent behind it, their paths being erratic in a bid to keep their velocity constant. 
+
+Another bike and car are sent. In the front, near the red light, one may see the bus trying to move away from the car, and get stuck at an awkward angle due to the red light and another vehicles around it. 
+
+As the light turns green, the bikes again move very erraticly, trying to get ahead as soon as possible. The rest of the simulation is moving in straight lines. 
+
+
+ 
+Config write up : 2
+
+A car(dark blue) is sent in the beginning in a middle lane, along with a bus in the upper lane and another in a lower lane. A couple of bikes approach from the behind, and finding space between the 2 buses, they head towards that opening, successfully overtaking the car. 
+
+The lower bike changes lane, and goes under the car, getting as far ahead as possible, but getting stuck at a small angle in the process. The other bike stays behind the car. 
+
+Meanwhile, a bike with a truck infront of it approaches. The bike overtakes the truck, and gets stuck in the traffic light jam, at a non-zero angle. 
+
+Moments after the light turns green, the bikes again move in a zig zag manner, overtaking rashly. 
+
+
+
+
+
+
+
